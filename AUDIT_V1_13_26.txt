@@ -1,0 +1,16 @@
+AUDITORÍA V1.13.26
+
+Causa raíz:
+`migrateRootAdminPinV1111()` restauraba DEFAULT_PIN en cada arranque cuando el PIN actual coincidía con PREVIOUS_DEFAULT_PIN (el PIN histórico anterior).
+
+Efecto:
+Cambiar manualmente el PIN raíz a el PIN histórico anterior parecía funcionar, pero al recargar/reabrir la aplicación la migración lo volvía a convertir en el valor predeterminado del perfil.
+
+Corrección:
+- La migración histórica queda desactivada para arranques posteriores.
+- Se preserva el PIN actual del perfil raíz.
+- `changeAccountPin()` comprueba el resultado de `writeAccounts()`.
+- Tras guardar, verifica que el nuevo PIN coincide con el hash persistido.
+
+Alcance:
+Solo autenticación/persistencia local del PIN. La clave cloud estable del perfil no se recalcula ni cambia al modificar el PIN.

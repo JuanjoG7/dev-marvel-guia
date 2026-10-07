@@ -1,0 +1,18 @@
+V1.15.4 · ESTADO CLOUD FIABLE
+
+Objetivo
+Corregir el falso aviso «Nube no disponible · copia local activa» que podía aparecer aunque la autenticación/Cloud funcionase correctamente.
+
+Cambios
+- El estado Cloud ahora distingue desconocido / conectado / desconectado.
+- Solo las transacciones reales de carga/guardado marcan Cloud como disponible o no disponible.
+- Un perfil Cloud vacío se trata como perfil nuevo válido.
+- El coordinador de guardado {ok, cloud} se acepta correctamente durante el bootstrap.
+- El autoload final deja de convertir cualquier `false` del cargador en una caída genérica de Cloud.
+- Los errores de inicialización local ya no se presentan como errores de Cloud.
+- Service Worker y versión actualizados a V1-15-4 / 1.15.4.
+
+Sin cambios
+- Progreso, tarjetas, Timeline, valoraciones, estadísticas y logros.
+- Identidad Cloud y administración de V1.15.1.
+- Multimedia persistente y One-Shots de V1.15.3.

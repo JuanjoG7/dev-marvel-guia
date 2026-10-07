@@ -1,0 +1,20 @@
+CHECKLIST MAESTRA V1.15.5
+
+[x] Hereda V1.15.4: estado Cloud fiable
+[x] Poster canónico compartido desde la ficha
+[x] Misma fuente para tarjetas individuales
+[x] Misma fuente para Timeline
+[x] Misma fuente para Valoraciones
+[x] Fallback al endpoint enrich de la ficha
+[x] Pool de hidratación e inflight anti-duplicado
+[x] Nueva caché de cliente y Service Worker
+[x] Imágenes persistentes mediante Netlify Blobs
+[x] package.json / manifest / runtime = 1.15.5
+[x] Validación sintáctica y empaquetado
+
+PENDIENTE DE PRUEBA EN PRODUCCIÓN
+[ ] Confirmar posters de X-Men y demás tarjetas en móvil
+[ ] Confirmar que Timeline usa la misma portada
+[ ] Confirmar que Valoraciones usa la misma portada
+[ ] Abrir una ficha y volver al catálogo: la misma imagen debe conservarse
+[ ] Comprobar One-Shots y Loki después de invalidación de caché

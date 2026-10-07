@@ -1,0 +1,20 @@
+V1.22.3 · CHECKLIST MANUAL
+
+[ ] Película · Juanjo en curso
+[ ] Película · María en curso
+[ ] Película · Ambos en curso
+[ ] Serie · Juanjo en curso en episodio pendiente
+[ ] Serie · María en curso en episodio pendiente
+[ ] Serie · Ambos en curso en mismo episodio
+[ ] Serie · Ambos en curso en episodios distintos
+[ ] Título simplemente visto NO aparece
+[ ] Episodio completado NO aparece
+[ ] Temporada no iniciada NO aparece
+[ ] Título ignorado/futuro NO aparece
+[ ] Borrar posición elimina tarjeta
+[ ] Completar desde ficha elimina tarjeta
+[ ] Tarjeta Siguiente recomendación permanece igual
+[ ] Portadas cargan correctamente
+[ ] Panel responsive en Android
+[ ] No cambia progreso al cargar Inicio
+[ ] Cloud no cambia por abrir Inicio

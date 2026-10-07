@@ -1,0 +1,18 @@
+TMDB POSTER AUDIT · V1.13.3
+Requested repair set from screenshots + explicit titles.
+
+ID 28   WandaVision                 → TV 85271
+ID 94   Los 4 Fantásticos (2005)   → movie 9738
+ID 106  I Am Groot                  → TV 114469
+ID 116  Jessica Jones              → TV 38472
+ID 121  Inhumans                    → TV 68716
+ID 123  Cloak & Dagger              → TV 66190
+ID 124  Legion                      → TV 67195
+ID 126  Hit-Monkey                  → TV 133903
+ID 127  M.O.D.O.K.                  → TV 111312
+ID 128  Helstrom                   → TV 88987
+ID custom-1789485258455
+        The Punisher: One Last Kill → movie 1657196
+ID 100  Marvel One-Shots             → TMDB collection search only
+
+All other existing title poster mappings are preserved unchanged from V1.13.2.

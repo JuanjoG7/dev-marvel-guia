@@ -1,0 +1,87 @@
+V1.13.20 · LIMPIEZA QUIRÚRGICA DEL RUNTIME
+
+Base: V1.13.19 estable.
+Objetivo: retirar únicamente código demostrablemente no utilizado o duplicado, sin cambiar la UX ni el comportamiento funcional.
+
+RETIRADO — HELPERS SIN REFERENCIAS INTERNAS DE RUNTIME (23)
+- seasonKey
+- remainingMinutes
+- episodeName
+- megaEraIndex
+- megaEraLabelFromKey
+- findContinueTitle
+- audioCtx
+- vibrateNotification
+- imageDataURL
+- svgIcon
+- zipStore
+- deriveV127CloudKeyFromIdentity
+- showCloudBootLoading
+- watchedAllMinutes
+- fmtPB
+- pbHasAny
+- v100SafeSet
+- personName112
+- rating112
+- favorite112
+- synopsis112
+- findHeroSourceCard
+- findCardButton
+
+RETIRADO — MARCADORES / DIAGNÓSTICOS
+- script/marker v1107-loki-action-owner-retired
+- script/marker v1-13-19-viewport-lock-retired
+- __V102ProgressDiagnostic
+
+RETIRADO — DUPLICIDADES DE EVENTOS / PROPIETARIOS
+- listener de click duplicado de v102-internal-progress-patch; se conserva el resto del bloque porque aún contiene APIs/bridges en uso.
+- handler legacy de quick-rating sombreado por el propietario canónico.
+- rama duplicada [data-rating-page] del bloque de Ratings.
+- binding duplicado de #saveFab del Save Coordinator.
+- rama duplicada #saveFab/#topSave del listener principal.
+- listener sombreado de v1.12.4 sobre marvel:state-synced; se conservan MutationObserver y storage/load.
+- listener redundante de v115 sobre marvel:state-synced; el render queda cubierto por el propietario canónico.
+- listener redundante de Ratings sobre marvel:state-synced; el propietario canónico ya renderiza la vista de Ratings.
+
+RETIRADO — ARCHIVO HUÉRFANO
+- core/marvel-core-v1.10.js: no se carga desde index.html ni netlify.toml y no tiene consumidores de runtime actuales.
+
+NORMALIZADO
+- package.json = 1.13.20
+- manifest.webmanifest = 1.13.20
+- caches Service Worker = V1-13-20
+- release marker = 1.13.20
+- release base = 1.13.19
+- release scope = surgical-runtime-cleanup
+
+NO TOCADO INTENCIONADAMENTE
+- MarvelProgressEngine
+- canonicalMutate / MarvelApp.dispatch
+- MarvelSelectorsV110
+- renderCatalog / heavy / renderHero / renderNext / renderPlayback
+- openTitle / flujo de fichas
+- progreso, recomendaciones, episodios y temporadas
+- valoraciones funcionales y favoritos
+- logros, estadísticas y Timeline
+- Cloud / perfiles / administración
+- TMDB / posters / caché multimedia
+- Service Worker y comportamiento PWA
+- estilos y diseño visual
+
+VALIDACIÓN
+- 42 scripts HTML (41 inline + 1 externo)
+- 40 bloques style
+- 82 addEventListener()
+- 12 MutationObserver
+- 0 IDs HTML duplicados
+- 0 referencias residuales a los helpers retirados
+- 0 referencias residuales al core externo eliminado
+- 3 listeners de marvel:state-synced restantes: 2 especializados (ficha/media) + 1 propietario canónico
+- package.json y manifest.webmanifest parsean correctamente
+- 41 scripts inline pasan node --check
+- netlify/functions/marvel-state.mjs pasa node --check
+- netlify/functions/marvel-media.mjs pasa node --check
+- comparación contra V1.13.19: 27 hunks, 204 líneas eliminadas, 5 líneas añadidas; los cambios corresponden a la limpieza descrita y al versionado
+
+LIMITACIÓN DE VALIDACIÓN
+- No se ha podido ejecutar un smoke test interactivo real en Chrome/Android desde este entorno. No se presenta esa parte como verificada.

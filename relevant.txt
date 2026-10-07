@@ -1,0 +1,386 @@
+    const next={...all[idx],rememberHash:hash,rememberAt:Date.now()};
+    if(cloudKey)next.cloudKey=cloudKey;
+    all[idx]=next;
+    if(!writeAccounts(all))throw new Error('No se pudo guardar la cuenta local');
+    localStorage.setItem(V89_REMEMBER_ID,account.id);
+    localStorage.setItem(V89_REMEMBER_TOKEN,token);
+    return true;
+  }catch(err){ console.warn('No se pudo activar Recordarme',err); return false; }
+}
+function v89ForgetRemember(id){
+  try{
+    const rid=id||localStorage.getItem(V89_REMEMBER_ID);
+    localStorage.removeItem(V89_REMEMBER_ID);
+    localStorage.removeItem(V89_REMEMBER_TOKEN);
+    const all=readAccounts();
+    let changed=false;
+    const next=all.map(a=>{
+      if(!rid||a.id!==rid)return a;
+      if(a.rememberHash||a.rememberAt){changed=true;const b={...a};delete b.rememberHash;delete b.rememberAt;return b;}
+      return a;
+    });
+    if(changed)writeAccounts(next);
+  }catch{}
+}
+async function v89TryRememberedLogin(){
+  try{
+    const id=localStorage.getItem(V89_REMEMBER_ID);
+    const token=localStorage.getItem(V89_REMEMBER_TOKEN);
+    if(!id||!token)return false;
+    const a=accountById(id);
+    if(!a||!a.rememberHash||!a.rememberAt){v89ForgetRemember(id);return false}
+    if(Date.now()-Number(a.rememberAt)>V89_REMEMBER_MAX_AGE){v89ForgetRemember(id);return false}
+    const hash=await v89HashToken(token);
+    if(hash!==a.rememberHash){v89ForgetRemember(id);return false}
+    if(!a.cloudKey || a.cloudKeyVersion!==V131_ACCOUNT_PROFILE_VERSION){
+      // Una sesión recordada no contiene el PIN. Si el perfil aún usa una identidad
+      // cloud antigua, pedimos el PIN una vez para migrarlo de forma segura a V131.
+      v89ForgetRemember(id);
+      return false;
+    }
+    await enterAccount(a,null,false,true);
+    showToast('🔓 Sesión recordada','La cuenta se ha abierto automáticamente en este dispositivo.');
+    return true;
+  }catch(err){
+    console.warn('Recordarme no disponible',err);
+    return false;
+  }
+}
+
+function showCloudBootLoading(account,message='Sincronizando perfil…'){
+  document.body.classList.add('locked');
+  const appEl=$('app');if(appEl)appEl.hidden=true;
+  const gate=$('pinGate');
+  if(!gate)return;
+  gate.hidden=false;gate.setAttribute('aria-busy','true');
+  gate.innerHTML=`<div class="pin v83-account-gate cloud-boot-card"><div class="cloud-boot-mark" aria-hidden="true">☁️</div><div class="kicker">PERFIL · SINCRONIZACIÓN</div><h1>${esc(account?.name||'MARATÓN MARVEL')}</h1><p>${esc(message)}</p><div class="cloud-boot-spinner" aria-hidden="true"></div><small>No cierres la aplicación mientras se recupera el estado guardado del perfil.</small></div>`;
+}
+
+async function enterAccount(account,pin,remember=false,fromRemember=false){
+  activeAccountId=account.id;
+  window.__marvelPrimaryAccount=(norm(account.person1)==='juanjo' && norm(account.person2)==='maria');
+  LS=makeLS(account.id);
+  localStorage.setItem(ACTIVE_ACCOUNT_STORE,account.id);
+  if(pin!=null){
+    const previousCloudKey=account.cloudKey||'';
+    const previousLegacyKey=account.cloudKeyLegacy||'';
+    const previousLegacyKey2=account.cloudKeyLegacy2||'';
+    const cloudKey=await v90AccountCloudKey(account,pin);
+    const stored=accountById(account.id)||account;
+    window.__marvelAccountCloudKey=cloudKey;
+    window.__marvelLegacyAccountCloudKey=(stored.cloudKeyLegacy && stored.cloudKeyLegacy!==cloudKey)?stored.cloudKeyLegacy:((previousCloudKey && previousCloudKey!==cloudKey)?previousCloudKey:'');
+    window.__marvelLegacyAccountCloudKey2=(previousLegacyKey2 && previousLegacyKey2!==cloudKey && previousLegacyKey2!==window.__marvelLegacyAccountCloudKey)?previousLegacyKey2:(previousLegacyKey && previousLegacyKey!==cloudKey && previousLegacyKey!==window.__marvelLegacyAccountCloudKey?previousLegacyKey:'');
+    if(remember)await v89RememberAccount({...account,cloudKey},cloudKey);
+    else v89ForgetRemember(account.id);
+  }else if(fromRemember){
+    window.__marvelAccountCloudKey=account.cloudKey||'';
+    window.__marvelLegacyAccountCloudKey=account.cloudKeyLegacy||'';
+    window.__marvelLegacyAccountCloudKey2=account.cloudKeyLegacy2||'';
+  }else{
+    window.__marvelAccountCloudKey=account.cloudKey||'';
+    window.__marvelLegacyAccountCloudKey=account.cloudKeyLegacy||'';
+    window.__marvelLegacyAccountCloudKey2=account.cloudKeyLegacy2||'';
+    v89ForgetRemember(account.id);
+  }
+  /*
+   * V1.8: el PIN solamente autentica la cuenta. La pantalla de sincronización
+   * NO puede envolver a init(). En versiones anteriores init() podía quedarse
+   * ocupado en renderCatalog/heavy y, aunque la nube tuviera timeout, nunca
+   * llegaba a ejecutar el código que quitaba #pinGate.
+   *
+   * Liberamos primero la interfaz y después inicializamos el contenido en una
+   * tarea independiente. De esta forma el acceso a la página de inicio es una
+   * garantía incluso si cualquier capa de datos se queda colgada.
+   */
+  try{cloudStatus('☁️ Preparando perfil…','busy')}catch{}
+  $('pinGate')?.remove();
+  const appEl=$('app');if(appEl)appEl.hidden=false;
+  document.body.classList.remove('locked');
+  window.scrollTo({top:0,behavior:'auto'});
+
+  setTimeout(async()=>{
+    try{
+      await init();
+    }catch(error){
+      // El arranque de una cuenta nunca debe dejar la aplicación bloqueada.
+      // Si una capa local o cloud falla, la interfaz ya está desbloqueada.
+      console.error('MARVEL account init · fallback local',error);
+      try{
+        if(!app.state?.items) app.state=clone(INITIAL_STATE);
+        if(!app.checkpoint) app.checkpoint=clone(app.state);
+        loadDerived();
+        applySettings();
+        try{renderCatalog()}catch(renderError){console.warn('MARVEL fallback renderCatalog',renderError)}
+        try{heavy()}catch(heavyError){console.warn('MARVEL fallback heavy',heavyError)}
+      }catch(fallbackError){
+        console.error('MARVEL emergency local fallback',fallbackError);
+      }
+      try{cloudStatus('⚠️ Nube no disponible · usando copia local','err')}catch{}
+      // V1.10.13: no mostramos un falso error de sincronización aquí.
+      // Este catch cubre también errores de render/local init; la sincronización
+      // cloud se reintenta de forma independiente por el coordinador final.
+    }
+  },0);
+}
+function showGate(){
+  document.body.classList.add('locked');
+  $('app').hidden=true;
+  const gate=$('pinGate');if(!gate)return;
+  gate.innerHTML=`<div class="pin v83-account-gate"><div class="kicker">CUENTAS PRIVADAS · 2 PERSONAS</div><h1>MARATÓN<br>MARVEL</h1><p>Cada perfil tiene su propio progreso, configuración, logros y preferencias. Para sincronizar el mismo perfil entre dispositivos se usa la combinación de las dos personas y su PIN; el PIN no se almacena en claro.</p><div id="accountChooser"></div><div id="accountAuth" hidden></div></div>`;
+  renderAccountChooser();
+}
+function renderAccountChooser(){
+  const root=$('accountChooser');if(!root)return;
+  const accounts=readAccounts();
+  root.innerHTML=`<div class="v83-account-list">${accounts.map(a=>`<button type="button" class="v83-account-item" data-account-id="${esc(a.id)}"><span class="v83-account-avatar">${esc(String(a.person1||'?').trim().slice(0,1).toUpperCase())}${esc(String(a.person2||'?').trim().slice(0,1).toUpperCase())}</span><span class="v83-account-copy"><b>${esc(a.name)}</b><small>${esc(a.person1)} × ${esc(a.person2)}</small></span><span>›</span></button>`).join('')}</div><button type="button" class="primary v83-account-new" id="v83CreateAccount">＋ Crear nueva cuenta</button><div class="v83-security">Podéis crear tantos perfiles como queráis. Cada combinación de dos personas + PIN identifica un perfil de sincronización independiente, con su progreso, logros, valoraciones y configuración separados.</div>`;
+  root.querySelectorAll('[data-account-id]').forEach(b=>b.addEventListener('click',()=>selectAccount(b.dataset.accountId)));
+  $('v83CreateAccount')?.addEventListener('click',showCreateAccount);
+}
+function selectAccount(id){
+  const a=accountById(id);if(!a)return;
+  const root=$('accountAuth'),chooser=$('accountChooser');chooser.hidden=true;root.hidden=false;
+  root.innerHTML=`<div class="v83-auth-head"><button type="button" class="v83-back" id="v83Back">← Cuentas</button><div><b>${esc(a.name)}</b><small style="display:block;color:var(--muted);font-size:8px">${esc(a.person1)} × ${esc(a.person2)}</small></div></div><form id="v83PinForm" class="v83-account-form" novalidate><label for="v83PinInput">PIN de 4 a 6 dígitos</label><div class="v83-pin-row"><input id="v83PinInput" type="text" inputmode="numeric" maxlength="6" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="PIN" aria-label="PIN de 4 a 6 dígitos" required><button class="v83-pin-toggle" type="button" id="v83PinToggle" aria-label="Mostrar PIN" aria-pressed="false">👁</button><button class="primary v83-pin-enter" type="submit">Entrar</button></div><button type="button" class="v89-remember" id="v89RememberLogin" aria-pressed="false"><span class="v89-check" aria-hidden="true">☐</span><span><b>💾 Recordarme en este dispositivo</b><small>No guarda el PIN. Conserva una sesión local durante hasta 1 año.</small></span></button><div class="v83-error" id="v83PinError"></div><p class="v83-help">Puedes tocar 👁 para ver lo que has escrito.</p></form>`;
+  root.querySelector('#v83Back').onclick=()=>{root.hidden=true;chooser.hidden=false;};
+  const pinInput=root.querySelector('#v83PinInput'),toggle=root.querySelector('#v83PinToggle');
+  pinInput.addEventListener('input',()=>{pinInput.value=pinInput.value.replace(/[^0-9]/g,'').slice(0,6)});
+  toggle.onclick=()=>{const visible=pinInput.type==='text';pinInput.type=visible?'password':'text';toggle.textContent=visible?'👁':'🙈';toggle.setAttribute('aria-label',visible?'Mostrar PIN':'Ocultar PIN');toggle.setAttribute('aria-pressed',String(!visible));pinInput.focus();};
+  const remembered = localStorage.getItem(V89_REMEMBER_ID)===a.id && !!a.rememberHash;
+  const rememberInput=root.querySelector('#v89RememberLogin');
+  const setRememberUI=(on)=>{rememberInput.classList.toggle('is-on',!!on);rememberInput.setAttribute('aria-pressed',String(!!on));const c=rememberInput.querySelector('.v89-check');if(c)c.textContent=on?'☑':'☐';};
+  setRememberUI(remembered);
+  rememberInput.addEventListener('click',()=>setRememberUI(!rememberInput.classList.contains('is-on')));
+  root.querySelector('#v83PinForm').onsubmit=async e=>{e.preventDefault();const pin=pinInput.value.trim(),remember=rememberInput.classList.contains('is-on'),err=root.querySelector('#v83PinError');if(!validPin(pin)){err.textContent='El PIN debe tener entre 4 y 6 dígitos.';return}err.textContent='Comprobando…';if(!(await pinMatches(pin,a))){err.textContent='PIN incorrecto.';pinInput.select();return}await enterAccount(a,pin,remember)};
+  setTimeout(()=>pinInput?.focus(),0);
+}
+function showCreateAccount(){
+  const chooser=$('accountChooser'),root=$('accountAuth');chooser.hidden=true;root.hidden=false;
+  root.innerHTML=`<div class="v83-auth-head"><button type="button" class="v83-back" id="v83BackCreate">← Cuentas</button><div><b>Nueva cuenta</b><small style="display:block;color:var(--muted);font-size:8px">Siempre exactamente 2 personas</small></div></div><form id="v83CreateForm" class="v83-account-form"><label>Nombre de la primera persona</label><input id="v83P1" placeholder="Persona 1" required><label>Nombre de la segunda persona</label><input id="v83P2" placeholder="Persona 2" required><label>PIN privado · 4 a 6 dígitos</label><input id="v83NewPin" type="text" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="••••••" required><label>Repetir PIN</label><input id="v83NewPin2" type="text" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="••••••" required><button type="button" class="v89-remember is-on" id="v89RememberCreate" aria-pressed="true"><span class="v89-check" aria-hidden="true">☑</span><span><b>💾 Recordarme en este dispositivo</b><small>La cuenta se abrirá automáticamente la próxima vez.</small></span></button><p class="v83-help">El PIN se protege mediante un verificador cifrado/hasheado y una sal aleatoria. No se almacena el PIN original.</p><div class="v83-error" id="v83CreateError"></div><button class="primary" type="submit">✨ Crear cuenta y entrar</button></form>`;
+  root.querySelector('#v83BackCreate').onclick=()=>{root.hidden=true;chooser.hidden=false};
+  root.querySelector('#v89RememberCreate')?.addEventListener('click',()=>{const b=root.querySelector('#v89RememberCreate');const on=!b.classList.contains('is-on');b.classList.toggle('is-on',on);b.setAttribute('aria-pressed',String(on));const c=b.querySelector('.v89-check');if(c)c.textContent=on?'☑':'☐';});
+  ['#v83NewPin','#v83NewPin2'].forEach(sel=>{const el=root.querySelector(sel);el.addEventListener('input',()=>{el.value=el.value.replace(/[^0-9]/g,'').slice(0,6)});});
+  root.querySelector('#v83CreateForm').onsubmit=async e=>{
+    e.preventDefault();
+    const p1=root.querySelector('#v83P1').value.trim()||'Persona 1',p2=root.querySelector('#v83P2').value.trim()||'Persona 2',pin=root.querySelector('#v83NewPin').value.trim(),pin2=root.querySelector('#v83NewPin2').value.trim(),remember=!!root.querySelector('#v89RememberCreate')?.classList.contains('is-on'),err=root.querySelector('#v83CreateError');
+    if(!validPin(pin)){err.textContent='El PIN debe tener entre 4 y 6 dígitos.';return}
+    if(pin!==pin2){err.textContent='Los PIN no coinciden.';return}
+    const accounts=readAccounts();
+    for(const existing of accounts){
+      if(norm(existing.person1)===norm(p1)&&norm(existing.person2)===norm(p2)&&(await pinMatches(pin,existing))){
+        err.textContent='Ya existe un perfil local con esas dos personas y ese PIN. Vuelve a «Cuentas» para entrar en él.';
+        return;
+      }
+    }
+    const salt=randomB64(16),hash=await pinVerifier(pin,salt),a={id:makeAccountId(),name:makeAccountName(p1,p2),person1:p1,person2:p2,identityPerson1:p1,identityPerson2:p2,pinSalt:salt,pinHash:hash,createdAt:new Date().toISOString(),cloudKeyVersion:V131_ACCOUNT_PROFILE_VERSION,profileDefaultsVersion:'v1.10.8'};
+    accounts.push(a);
+    if(!writeAccounts(accounts)){err.textContent='No se pudo crear la cuenta en este dispositivo.';return;}
+    await enterAccount(a,pin,remember)
+  };
+  setTimeout(()=>root.querySelector('#v83P1')?.focus(),0)
+}
+// V1.10.8 Loki · Valores por defecto de identidad por perfil.
+// Cada cuenta nace mostrando inmediatamente sus propios nombres. Las iniciales
+// visibles siguen siendo automáticas (personInitials), de modo que Juanjo → J.
+// y María → M., mientras otro perfil como Sergio → S., sin entrar en Ajustes.
+function seedProfileDefaultsForAccount(account, settings){
+ const s=settings||{};
+ const p1=String(account?.person1||'').trim()||'Persona 1';
+ const p2=String(account?.person2||'').trim()||'Persona 2';
+ const placeholder1=v=>!String(v??'').trim()||['persona 1','persona1'].includes(norm(v));
+ const placeholder2=v=>!String(v??'').trim()||['persona 2','persona2'].includes(norm(v));
+ let changed=false;
+ if(placeholder1(s.person1) && p1!=='Persona 1'){s.person1=p1;changed=true;}
+ if(placeholder2(s.person2) && p2!=='Persona 2'){s.person2=p2;changed=true;}
+ if(typeof s.relation!=='string'||!s.relation.trim()){s.relation='pareja';changed=true;}
+ // La ventana automática nace desactivada en todos los perfiles nuevos o
+ // antiguos que todavía no tengan una preferencia guardada. Después el usuario
+ // puede cambiarla desde Ajustes → Personalización.
+ if(s.quickRating==null||s.quickRating===''){
+   s.quickRating='off';
+   changed=true;
+ }
+ // Vacío = automático. No congelamos aquí las iniciales para que siempre
+ // evolucionen con el nombre hasta que el usuario introduzca una abreviatura.
+ if(typeof s.initial1!=='string'){s.initial1='';changed=true;}
+ if(typeof s.initial2!=='string'){s.initial2='';changed=true;}
+ return changed;
+}
+
+async function createDefaultAccount(){
+ if(readAccounts().length)return;
+ const salt=randomB64(16),hash=await pinVerifier(DEFAULT_PIN,salt);
+ const a={id:'juanjo-maria-root',name:'Juanjo × María',person1:'Juanjo',person2:'María',identityPerson1:'Juanjo',identityPerson2:'María',role:'ADMIN',root:true,pinSalt:salt,pinHash:hash,createdAt:new Date().toISOString(),cloudKeyVersion:V131_ACCOUNT_PROFILE_VERSION,profileDefaultsVersion:'v1.10.8'};
+ writeAccounts([a]);return a;
+}
+function personalizeDefaultAccount(){
+ const accounts=readAccounts();let changed=false;
+ if(accounts.length===1 && norm(accounts[0].person1)==='juanjo' && norm(accounts[0].person2)==='maria' && accounts[0].id!=='juanjo-maria-root'){ accounts[0]={...accounts[0],id:'juanjo-maria-root',name:'Juanjo × María',role:'ADMIN',root:true}; changed=true; }
+
+ const out=accounts.map((a,index)=>{
+   const legacyDefault=norm(a.person1)==='persona 1'&&norm(a.person2)==='persona 2';
+   const namedDefault=norm(a.name)==='persona 1 x persona 2'||a.name==='Cuenta principal';
+   const onlyDefault=index===0&&accounts.length===1;
+   if(onlyDefault&&(legacyDefault||namedDefault)){
+     /* El perfil histórico por defecto se unifica con el perfil actual Juanjo × María.
+        Se conserva la antigua clave V127 para que el primer inicio en V131 pueda
+        migrar el estado ya existente al identificador canónico. */
+     const oldP1=a.person1||'Persona 1',oldP2=a.person2||'Persona 2';
+     let legacyKey=a.cloudKey||a.cloudKeyLegacy||'';
+     if(!legacyKey){
+       try{legacyKey=b64url(sha256Bytes(new TextEncoder().encode(`maraton-marvel:${V127_ACCOUNT_CLOUD_VERSION}|${norm(oldP1)}|${norm(oldP2)}|${DEFAULT_PIN}`)))}catch{}
+     }
+     changed=true;
+     return {...a,name:'Juanjo × María',person1:'Juanjo',person2:'María',identityPerson1:'Juanjo',identityPerson2:'María',cloudKey:undefined,cloudKeyLegacy:legacyKey,cloudKeyVersion:V131_ACCOUNT_PROFILE_VERSION,legacyIdentityPerson1:oldP1,legacyIdentityPerson2:oldP2,profileMigratedV131:true};
+   }
+   if(!a.identityPerson1||!a.identityPerson2){changed=true;return {...a,identityPerson1:a.person1||'Persona 1',identityPerson2:a.person2||'Persona 2'};}
+   if(a.profileDefaultsVersion!=='v1.10.8'){changed=true;return {...a,profileDefaultsVersion:'v1.10.8'};}
+   return a;
+ });
+ if(changed)writeAccounts(out);return out;
+}
+
+function syncActiveAccountDisplayFromSettings(){
+ try{
+   const a=accountById(activeAccountId);if(!a)return;
+   const p1=(app.meta?.settings?.person1||a.person1||'Persona 1').trim()||'Persona 1';
+   const p2=(app.meta?.settings?.person2||a.person2||'Persona 2').trim()||'Persona 2';
+   const all=readAccounts(),idx=all.findIndex(x=>x.id===activeAccountId);if(idx<0)return;
+   const current=all[idx];
+   if(current.person1===p1&&current.person2===p2&&current.name===makeAccountName(p1,p2))return;
+   all[idx]={...current,name:makeAccountName(p1,p2),person1:p1,person2:p2,identityPerson1:current.identityPerson1||current.person1||p1,identityPerson2:current.identityPerson2||current.person2||p2};
+   writeAccounts(all);
+ }catch{}
+}
+function logoutAccount(){try{v89ForgetRemember(activeAccountId)}catch{}try{localStorage.removeItem(ACTIVE_ACCOUNT_STORE)}catch{}activeAccountId=null;LS=makeLS(null);location.reload()}
+function openAccountManager(){
+  const accounts=readAccounts();
+  openModal('GESTIÓN DE CUENTAS','Cada cuenta mantiene sus datos separados',`<div class="v83-manager-grid">${accounts.map(a=>`<div class="v83-manager-row"><div><b>${esc(a.name)}</b><small>${esc(a.person1)} × ${esc(a.person2)}${a.id===activeAccountId?' · CUENTA ACTIVA':''}</small></div><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end"><button type="button" class="secondary" data-account-pin="${esc(a.id)}">PIN</button><button type="button" class="secondary" data-account-delete="${esc(a.id)}" ${accounts.length===1?'disabled':''}>Eliminar</button></div></div>`).join('')}</div><div class="form-actions" style="margin-top:12px"><button type="button" class="primary" id="v83ManagerCreate">＋ Crear cuenta</button><button type="button" class="secondary" id="v83ManagerSwitch">🔄 Cambiar cuenta</button></div><p class="v83-help">Eliminar una cuenta borra su progreso y configuración local. No afecta a las demás.</p>`);
+  $('v83ManagerCreate')?.addEventListener('click',()=>{closeModal();logoutAccount()});
+  $('v83ManagerSwitch')?.addEventListener('click',()=>{closeModal();logoutAccount()});
+  document.querySelectorAll('[data-account-pin]').forEach(b=>b.addEventListener('click',()=>changeAccountPin(b.dataset.accountPin)));
+  document.querySelectorAll('[data-account-delete]').forEach(b=>b.addEventListener('click',()=>{const id=b.dataset.accountDelete;if(id==='juanjo-maria-root'){showToast('🔒 Perfil protegido','El perfil raíz no se puede eliminar.');return}if(id===activeAccountId){showToast('⚠️ No disponible','No puedes eliminar la cuenta activa desde aquí.');return}const rest=readAccounts().filter(a=>a.id!==id);writeAccounts(rest);openAccountManager();}));
+}
+function changeAccountPin(id){
+  const a=accountById(id);if(!a)return;
+  openModal('CAMBIAR PIN',a.name,`<form id="v83ChangePin" class="v83-account-form"><label>PIN actual</label><input id="v83OldPin" type="text" inputmode="numeric" maxlength="6" autocomplete="off" required><label>Nuevo PIN · 4 a 6 dígitos</label><input id="v83NewPinA" type="text" inputmode="numeric" maxlength="6" autocomplete="off" required><label>Repetir nuevo PIN</label><input id="v83NewPinB" type="text" inputmode="numeric" maxlength="6" autocomplete="off" required><div class="v83-error" id="v83ChangeErr"></div><div class="form-actions"><button type="button" class="secondary" data-close>Cancelar</button><button class="primary">Guardar PIN</button></div></form>`);
+  $('v83ChangePin').onsubmit=async e=>{
+    e.preventDefault();
+    const oldP=$('v83OldPin').value.trim(),n1=$('v83NewPinA').value.trim(),n2=$('v83NewPinB').value.trim(),err=$('v83ChangeErr');
+    if(!validPin(oldP)||!validPin(n1)){err.textContent='Todos los PIN deben tener entre 4 y 6 dígitos.';return}
+    if(n1!==n2){err.textContent='Los PIN nuevos no coinciden.';return}
+    if(!(await pinMatches(oldP,a))){err.textContent='El PIN actual no es correcto.';return}
+    const salt=randomB64(16),hash=await pinVerifier(n1,salt),all=readAccounts(),idx=all.findIndex(x=>x.id===id);if(idx<0)return;
+    const wasRemembered=localStorage.getItem(V89_REMEMBER_ID)===id && !!localStorage.getItem(V89_REMEMBER_TOKEN);
+    const updated={...all[idx],pinSalt:salt,pinHash:hash,cloudKeyVersion:V131_ACCOUNT_PROFILE_VERSION,identityPerson1:all[idx].identityPerson1||all[idx].person1,identityPerson2:all[idx].identityPerson2||all[idx].person2};delete updated.rememberHash;delete updated.rememberAt;
+    all[idx]=updated;writeAccounts(all);
+    const stableCloudKey=updated.cloudKey||await v90AccountCloudKey(updated,oldP);
+    if(wasRemembered)await v89RememberAccount(updated,stableCloudKey); else v89ForgetRemember(id);
+    closeModal();
+    if(id===activeAccountId)window.__marvelAccountCloudKey=stableCloudKey;
+    showToast('🔐 PIN actualizado','El nuevo PIN ya está protegido con una nueva sal.');
+  };
+}
+function showVersionHistory(){
+  openModal('HISTORIAL DE VERSIONES','MARVEL · CAMINO AL MULTIVERSO',`
+  <div class="settings-card"><b>v1.0 Loki</b><small>Base oficial basada en la aplicación publicada.</small></div>
+  <div class="settings-card"><b>v1.1 Loki</b><small>Perfiles y sincronización: recuperación cloud, creación automática, estado oficial y protección contra carga infinita.</small></div>
+  <div class="settings-card"><b>v1.2 Loki</b><small>Identidad y administración: perfil raíz, permisos y aislamiento de perfiles.</small></div>
+  <div class="settings-card"><b>v1.3 Loki</b><small>Nueva identidad visual, logo, PWA, manifest e instalación.</small></div>
+  <div class="settings-card"><b>v1.4 Loki</b><small>Base de archivo Marvel y fichas: estructura preparada para metadatos y reparto; la integración externa de personajes e imágenes queda pendiente.</small></div>
+  <div class="settings-card"><b>v1.5 Loki</b><small>Núcleo de progreso consolidado: una sola fuente de verdad, acciones por título y estadísticas sin mezclar capítulos con títulos.</small></div>
+  <div class="settings-card"><b>v1.6 Loki</b><small>Arranque cloud blindado: timeout y aborto de peticiones para evitar bloqueos indefinidos.</small></div>
+  <div class="settings-card"><b>v1.7 Loki</b><small>Arranque desacoplado de la nube: la interfaz puede continuar con la copia local.</small></div>
+  <div class="settings-card"><b>v1.8 Loki</b><small>Autenticación no bloqueante: el PIN libera la interfaz antes de las tareas de inicialización pesadas.</small></div>
+  <div class="settings-card"><b>v1.9 Loki</b><small>Guardado Cloud estabilizado: guardado manual, Guardar y salir y botón Cloud recuperados sin bloquear la aplicación.</small></div>
+  <div class="settings-card"><b>v1.10 Loki</b><small>Refundación del núcleo: Store único sobre el estado existente, dominios Catalog/Progress/Episodes/Ratings/Achievements/Profile/Settings, selectors, gateway de acciones y reducción de propietarios legacy. La apariencia visual se conserva.</small></div>
+  <div class="settings-card"><b>v1.10.1 Loki · Fix</b><small>Corrección de navegación: la vista de Valoraciones se cierra al entrar en Timeline, Inicio, Estadísticas, Logros o Menú para evitar que aparezca encima de la línea temporal.</small></div>
+  <div class="settings-card"><b>v1.10.2 Loki</b><small>Migración real al gateway de acciones: progreso, temporadas, capítulos, valoraciones y favoritos pasan por MarvelApp.dispatch() y los motores canónicos, eliminando mutaciones directas de esos controles en los handlers activos.</small></div>
+  <div class="settings-card"><b>v1.10.3 Loki · Fix</b><small>Ficha interactiva estabilizada: valoraciones, favoritos y controles personales refrescan inmediatamente su estado visual después de cada acción y todos pasan por el gateway canónico.</small></div>
+  <div class="settings-card"><b>v1.10.4 Loki · Fix</b><small>Corrección de estado visual de los controles de la ficha.</small></div>
+  <div class="settings-card"><b>v1.10.5 Loki · Fix</b><small>Refuerzo de commit y verificación de la ficha.</small></div>
+  <div class="settings-card"><b>v1.10.6 Loki · Fix</b><small>Último intento antes de localizar la causa raíz del desacople entre el núcleo y el estado real.</small></div>
+  <div class="settings-card"><b>v1.10.7 Loki</b><small>Unificación estructural: <code>window.app</code> referencia el estado real, el core funciona sobre el mismo objeto y las acciones tienen un único gateway.</small></div>
+  <div class="settings-card"><b>v1.10.8 Loki</b><small>Identidad por perfil y valores iniciales: cada perfil usa automáticamente sus nombres, las iniciales visibles se generan a partir de esos nombres y la Ventana de valoración automática nace en «No mostrar nunca» hasta que el usuario la cambie.</small></div>
+  <div class="settings-card"><b>v1.10.10 Loki · Guardado unificado</b><small>Un único coordinador para Guardar en nube, Guardar en perfil y Guardar y salir de la ficha. Todos usan la misma transacción Cloud y el fallo de nube nunca bloquea ni pierde el guardado local.</small></div>
+  <div class="settings-card"><b>v1.10.11 Loki · Valoraciones sincronizadas</b><small>La pantalla de Valoraciones lee el mismo estado que las fichas, se actualiza al cambiar una nota y ahora incluye cualquier título con actividad o valoración: películas, series, animación, especiales y cortos.</small></div>
+  <div class="settings-card"><b>v1.10.12 Loki · Carga cloud unificada</b><small>La sincronización automática al recargar, entrar con PIN o recuperar una sesión recordada utiliza exactamente el mismo cargador que «Cargar desde perfil», con reintento seguro durante el arranque y sin crear una ruta cloud paralela.</small></div>
+  <div class="settings-card"><b>v1.10.13 Loki · Autocarga de arranque final</b><small>Corrección de la carrera entre el arranque local y la carga cloud: el arranque automático conserva el mismo cargador de «Cargar desde perfil» incluso si una capa de renderizado local falla, y una sesión recordada o un acceso por PIN ya no muestra un aviso de sincronización por un error de inicialización ajeno a la nube.</small></div>
+  <div class="settings-card"><b>v1.10.14 Loki · Spider-Noir completo</b><small>Actualización del catálogo de Spider-Noir: la Temporada 1 pasa de 6 a 8 capítulos, con los ocho nombres oficiales en español y la duración total actualizada. Se mantienen intactos el progreso y la estructura de la serie.</small></div>`);
+}
+window.__marvelShowVersionHistory=showVersionHistory;
+
+async function waitForCloudAdapter(timeout=15000){
+ if(typeof window.__marvelCloudSessionSync==='function')return true;
+ if(window.__marvelCloudAdapterReady)return typeof window.__marvelCloudSessionSync==='function';
+ return await new Promise(resolve=>{
+   let done=false;
+   const finish=()=>{if(done)return;done=true;try{window.removeEventListener('marvel:cloud-adapter-ready',finish)}catch{};resolve(typeof window.__marvelCloudSessionSync==='function')};
+   try{window.addEventListener('marvel:cloud-adapter-ready',finish,{once:true})}catch{}
+   setTimeout(finish,Math.max(1000,Number(timeout)||15000));
+ });
+}
+async function init(){
+ const EMPTY_META={schemaVersion:83,overrides:{},deleted:{},ignored:{},recommendationIgnored:{},ignoredSeasons:{},recommendationIgnoredSeasons:{},settings:{person1:'Persona 1',person2:'Persona 2',relation:'pareja',initial1:'',initial2:'',quickRating:'off',timelineMode:'original',catalogMode:'original',recommendationMode:'original',megaClosedEras:[]}};
+ let savedMeta=read(LS.meta,null);
+ if(!savedMeta||Number(savedMeta.schemaVersion)!==83){
+   Object.values(LS).forEach(k=>{try{localStorage.removeItem(k)}catch{}});
+   savedMeta=clone(EMPTY_META);write(LS.state,clone(INITIAL_STATE));write(LS.checkpoint,clone(INITIAL_STATE));write(LS.meta,savedMeta);write(LS.order,CATALOG.map(r=>r.id));
+ }
+ app.meta=savedMeta||clone(EMPTY_META);app.meta.settings=app.meta.settings||{};
+ let saved=read(LS.state,null);if(!saved?.items)saved=clone(INITIAL_STATE);app.state=saved;app.checkpoint=read(LS.checkpoint,clone(saved));app.meta=read(LS.meta,EMPTY_META);app.meta.schemaVersion=83;app.meta.settings=app.meta.settings||{};app.meta.localOnly=false;
+ if(!app.meta.settings.timelineMode)app.meta.settings.timelineMode='original';if(!app.meta.settings.catalogMode)app.meta.settings.catalogMode='original';if(!app.meta.settings.recommendationMode)app.meta.settings.recommendationMode=app.meta.settings.timelineMode||app.meta.settings.catalogMode||'original';if(!Array.isArray(app.meta.settings.megaClosedEras))app.meta.settings.megaClosedEras=[];
+ const activeAccount=accountById(activeAccountId); if(seedProfileDefaultsForAccount(activeAccount,app.meta.settings)){write(LS.meta,app.meta);}
+ loadDerived();applySettings();
+ // V140: el arranque de la interfaz NO depende de Netlify Cloud.
+ // Primero mostramos la copia local y desbloqueamos la aplicación; la nube se
+ // recupera en segundo plano. Así un fetch/Netlify Blob colgado jamás puede
+ // dejar al usuario atrapado en «Sincronizando perfil…».
+ renderCatalog();heavy();
+ const startCloudSync=async()=>{
+   try{
+     const cloudAdapterReady=await waitForCloudAdapter(5000);
+     if(!cloudAdapterReady||typeof window.__marvelCloudSessionSync!=='function')return;
+     const ok=await window.__marvelCloudSessionSync();
+     if(ok===true){
+       try{renderCatalog();heavy();}catch(error){console.warn('MARVEL · repaint tras cloud:',error)}
+     }
+   }catch(error){
+     console.warn('MARVEL · sincronización cloud en segundo plano omitida:',error);
+   }
+ };
+ startCloudSync();
+}
+(async function bootV93(){
+ try{await createDefaultAccount();}catch(err){console.warn('V93 · creación de cuenta',err);try{if(!readAccounts().length){const salt=randomB64(16);const hash=await pinVerifier(DEFAULT_PIN,salt);writeAccounts([{id:'juanjo-maria-root',name:'Juanjo × María',person1:'Juanjo',person2:'María',identityPerson1:'Juanjo',identityPerson2:'María',role:'ADMIN',root:true,pinSalt:salt,pinHash:hash,createdAt:new Date().toISOString(),cloudKeyVersion:V131_ACCOUNT_PROFILE_VERSION}]);}}catch(e){console.error('V93 · fallback de cuenta',e)}}
+ personalizeDefaultAccount();
+ try{if(await v89TryRememberedLogin())return}catch(err){console.warn('V93 · sesión recordada',err)}
+ const id=localStorage.getItem(ACTIVE_ACCOUNT_STORE);const a=accountById(id);showGate();
+ if(a){const chooser=$('accountChooser');setTimeout(()=>{const b=chooser?.querySelector(`[data-account-id="${CSS.escape(a.id)}"]`);b?.click()},0)}
+ // V136: no desbloquear la aplicación por tiempo. El estado cloud debe terminar
+ // antes de mostrar la aplicación para evitar trabajar sobre una copia local antigua.
+ setTimeout(()=>{if(document.body.classList.contains('locked'))console.warn('V136 · inicio todavía bloqueado, esperando sincronización de perfil')},15000);
+})();
+</script>
+
+<script id="v5-netlify-cloud">
+(()=>{
+'use strict';
+
+/*
+ V5 · Netlify Cloud Adapter
+ - Al abrir la aplicación: carga una vez desde Netlify.
+ - Durante el uso: todo es local e inmediato.
+ - Solo el botón flotante / icono de guardar escribe en nube.
+ - V77: estado cloud independiente de la arquitectura unificada; sin arrastrar datos de prueba anteriores.
+*/
+const CLOUD_API='/.netlify/functions/marvel-state';
+let cloudBase=null, cloudReady=false, cloudSaving=false, cloudLoading=false, cloudLoadPromise=null, cloudApplying=false, cloudExitSaveSent=false, cloudSavePromise=null;
+
+const cloudClone=x=>x==null?x:JSON.parse(JSON.stringify(x));
+const cloudAuthHeaders=()=>({
+  'Accept':'application/json',
+  'X-Marvel-Account-Key':window.__marvelAccountCloudKey||'',
+  'X-Marvel-Account-Legacy-Key':window.__marvelLegacyAccountCloudKey||'',
+  'X-Marvel-Account-Legacy-Key-2':window.__marvelLegacyAccountCloudKey2||'',
+  'X-Marvel-Account-Primary':(window.__marvelPrimaryAccount?'1':'0'),
+  'X-Marvel-Profile-Version':'v131'
+});

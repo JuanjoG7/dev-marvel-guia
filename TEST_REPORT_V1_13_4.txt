@@ -1,0 +1,9 @@
+V1.13.5 · TEST REPORT
+
+- HTML script blocks: validated with node --check.
+- Service Worker: validated with node --check.
+- Poster layout: final CSS override applied after historical layers.
+- Unified cards: poster column widened; .badge constrained to row 1; image uses contain.
+- Detail ficha: poster column widened and image uses contain.
+- Functional JS intentionally unchanged apart from final presentation CSS/version cache.
+- Secrets: no new credential values introduced.

@@ -1,0 +1,100 @@
+AUDITORÍA V1.13.20 — LIMPIEZA QUIRÚRGICA
+
+1. PRINCIPIO DE CAMBIO
+
+La V1.13.19 se considera la baseline funcional. Esta release no pretende adelgazar el producto ni cambiar su arquitectura funcional. Solo elimina código que, tras revisión del runtime, no tiene consumidor o está claramente sombreado por un propietario activo.
+
+2. MÉTRICAS DEL INDEX
+
+V1.13.19 → V1.13.20
+- scripts: 44 → 42
+- listeners addEventListener: 88 → 82
+- MutationObserver: 12 → 12
+- styles: 40 → 40
+- ids duplicados: 0 → 0
+
+La reducción de tamaño es secundaria y no fue el objetivo.
+
+3. HELPERS ELIMINADOS
+
+seasonKey
+remainingMinutes
+episodeName
+megaEraIndex
+megaEraLabelFromKey
+findContinueTitle
+audioCtx
+vibrateNotification
+imageDataURL
+svgIcon
+zipStore
+deriveV127CloudKeyFromIdentity
+showCloudBootLoading
+watchedAllMinutes
+fmtPB
+pbHasAny
+v100SafeSet
+personName112
+rating112
+favorite112
+synopsis112
+findHeroSourceCard
+findCardButton
+
+Todos presentan cero referencias residuales dentro del index.html actual.
+
+4. EVENTOS ELIMINADOS
+
+- v102-internal-progress-patch: segundo click owner en capture phase.
+- v61-features: handler legacy de data-quick-rating sombreado por el owner canónico.
+- v135-sync-ratings-final: rama data-rating-page redundante.
+- v1-10-10-save-coordinator: binding de saveFab redundante.
+- listener principal: rama saveFab/topSave redundante.
+- v1.12.4 visual UX: listener marvel:state-synced sombreado.
+- v115: listener marvel:state-synced redundante.
+- V135 Ratings: listener marvel:state-synced redundante.
+
+5. EVENTOS QUE SE CONSERVAN
+
+Quedan tres listeners de marvel:state-synced:
+- refresh112() para ficha enriquecida.
+- apply() del motor TMDB/media.
+- propietario canónico V1.10.15 que coordina los renders del estado.
+
+La presencia de los tres es intencionada: los dos primeros son módulos especializados y no simples renders generales.
+
+6. ARCHIVO ELIMINADO
+
+core/marvel-core-v1.10.js
+
+No se referencia en index.html ni en netlify.toml. El runtime actual carga el core mediante el loader inline. El archivo se considera un artefacto de una etapa histórica y se retira del deploy actual; la documentación histórica no se modifica.
+
+7. COSAS DELIBERADAMENTE NO ELIMINADAS
+
+MarvelProfileManager se mantiene porque representa una API pública/compatibilidad potencial aunque la UI actual use funciones V111 específicas.
+
+Los módulos V115/v102 que aún contienen APIs utilizadas no se eliminan enteros; solo se retiran sus listeners demostrablemente redundantes.
+
+TMDB, posters, ficha, Cloud, Service Worker, observers y estilos no se modifican.
+
+8. VERSIONADO
+
+- runtime: 1.13.20
+- package.json: 1.13.20
+- manifest.webmanifest: 1.13.20
+- SW shell/image caches: V1-13-20
+- base del release: V1.13.19
+
+9. VALIDACIONES
+
+- BeautifulSoup: HTML parseable, 0 IDs duplicados.
+- Node --check: 41/41 scripts inline PASS.
+- Netlify Functions: 2/2 PASS.
+- JSON: package.json y manifest.webmanifest válidos.
+- Símbolos eliminados: 0 referencias residuales.
+- Core externo eliminado: 0 referencias residuales.
+- Diff: solo limpieza/versionado, sin cambios en estilos ni lógica de producto fuera de los handlers descritos.
+
+10. LIMITACIÓN
+
+No se ha podido completar desde el entorno un navegador interactivo real contra Netlify/Android. Por tanto la validación funcional final de clics sobre el deploy queda fuera de esta auditoría. La release debe probarse sobre el dispositivo/deploy antes de sustituir la baseline estable en producción.

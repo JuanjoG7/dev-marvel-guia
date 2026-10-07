@@ -1,0 +1,12 @@
+V1.19.6 — TRÁILERES Y TEASERS OFICIALES COMPLETOS
+
+- La ficha deja de mostrar un único tráiler y conserva todos los vídeos oficiales de tipo Trailer/Teaser que TMDB asocia al título en YouTube.
+- Solo se aceptan vídeos que TMDB marque como oficiales; se excluyen clips y contenido con señales de fan-edit, IA, concepto, reacción, parodia, etc.
+- Se priorizan vídeos en español; cuando no existe una opción válida en español, se muestran los de inglés y el reproductor solicita preferencia por subtítulos en español.
+- Para series, cada temporada consulta también sus propios vídeos oficiales mediante el detalle de temporada de TMDB.
+- La lista de vídeos usa un único iframe reutilizado: cambiar de tráiler/teaser no crea reproductores simultáneos.
+- El sistema mantiene la caché versionada para invalidar el modelo anterior de “un solo tráiler”.
+- Se añaden como refuerzo oficial los dos tráileres de Vengadores: Doomsday publicados por Marvel España y dos vídeos oficiales de Avengers: Endgame Encore como material relacionado con Doomsday.
+- No se integran grabaciones filtradas o no autorizadas de Avengers: Endgame Encore.
+- No se modifica Catalog, Progress, Episodes, Ratings, Profile ni Settings.
+- No se añaden dependencias ni se modifica netlify.toml.

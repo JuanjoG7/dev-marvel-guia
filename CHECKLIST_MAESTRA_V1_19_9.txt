@@ -1,0 +1,18 @@
+V1.19.9 · CHECKLIST DE SALIDA
+
+[ ] package.json declara 1.19.9.
+[ ] manifest.webmanifest declara 1.19.9.
+[ ] __MARVEL_BUILD_VERSION__ declara 1.19.9.
+[ ] __MARVEL_BUILD_BASE__ declara 1.19.8.
+[ ] Historial incluye V1.19.9.
+[ ] sw.js usa un shell cache nuevo V1-19-9.
+[ ] Imagen/cache TMDB no cambia de namespace intencionadamente.
+[ ] netlify.toml sin cambios funcionales.
+[ ] Dependencias sin cambios.
+[ ] netlify/functions/marvel-state.mjs conserva reintentos V1.19.8.
+[ ] No aparecen cambios de lógica en progreso/episodios.
+[ ] Node syntax checks PASS.
+[ ] Inline scripts PASS.
+[ ] Balance de script/style PASS.
+[ ] ZIP final contiene exactamente el build de V1.19.9.
+[ ] Prueba maestra manual pendiente en navegador/Android.

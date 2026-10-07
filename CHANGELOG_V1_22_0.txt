@@ -1,0 +1,38 @@
+V1.22.0 — CATÁLOGO + TIMELINE + FICHAS
+Base: V1.21.1
+
+OBJETIVO
+Mejorar la navegación y el control de la maratón en catálogo, Timeline y fichas sin modificar el motor de progreso, Cloud, sincronización ni los propietarios existentes de estado.
+
+CAMBIOS APLICADOS
+1. Catálogo
+- Filtros rápidos persistidos localmente: Todos, Pendientes, En progreso, Ambos, Favoritas.
+- Filtro rápido por tipo: Todos, Películas, Series, Animación, Especiales y Cortos.
+- Los filtros se aplican sobre los títulos renderizados y no escriben progreso ni preferencias de terceros.
+- Las sagas sin resultados quedan ocultas en la vista filtrada para reducir ruido visual.
+
+2. Vistas guardadas
+- Guardado local de hasta 12 vistas.
+- Una vista conserva búsqueda, sección, filtro, modo de catálogo, modo de edición, filtros rápidos, tipo y filtros avanzados existentes.
+- Carga y eliminación desde el propio catálogo.
+
+3. Timeline
+- Botón “📍 Ir a mi posición”.
+- Localiza la siguiente recomendación actual dentro del Timeline cuando existe y la resalta antes de desplazarla al centro.
+- Fallback al primer título navegable si la siguiente recomendación no está representada en el modo actual.
+
+4. Fichas
+- Botón “🕵️ Modo spoiler” para ocultar temporalmente sinopsis y contexto narrativo.
+- Botón “📤 Compartir ficha”.
+- En dispositivos con Web Share se usa el panel nativo; en el resto se copia el enlace al portapapeles.
+- El enlace utiliza #titulo=<id> y al abrirlo intenta llevar a la ficha correspondiente.
+
+5. Conservación
+- No se modifica el motor de progreso.
+- No se modifica Cloud ni el sistema de reintentos.
+- No se modifica la sincronización de perfiles.
+- No se modifica el sistema de favoritos (confirmado funcional por el usuario antes de esta versión).
+- No se modifica el catálogo fuente.
+
+NOTAS
+- El Service Worker no se incorpora en esta versión porque el paquete base V1.21.1 no contiene sw.js pese a que el registro condicional del index y el manifest lo contemplan; se conserva el comportamiento existente sin introducir un falso archivo de caché.

@@ -1,0 +1,24 @@
+TEST REPORT V1.15.3
+
+Automatizado / local
+[x] node --check netlify/functions/marvel-media.mjs
+[x] node --check netlify/functions/marvel-profile.mjs
+[x] node --check netlify/functions/marvel-state.mjs
+[x] node --check de los scripts inline no vacíos: 7/7
+[x] package.json válido
+[x] manifest.webmanifest válido
+[x] no hay referencias activas al proxy `action=image&u=` sin `mv=1153`
+[x] la colección genérica `Marvel One-Shots` ya no se usa para el id 100
+[x] `EXACT['29']` apunta a TMDB 84958 y a un poster específico de Loki
+[x] `EXACT['100']` apunta a TMDB 76122 y al primer corto
+[x] los cinco episodios de V100 tienen poster canónico
+[x] Service Worker ya no migra bytes antiguos entre cachés de imágenes
+[x] ZIP verificable con `unzip -t` después de empaquetar
+
+Pendiente de entorno real
+[ ] desplegar V1.15.3 en el proyecto Netlify existente
+[ ] abrir Marvel One-Shots y confirmar portada correcta en ficha
+[ ] abrir los 5 capítulos y comprobar que cada imagen coincide con la tarjeta/corto correspondiente
+[ ] abrir Loki en tarjeta + ficha y comprobar que la imagen muestra a Loki
+[ ] comprobar que el indicador Cloud sigue correcto
+[ ] repetir en un segundo dispositivo para comprobar que las imágenes llegan ya desde el backend persistente

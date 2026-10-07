@@ -1,0 +1,51 @@
+TEST REPORT · V1.17 ADMINISTRACIÓN Y SESIONES · CONSERVADOR
+
+OBJETIVO DE PRUEBA
+Comprobar que la nueva capa de sesiones server-side funciona sin alterar el pipeline de V1.15.5/V1.16 conservadora.
+
+PRUEBAS ESTÁTICAS
+[OK] 42 de 43 bloques inline pasan node --check.
+[OK] La única excepción es una redeclaración legacy de renderAccountChooser ya existente en V1.15.5; no ha sido introducida por V1.17.
+[OK] marvel-profile.mjs pasa node --check.
+[OK] profile-core.mjs pasa node --check.
+[OK] marvel-state.mjs pasa node --check.
+[OK] marvel-media.mjs pasa node --check.
+[OK] package.json válido.
+[OK] manifest.webmanifest válido.
+[OK] netlify.toml igual a V1.15.5.
+[OK] sw.js igual a V1.15.5.
+[OK] engines y dependencia @netlify/blobs igual a V1.15.5.
+[OK] búsqueda de secretos hardcodeados sin hallazgos sospechosos.
+
+PRUEBA FUNCIONAL LOCAL SIMULADA DE SESIONES
+[OK] Login ADMIN registra una sesión server-side.
+[OK] Login USER registra sesiones independientes.
+[OK] Dos logins del mismo USER generan dos sesiones válidas.
+[OK] La lista devuelve las sesiones activas.
+[OK] Revocar una sesión invalida esa sesión en el servidor.
+[OK] La sesión revocada obtiene 401 en el siguiente acceso autenticado.
+[OK] Cambio de PIN incrementa sessionVersion.
+[OK] Cambio de PIN revoca sesiones anteriores.
+[OK] El usuario que cambia su propio PIN recibe una nueva sesión autenticada.
+[OK] PIN nuevo permite login.
+[OK] PIN antiguo deja de permitir login.
+[OK] Logout revoca la sesión actual.
+[OK] Tras cambio de PIN queda activa únicamente la nueva sesión creada para continuar trabajando.
+
+CONSERVACIÓN DE BUILD
+[OK] No hay cambio de NODE_VERSION.
+[OK] No hay cambio de comando de build.
+[OK] No hay dependencia nueva.
+[OK] No hay migración del Service Worker.
+
+NO VERIFICADO EN PRODUCCIÓN
+[ ] Deploy real en Netlify.
+[ ] Tiempo real de build comparado con V1.15.5.
+[ ] Sesiones reales entre dispositivos.
+[ ] Revocación real desde ADMIN en Netlify Blobs.
+[ ] Cambio de PIN real con invalidación de sesiones.
+[ ] Prueba manual Android/tablet.
+[ ] Regresión completa Cloud/progreso/Timeline/valoraciones/estadísticas/TMDB en producción.
+
+CONCLUSIÓN
+La release está preparada de forma conservadora. Los cambios nuevos están limitados al panel de administración de cuentas y al registro/revocación server-side de sesiones. El entorno de deploy permanece alineado con V1.15.5 para no repetir el problema observado con la compilación de Node 22.

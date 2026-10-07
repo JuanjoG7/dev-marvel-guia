@@ -1,0 +1,7 @@
+V1.13.7 · Sincronización de pósteres exactos
+
+La fuente de verdad del estado sigue siendo Loki/core. TMDB continúa siendo una capa de lectura para enriquecimiento multimedia.
+
+Para evitar la divergencia tarjeta/ficha, los títulos con mapeo exacto disponen de una tabla única de poster_id + poster_path. La tarjeta consulta esa tabla directamente durante la creación del slot y la ficha la reutiliza en la capa exacta.
+
+No se crea un segundo estado ni se modifica Progress/Episodes/Ratings/Profile/Settings.

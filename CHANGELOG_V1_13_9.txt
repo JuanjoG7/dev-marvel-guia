@@ -1,0 +1,10 @@
+V1.13.9 · ORDENACIÓN DE VALORACIONES
+
+- Añadidos cuatro modos de ordenación en la pantalla «Vuestras valoraciones»: A-Z, Cronológico, Por saga y Orden original.
+- La ordenación se aplica solo a la lista de valoraciones; no modifica el orden global del catálogo ni el estado.
+- «Orden original» respeta DEFAULT_CATALOG_ORDER, igual que el organizador del catálogo.
+- «Cronológico» reutiliza CHRONO_ORDER y usa la fecha de lanzamiento como desempate para títulos fuera de esa secuencia.
+- «Por saga» agrupa por la saga definida en el catálogo y ordena dentro de cada saga de forma cronológica.
+- Se conserva la búsqueda y todos los filtros actuales.
+- La edición de notas, acceso a fichas y estados siguen funcionando mediante el mismo gateway existente.
+- Service Worker actualizado a V1.13.9 para evitar reutilizar el shell anterior.

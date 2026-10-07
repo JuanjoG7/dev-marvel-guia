@@ -1,0 +1,15 @@
+V1.19 · ACTIVIDAD Y ESTADÍSTICAS AVANZADAS · CONSERVADOR
+
+Base directa: V1.18.3.
+
+NUEVO
+- Registro aditivo de eventos reales por perfil.
+- Historial de acciones, timestamps, títulos afectados y transiciones relevantes de completado/valoración/favorito.
+- Filtros de estadísticas por 7, 30, 90 días o todo.
+- Métricas de eventos, días activos, títulos afectados, racha y ritmo de avance.
+- Distribución de tipos de actividad y actividad reciente.
+- Acceso de menú a “Actividad de la maratón”.
+
+CONSERVADO
+- Node 22, netlify.toml, comando de build, @netlify/blobs 10.7.13 y Service Worker.
+- Motores de progreso, perfiles, sesiones, Cloud y backup.

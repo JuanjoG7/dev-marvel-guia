@@ -1,0 +1,24 @@
+CHECKLIST MAESTRA — V1.15.2
+
+CAMBIOS DE ESTA RELEASE
+[x] Cloud vacío diferenciado de Cloud caído
+[x] Bootstrap automático del primer snapshot Cloud de un perfil autenticado
+[x] Falso «Nube no disponible · copia local activa» eliminado en el arranque normal de perfiles Cloud nuevos
+[x] Portada de Marvel One-Shots sustituida por un capítulo real: The Consultant
+[x] package.json / manifest / build / MarvelProfileManager alineados a V1.15.2
+[x] Service Worker actualizado a V1-15-2
+
+VALIDACIONES ESTÁTICAS
+[x] JSON válido
+[x] node --check de las 3 Functions
+[x] node --check de los bloques JavaScript inline
+[x] grep de versión actual en superficies de release
+[x] ZIP íntegro con unzip -t
+[x] Sin nuevos secretos incrustados
+
+VALIDACIÓN MANUAL PENDIENTE
+[ ] Entrar en un perfil nuevo desde tablet y confirmar «☁️ Perfil nuevo sincronizado»
+[ ] Recargar ese perfil y confirmar que ya aparece «☁️ Perfil cargado»
+[ ] Abrir el mismo perfil desde otro dispositivo y recuperar su estado Cloud
+[ ] Abrir Marvel One-Shots y confirmar que la ficha muestra el póster de The Consultant
+[ ] Confirmar que el aviso rojo solo aparece ante una caída real de Cloud

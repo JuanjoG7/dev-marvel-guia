@@ -1,0 +1,14 @@
+V1.19 STATIC TEST REPORT
+
+Inline JavaScript blocks: 44 · node --check: PASS
+Netlify Functions .mjs: PASS
+package.json / manifest.webmanifest JSON: PASS
+Base package version: 1.18.3 → 1.19.0
+netlify.toml unchanged vs V1.18.3: PASS
+sw.js unchanged vs V1.18.3: PASS
+Node runtime: 22 (unchanged)
+Dependencies: unchanged
+activityEvents recorder: PASS
+activity filters 7/30/90/all: PASS
+menu activity action: PASS
+Production Netlify / Android tests: pending external validation

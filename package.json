@@ -1,0 +1,12 @@
+{
+  "name": "maraton-marvel-juanjo-maria",
+  "private": true,
+  "version": "1.22.4",
+  "description": "Maratón Marvel Juanjo y María — Netlify · identidad Cloud y administración server-side",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "dependencies": {
+    "@netlify/blobs": "10.7.13"
+  }
+}

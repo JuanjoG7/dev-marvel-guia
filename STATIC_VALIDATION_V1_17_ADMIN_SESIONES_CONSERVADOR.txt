@@ -1,0 +1,36 @@
+STATIC VALIDATION · V1.17 ADMINISTRACIÓN Y SESIONES · CONSERVADOR
+
+BASE
+- Origen: V1.16 Cloud robusta conservadora.
+- Entorno de build esperado: el mismo de V1.15.5.
+
+RESULTADOS
+- Inline scripts encontrados: 43.
+- Los 43 se extraen correctamente; 42 pasan node --check individualmente.
+- 1 bloque inline falla node --check por una redeclaración legacy de renderAccountChooser.
+- Esa misma redeclaración ya está presente en V1.15.5 y V1.16 conservadora; no fue introducida por V1.17 y se conserva deliberadamente para no abrir un refactor no solicitado.
+- netlify/functions/marvel-profile.mjs: node --check OK.
+- netlify/functions/marvel-state.mjs: node --check OK.
+- netlify/functions/marvel-media.mjs: node --check OK.
+- netlify/lib/profile-core.mjs: node --check OK.
+- package.json: JSON OK.
+- manifest.webmanifest: JSON OK.
+- netlify.toml: idéntico a V1.15.5.
+- sw.js: idéntico a V1.15.5.
+- engines/dependencies: idénticos a V1.15.5.
+- búsqueda de secretos hardcodeados en código: sin hallazgos sospechosos.
+- marcadores de versión principal: 1.17.0.
+
+COMPARACIÓN DE CAMBIOS
+Solo cambian frente a V1.16 conservadora:
+1) index.html
+2) manifest.webmanifest
+3) netlify/functions/marvel-profile.mjs
+4) netlify/lib/profile-core.mjs
+5) package.json
+
+NO HAY CAMBIO DE BUILD
+- No se cambia Node.
+- No se cambia el comando npm install --omit=dev.
+- No se añade paso build adicional.
+- No se cambia el Service Worker.

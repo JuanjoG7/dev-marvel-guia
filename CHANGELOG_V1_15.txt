@@ -1,0 +1,31 @@
+V1.15 · IDENTIDAD CLOUD Y ADMINISTRACIÓN SERVER-SIDE
+
+OBJETIVO
+Resolver la dependencia de LocalStorage que impedía descubrir perfiles y PIN desde otro dispositivo sin cambiar el modelo Marvel de progreso ni su estado cloud existente.
+
+CAMBIOS
+- Directorio server-side de perfiles con Netlify Blobs.
+- Perfil administrador virtual `administrador1 × administrador2`, autenticado solo con `MARVEL_ROOT_ADMIN_TOKEN`.
+- Juanjo × María pasa a USER; no es root/admin.
+- PIN de usuario verificado en Function; nuevos verificadores con scrypt + `MARVEL_PROFILE_PEPPER`.
+- Sesión mediante cookie HttpOnly firmada con `MARVEL_SESSION_SECRET`.
+- Crear/eliminar perfil solo con sesión ADMIN y validación server-side.
+- Renombrado y cambio/reset de PIN server-side.
+- Borrado de perfil elimina su estado cloud.
+- Migración administrativa de perfiles V1.14 locales con snapshot y verificador PBKDF2 legado, con upgrade automático a scrypt al primer login.
+- `marvel-state` deja de confiar en `X-Marvel-Account-Key`: resuelve el estado a partir de la sesión autenticada y del registro server-side.
+- Service Worker y manifest → 1.15.0.
+
+NO CAMBIA
+- MarvelProgressEngine/canonicalMutate.
+- Progreso, recomendaciones, fichas, valoraciones, estadísticas, Timeline, logros, TMDB, PWA y catálogo.
+- Store de estado cloud `marvel-marathon-accounts-v90` y sus datos existentes.
+
+
+ADMINISTRACIÓN V1.15
+- El administrador visible es `administrador1 × administrador2`; la autenticación usa el mismo `MARVEL_ROOT_ADMIN_TOKEN` existente.
+- Juanjo × María ya no tiene privilegios ADMIN/root, incluso si procede de la cuenta histórica `juanjo-maria-root`: la migración lo remapea a `jm-user`.
+- El navegador nunca recibe `MARVEL_SESSION_SECRET`, `MARVEL_PROFILE_PEPPER` ni `MARVEL_JUANJO_MARIA_PIN`.
+- El Service Worker no intercepta ni cachea `/api/marvel-profile` ni `/api/marvel-state`.
+
+- La migración de la antigua cuenta `juanjo-maria-root` elimina también su registro server-side heredado para que nunca conserve un perfil ADMIN histórico accesible.

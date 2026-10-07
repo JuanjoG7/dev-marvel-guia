@@ -1,0 +1,20 @@
+V1.18.2 — Reparación Cloud Juanjo × María / Backup
+
+OBJETIVO
+Corregir el caso específico en el que el perfil fijo Juanjo × María procede de una migración antigua y conserva autenticación de usuario pero no tiene stateKey server-side. En ese caso, guardar en Cloud terminaba en “Profile cloud identity missing”, y V1.18 no podía confirmar el guardado para crear una copia.
+
+CAMBIO CONSERVADOR
+- Reparación server-side y determinista de stateKey para jm-user.
+- Se reutiliza legacyStateKeys si existe; si no, se recupera la clave V1.13/V1.15 a partir de MARVEL_JUANJO_MARIA_PIN.
+- No se crea una clave aleatoria para el perfil fijo.
+- No se cambia la lógica normal de usuarios.
+- No se cambia el pipeline de Netlify ni las dependencias.
+- No se cambia el estado Cloud existente si ya dispone de stateKey.
+
+EFECTO
+El perfil Juanjo × María vuelve a resolver su identidad Cloud correctamente y el guardado/backup puede trabajar sobre el mismo espacio existente.
+
+
+V1.18.3 — CORRECCIÓN FINAL DE ÁMBITO CLOUD
+- Corregida referencia a cloudSaving desde updateSave(): esa función vive fuera del IIFE donde se declara cloudSaving. Se usa una comprobación segura con typeof para evitar ReferenceError.
+- Corregido el identificador de versión mostrado por el marcador de build y por el módulo de copias Cloud.

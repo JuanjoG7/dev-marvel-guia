@@ -1,0 +1,20 @@
+V1.13.7 · POSTERS EXACTOS EN TARJETAS + FICHAS
+
+Problema corregido
+- Algunos títulos mostraban el póster correctamente dentro de la ficha, pero seguían mostrando el emoji/fallback en la tarjeta del catálogo.
+- Marvel One-Shots estaba asociado a un recurso de TMDB con el tipo equivocado y acababa mostrando una imagen que no correspondía al contenido.
+
+Correcciones
+- La capa de tarjetas ahora reutiliza directamente la tabla de pósteres exactos cuando existe, en lugar de depender de que el caché asíncrono se haya rellenado antes del render.
+- I Am Groot mantiene su póster TMDB exacto.
+- The Punisher: One Last Kill mantiene su póster TMDB exacto.
+- Marvel One-Shots usa como representación el póster de Marvel One-Shot: Item 47 (TMDB 119569), un One-Shot real de Marvel.
+- El mismo mapeo exacto se aplica tanto a tarjeta como a ficha.
+- Se incrementan las cachés de imágenes/service worker para evitar reutilizar recursos antiguos.
+- Se conserva el resto del catálogo y la lógica de estado sin cambios.
+- Se mantiene el ajuste de la ficha para dar más anchura al póster y mostrarlo completo.
+
+Fuentes de verificación
+- TMDB: Item 47, TMDB 119569.
+- El recurso exacto de Punisher ya estaba identificado en la capa V1.13.5.
+- Los pósteres de I Am Groot y del resto de reparaciones exactas se mantienen de la capa V1.13.5.

@@ -1,0 +1,13 @@
+AUDITORÍA V1.15.2
+
+1. CAUSA DEL AVISO CLOUD
+La ruta final de autoload trataba cualquier retorno false de __marvelProfileLoad() como un fallo. cloudManualLoad() devuelve false de forma intencionada cuando una sesión autenticada todavía no tiene snapshot remoto. Eso provocaba el mensaje «Nube no disponible · copia local activa» aunque Netlify hubiese respondido correctamente.
+
+2. CORRECCIÓN
+Se marca ese caso con __MARVEL_CLOUD_BOOT_NEEDED, se evita repetir las peticiones y, cuando la transacción de lectura ha finalizado, se ejecuta una única escritura inicial del snapshot mediante __marvelProfileSave(). Solo un fallo real de carga deja el indicador en estado err.
+
+3. IMAGEN ONE-SHOTS
+El mapeo exacto del id 100 pasa de TMDB #119569 (Item 47) a TMDB #76122 (The Consultant), usando el poster_path /xqNLXUUvBnfVk6m3QFGGU0Grgs7.jpg y backdrop_path /r1Q3jyOpfbF3VDU52w8RzkTPbfe.jpg. La fuente pública consultada identifica TMDB #76122 y su poster_path.
+
+4. CONSERVACIÓN
+No se toca el modelo de progreso, la gestión de perfiles, la autenticación server-side ni la Function marvel-state.

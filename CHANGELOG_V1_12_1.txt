@@ -1,0 +1,24 @@
+V1.12.2 · CORRECCIÓN DE BUILD / SECRET SCANNING
+
+Base: V1.12.1 · UX de ficha compacta.
+- Se elimina del paquete el valor literal de la credencial administrativa que aparecía accidentalmente en TEST_REPORT_V1_12.txt.
+- No se modifica la lógica de administración: MARVEL_ROOT_ADMIN_TOKEN sigue siendo exclusivamente variable de entorno de Netlify y server-side.
+- Se incrementan manifest y cache del Service Worker a V1.12.2.
+
+V1.12.1 · UX DE FICHA COMPACTA Y PROGRESIVA
+
+Base: V1.12 Loki · Fichas enriquecidas.
+
+Cambios visuales aplicados sin crear un segundo estado ni cambiar los propietarios de acciones:
+- Se oculta el hero histórico duplicado de la ficha para evitar repetir título/saga.
+- El póster deja de repetir el título en grande sobre la imagen.
+- El bloque inicial se compacta y mantiene póster + título + año/duración/tipo/saga en una lectura rápida.
+- Metadatos convertidos en “Encaje en el recorrido”: 4 claves visibles y “Datos adicionales” desplegable.
+- Contexto de la ficha convertido en acordeón cerrado por defecto.
+- Reparto/voces convertido en acordeón cerrado por defecto.
+- Temporadas: resumen visible; episodios se despliegan al tocar cada temporada.
+- Temporadas conservan su información exacta y colores de progreso.
+- Controles de progreso, favoritos y valoraciones del núcleo permanecen en su sitio y siguen siendo los únicos controles de estado.
+- Reproducción/temporizador se presenta como bloque compacto “Tiempo de visionado”, desplegable al tocar.
+- Tipografías y densidad ajustadas para tablet/móvil sin alterar la identidad visual.
+- Service Worker actualizado a V1-12-1 para no servir el CSS/JS visual anterior desde la caché.

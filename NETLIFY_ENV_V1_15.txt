@@ -1,0 +1,51 @@
+V1.15 · VARIABLES DE NETLIFY — RESUMEN DE CONFIGURACIÓN
+
+Crear/conservar estas cuatro variables en Netlify → Project configuration → Environment variables:
+
+MARVEL_ROOT_ADMIN_TOKEN
+- Conservar EXACTAMENTE el token administrativo que ya utiliza el sitio.
+- Es la única credencial del perfil administradora1 × administrador2.
+- No ponerlo en el frontend ni en netlify.toml.
+
+MARVEL_SESSION_SECRET
+- Crear como secreto aleatorio largo y único del sitio.
+- Generación local recomendada: openssl rand -hex 64
+- Uso: firma de las cookies de sesión.
+
+MARVEL_PROFILE_PEPPER
+- Crear como secreto aleatorio largo y único del sitio.
+- Generación local recomendada: openssl rand -hex 64
+- Uso: pepper server-side de los verificadores scrypt de PIN.
+
+MARVEL_JUANJO_MARIA_PIN
+- Introducir el mismo PIN actual que ya utiliza Juanjo × María.
+- Guardarlo solo en Netlify como secret value.
+- No escribirlo en index.html, netlify.toml, ZIP, repositorio ni documentación pública.
+
+Para las cuatro variables:
+- Environment: Production.
+- Scope: Functions (y cualquier alcance adicional estrictamente necesario para el deploy, pero nunca exponer secretos al frontend).
+- Marcar Secret value / Contains secret values cuando la interfaz lo permita.
+- Hacer un nuevo deploy después de crear o modificar variables.
+
+NO CREAR VARIABLES POR CADA PERFIL.
+Los perfiles USER nuevos se crean desde el panel ADMIN y sus PIN se almacenan server-side como scrypt + pepper en Netlify Blobs.
+
+ADMIN
+- Identidad visible fija: administrador1 × administrador2.
+- ID: marvel-admin-root.
+- Tipo: virtual ADMIN.
+- Credencial: MARVEL_ROOT_ADMIN_TOKEN.
+- Puede crear, renombrar, restablecer PIN y eliminar perfiles USER.
+- No puede eliminarse a sí mismo desde la aplicación.
+
+JUANJO × MARÍA
+- Identidad visible inicial: Juanjo × María.
+- ID estable: jm-user.
+- Tipo: USER normal.
+- PIN inicial: MARVEL_JUANJO_MARIA_PIN.
+- No tiene permisos ADMIN.
+
+MIGRACIÓN
+- En un dispositivo que conserve cuentas V1.14, iniciar sesión como ADMIN y pulsar «Migrar perfiles de este dispositivo» una sola vez.
+- La migración conserva el estado cloud existente siempre que ya exista y evita volver a guardar PINs locales.

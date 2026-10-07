@@ -1,0 +1,27 @@
+AUDITORÍA V1.13.29
+
+Objetivo: eliminar el desfase visual entre ficha/Hero y tarjeta de catálogo.
+
+Mecanismo:
+canonicalMutate -> persistencia/aislamiento -> renderCatalog si corresponde -> syncCatalogCardsFromState(affectedIds) -> state-sync.
+
+La proyección lee getRecord + estado canónico + MarvelProgressEngine y actualiza in-place:
+- state-pill / state-detail
+- botones de persona
+- botones de temporada
+- botones de episodio
+- ignorado de serie/recomendación
+- atributos aria-pressed y clases active/done
+
+También se aplica desde el state-sync owner y desde el Hero después de refrescar catálogo.
+
+VALIDACIÓN ESTÁTICA
+- Scripts inline: sintaxis Node correcta.
+- Netlify Functions: sintaxis correcta.
+- JSON válido.
+- IDs HTML sin duplicados.
+- No se añaden llamadas de scroll al cambio.
+- El motor de progreso no se modifica.
+
+VALIDACIÓN PENDIENTE
+- Prueba manual en el deploy real: pulsar completar/episodio/ignorar en Siguiente recomendación y comprobar la tarjeta equivalente sin guardar/recargar.

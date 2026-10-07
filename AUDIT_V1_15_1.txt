@@ -1,0 +1,36 @@
+AUDITORÍA V1.15.1 · GESTIÓN DE PERFILES Y SESIÓN
+
+OBJETIVO
+Corregir la gestión de cuentas desde perfiles USER y garantizar que cerrar acceso/cambiar de cuenta vuelva al selector de perfiles sin reautenticación automática.
+
+CAMBIOS REVISADOS
+- `Gestionar cuentas` delega al propietario V1.15.1 desde el menú.
+- USER puede gestionar su propio perfil.
+- USER puede cambiar su propio PIN aportando el PIN actual.
+- La clave `MARVEL_ROOT_ADMIN_TOKEN` se introduce en un cuadro dentro de `Gestionar cuentas` y se valida en servidor.
+- La elevación administrativa no sustituye la sesión USER: usa una cookie HttpOnly firmada independiente y caduca a los 15 minutos.
+- Crear perfiles requiere capacidad administrativa.
+- Renombrar perfiles de terceros requiere capacidad administrativa.
+- Restablecer PIN de terceros requiere capacidad administrativa.
+- Eliminar perfiles de terceros requiere capacidad administrativa.
+- La cuenta virtual `administrador1 × administrador2` permanece fija y fuera del directorio editable.
+- `Juanjo × María` (`jm-user`) queda protegido frente a renombrado, borrado y reset administrativo de PIN. Su propia sesión sí puede cambiar su PIN.
+- Un USER elevado no puede eliminarse a sí mismo.
+- `logout` server-side limpia la sesión normal y la elevación administrativa.
+- `Cerrar acceso` y `Cambiar de cuenta` fijan un estado de selector forzado para evitar el autologin inmediato durante la recarga.
+
+VALIDACIONES
+- `node --check` de `netlify/lib/profile-core.mjs`: PASS.
+- `node --check` de `netlify/functions/marvel-profile.mjs`: PASS.
+- `node --check` de `netlify/functions/marvel-state.mjs`: PASS.
+- Todos los scripts inline JS de `index.html`: 41/41 PASS.
+- JSON `package.json`: PASS.
+- JSON `manifest.webmanifest`: PASS.
+- Test server-side de login, creación, cambio de PIN, elevación, permisos, protección de Juanjo × María y logout: PASS.
+- ZIP completo `unzip -t`: PASS.
+- No hay secretos de prueba ni tokens reales incrustados en el código de release.
+
+NO CAMBIA
+- Estado Marvel, progreso, recomendaciones, sincronización inmediata, fichas, valoraciones, estadísticas, Timeline, logros, TMDB, PWA y catálogo.
+- Store de estado `marvel-marathon-accounts-v90`.
+- Las cuatro variables de entorno de V1.15.

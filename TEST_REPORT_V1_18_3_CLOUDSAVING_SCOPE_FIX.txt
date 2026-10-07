@@ -1,0 +1,13 @@
+V1.18.3 — TEST REPORT
+
+Hallazgo confirmado:
+- En index.html, updateSave() estaba en un script/IIFE anterior al bloque que declara `let cloudSaving=...`; por eso el acceso directo producía `ReferenceError: cloudSaving is not defined` al ejecutarse desde ese ámbito.
+
+Pruebas estáticas:
+- Scripts inline: sintaxis válida.
+- Functions Netlify: sintaxis válida.
+- package.json: válido y versión 1.18.3.
+- manifest.webmanifest: válido.
+- netlify.toml: sin diferencias respecto de la base.
+- Service Worker: sin diferencias respecto de la base.
+- No se añadieron variables de entorno.

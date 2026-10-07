@@ -1,0 +1,8 @@
+CHANGELOG V1.13.22 · UI SERIES
+
+- El botón de ignorar serie en tarjetas/fichas de series muestra solo el icono.
+- Se conserva title y aria-label descriptivos.
+- No se modifica la acción ni el motor de estado.
+- No se modifica el diseño del resto de controles.
+
+Base: V1.13.21.

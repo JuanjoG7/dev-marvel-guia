@@ -1,0 +1,27 @@
+V1.17 · CONFIGURACIÓN NETLIFY · BUILD PRESERVADO
+
+BUILD
+- publish: .
+- command: npm install --omit=dev
+- NODE_VERSION: 22
+- engines.node: >=22.0.0
+- dependency: @netlify/blobs 10.7.13
+- functions directory: netlify/functions
+
+IMPORTANTE
+No se cambia la configuración de build respecto de V1.15.5/V1.16 conservadora.
+La capa de sesiones usa el mismo paquete @netlify/blobs ya existente y añade un store lógico dedicado; no requiere instalar un servidor ni un runtime adicional.
+
+VARIABLES
+No se añade ninguna variable nueva.
+No se cambia ninguna variable existente.
+Se mantienen las cuatro variables server-side ya configuradas:
+- MARVEL_ROOT_ADMIN_TOKEN
+- MARVEL_SESSION_SECRET
+- MARVEL_PROFILE_PEPPER
+- MARVEL_JUANJO_MARIA_PIN
+
+SEGURIDAD
+- No introducir valores de las variables en el HTML.
+- No almacenar el token ADMIN en LocalStorage/sessionStorage.
+- Las sesiones se mantienen mediante cookies HttpOnly y registros server-side.

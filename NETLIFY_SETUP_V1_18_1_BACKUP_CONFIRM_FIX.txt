@@ -1,0 +1,27 @@
+NETLIFY V1.18 · BACKUP Y RECUPERACIÓN
+
+VARIABLES
+No se añade ni modifica ninguna variable de entorno.
+
+SE MANTIENEN
+- MARVEL_ROOT_ADMIN_TOKEN
+- MARVEL_SESSION_SECRET
+- MARVEL_PROFILE_PEPPER
+- MARVEL_JUANJO_MARIA_PIN
+
+BUILD
+- NODE_VERSION=22 se mantiene en netlify.toml.
+- No crear una variable NODE_VERSION adicional en la UI.
+- Build command: npm install --omit=dev.
+- Dependency: @netlify/blobs 10.7.13.
+
+STORAGE
+V1.18 introduce un Blob Store dedicado para copias:
+marvel-marathon-backups-v1
+
+No requiere configurar una nueva variable. La Function usa la misma autenticación y sesión server-side existente y crea/consulta los blobs desde Netlify.
+
+
+V1.18.3 — CORRECCIÓN FINAL DE ÁMBITO CLOUD
+- Corregida referencia a cloudSaving desde updateSave(): esa función vive fuera del IIFE donde se declara cloudSaving. Se usa una comprobación segura con typeof para evitar ReferenceError.
+- Corregido el identificador de versión mostrado por el marcador de build y por el módulo de copias Cloud.

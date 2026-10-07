@@ -1,0 +1,60 @@
+V1.20.0 · VALIDACIÓN ESTÁTICA Y SMOKE TEST
+
+Fecha: 2026-09-26
+Base: V1.19.9
+
+RESULTADOS AUTOMÁTICOS
+----------------------
+[PASS] package.json válido y versión 1.20.0.
+[PASS] manifest.webmanifest válido y versión 1.20.0.
+[PASS] Build marker: 1.20.0; base: 1.19.9.
+[PASS] index.html: 46 aperturas/cierres <script> equilibrados.
+[PASS] index.html: 45 aperturas/cierres <style> equilibrados.
+[PASS] 45 bloques JavaScript inline comprobados con node --check.
+[PASS] sw.js comprobado con node --check.
+[PASS] marvel-backup.mjs comprobado con node --check.
+[PASS] marvel-media.mjs comprobado con node --check.
+[PASS] marvel-profile.mjs comprobado con node --check.
+[PASS] marvel-state.mjs comprobado con node --check.
+[PASS] HTTP local: /index.html = 200.
+[PASS] HTTP local: /manifest.webmanifest = 200.
+[PASS] HTTP local: /sw.js = 200.
+[PASS] HTTP local: /icons/icon-192.png = 200.
+[PASS] El menú conserva exactamente las 21 acciones de V1.19.9.
+[PASS] El botón Cloud Backups v1.18 continúa presente.
+[PASS] El bloque V1.20 no contiene scrollIntoView para la navegación de ficha.
+[PASS] Selector Normal/Editar presente.
+[PASS] Navegación interna de ficha presente.
+[PASS] API de diagnóstico V1.20 presente.
+
+VALIDACIÓN DE CAMBIOS
+---------------------
+V1.20.0 introduce únicamente el bloque de navegación/UX planificado:
+- navegación por secciones dentro de la ficha;
+- volver arriba;
+- espacio inferior seguro;
+- modales adaptativos;
+- menú categorizado;
+- modo Normal/Editar de catálogo;
+- versionado/cache de release.
+
+No se han modificado deliberadamente el motor de progreso, Cloud, multimedia,
+valoraciones, favoritos, Timeline, estadísticas, logros ni catálogo de datos.
+
+RUNTIME BROWSER LOCAL
+---------------------
+Se intentó un smoke test headless con Chromium sobre servidor local. El proceso
+no terminó dentro del límite de ejecución del entorno y no se considera una
+prueba funcional válida. Se descarta su resultado y no se marca como PASS.
+
+PRUEBAS MANUALES PENDIENTES
+---------------------------
+- Abrir la ficha de una película y comprobar los accesos Resumen/Progreso/
+  Temporadas/Personajes/Valoración/Reproducción/Tráilers según disponibilidad.
+- Confirmar que los saltos se producen dentro del modal y no desplazan la página.
+- Comprobar Volver arriba en ficha, Timeline, estadísticas y herramientas.
+- Cambiar Normal ↔ Editar y verificar que los controles administrativos aparecen
+  solo en Editar; recargar y comprobar persistencia.
+- Abrir modales cortos y largos en Android, tablet y escritorio.
+- Comprobar que el último contenido no queda tapado por la navegación inferior.
+- Ejecutar la prueba maestra de regresión completa.

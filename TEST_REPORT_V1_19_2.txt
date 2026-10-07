@@ -1,0 +1,6 @@
+V1.19.2 · TEST REPORT
+
+- index.html inline JS: pendiente de comprobación automática en release builder.
+- marvel-state.mjs sintaxis: pendiente.
+- netlify.toml: conservado.
+- sw.js: conservado.

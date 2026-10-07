@@ -1,0 +1,27 @@
+V1.21.0 · TEST REPORT
+
+AUTOMÁTICO
+La validación estática final y los syntax checks pasan. Se ha hecho además una pequeña limpieza preventiva del dashboard para mantenerlo estrictamente de lectura: no inicializa/modifica estado al calcular capítulos y los observadores DOM no se duplican.
+
+CAMBIOS CLAVE
+- Centro de control de Inicio derivado del estado existente.
+- CONTINUAR MARATÓN para películas y capítulos.
+- Pendientes por películas, series, capítulos y valoraciones.
+- Favoritas de cada persona y en común.
+- Actividad reciente reutilizando app.meta.activityEvents.
+- Siguiente logro.
+- Tiempo restante y ruta hasta Doomsday.
+- Refresco al cambiar estado/configuración/Cloud y al mutar catálogo/logros.
+
+MANUAL PENDIENTE EN DEV
+[ ] Inicio en Android/tablet/escritorio
+[ ] CONTINUAR sobre película
+[ ] CONTINUAR sobre serie y capítulo
+[ ] Comprobar tarjeta/ficha/Timeline/estadísticas/actividad/Cloud
+[ ] Conteos sin doble contabilización de capítulos/títulos
+[ ] Favoritas, valoraciones y siguiente logro
+[ ] Tiempo restante / Doomsday
+[ ] Regresión Cloud/backups/perfiles/PWA
+
+CRITERIO
+V1.21.0 solo se cierra cuando la prueba maestra completa confirma que el dashboard es un reflejo del estado existente.

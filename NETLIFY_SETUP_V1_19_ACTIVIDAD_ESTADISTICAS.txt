@@ -1,0 +1,5 @@
+V1.19 · VARIABLES NETLIFY
+
+No hay variables nuevas.
+No se modifica ninguna variable existente.
+NODE_VERSION no se añade ni cambia: el netlify.toml de V1.18.3 se conserva.

@@ -1,0 +1,34 @@
+CHECKLIST MAESTRA — V1.15.3
+
+BASELINE
+[x] V1.15.2 estable
+[x] Identidad Cloud y administración separadas
+[x] Gestión de perfiles y logout
+[x] Distinción Cloud disponible / perfil vacío
+
+MULTIMEDIA
+[x] Persistencia server-side de bytes TMDB en Netlify Blobs
+[x] Hash determinista de URL para reutilización entre dispositivos
+[x] Segunda capa de caché local del navegador mantenida
+[x] Invalidación de URLs de imagen por release (`mv=1153`)
+[x] Service Worker no migra bytes de imágenes de releases anteriores
+[x] Marvel One-Shots sin búsqueda de colección genérica
+[x] Cartel canónico del primer One-Shot para la ficha agregada
+[x] Cinco posters de episodios One-Shots canónicos y visibles en sus filas
+[x] Loki con poster TMDB específico en tarjetas/ficha/recomendación
+
+SEGURIDAD / DATOS
+[x] Los secretos siguen en variables de entorno, no en frontend
+[x] Los usuarios siguen en Netlify Blobs, no en HTML ni variables por usuario
+[x] El nuevo cache de imágenes no introduce credenciales nuevas
+
+VALIDACIÓN
+[x] Syntax check Functions 3/3
+[x] Syntax check inline scripts 7/7
+[x] JSON válido
+[x] Versiones package/manifest/runtime/SW alineadas a V1.15.3
+[ ] Validación real de deploy Netlify
+[ ] Validación real en tablet/móvil
+[ ] Confirmar que el cartel incorrecto de One-Shots desaparece tras activar el nuevo Service Worker
+[ ] Confirmar que Loki muestra a Loki en tarjeta y ficha
+[ ] Confirmar que una segunda visita/dispositivo consume la imagen persistida por Netlify

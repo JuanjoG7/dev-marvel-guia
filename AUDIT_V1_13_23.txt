@@ -1,0 +1,32 @@
+AUDITORÍA V1.13.23 · LIMPIEZA DE LISTENERS VISUALES
+
+CAMBIO
+- En V1.12.4 el decorador visual de la ficha ya dispone de un MutationObserver sobre document.body.
+- Se eliminaron exclusivamente los listeners globales `marvel:state-synced` y `storage` que solo llamaban a `schedule()`.
+- El listener `load` también se elimina: `schedule()` se ejecuta inmediatamente y el MutationObserver cubre inserciones/cambios posteriores del DOM.
+- No se modifica ninguna función de progreso, estado, sincronización, TMDB, ratings, fichas o navegación.
+
+POR QUÉ ES SEGURO
+- `decorate()` depende del DOM final de la ficha, no del evento concreto que provocó su render.
+- El MutationObserver ya observa `subtree:true, childList:true` en `document.body`.
+- El propio `schedule()` se ejecuta al inicializar el módulo.
+- En cambios de estado, el propietario canónico actualiza el DOM y el observer vuelve a decorarlo.
+
+VALIDACIÓN ESTÁTICA
+- Node --check sobre todos los scripts inline.
+- JSON válido en package.json y manifest.webmanifest.
+- HTML parseable y sin ids duplicados.
+- Se verifica que V1.12.4 ya no registra listeners globales para `schedule`.
+- Se comprueba que el MutationObserver de V1.12.4 permanece activo.
+
+NO MODIFICADO
+- V1.10/V102 motor canónico de progreso.
+- V1.13 recomendaciones.
+- V1.13 ratings/TMDB.
+- V1.11 perfiles/admin.
+- Cloud.
+- PWA.
+- CSS general.
+
+LIMITACIÓN
+- No se considera realizada una prueba funcional de navegador en producción desde este entorno.

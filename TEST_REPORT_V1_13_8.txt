@@ -1,0 +1,11 @@
+V1.13.8 · VALIDACIÓN
+
+Objetivo: mostrar el póster en la tarjeta de siguiente reproducción sin romper los botones.
+
+Comprobaciones realizadas sobre el código:
+1. Se añade un contenedor independiente «next-recommendation-main» para que el póster no participe en la rejilla de «next-actions».
+2. «next-actions» mantiene su CSS y sus botones existentes; no se cambian sus columnas, tamaños ni identificadores.
+3. El renderHero final actualiza el póster sin crear un segundo sistema de estado.
+4. Resolución del póster: exact mapping -> caché -> endpoint TMDB; carga no bloqueante.
+5. Estado sin recomendación: poster se limpia y se oculta mediante la clase loaded.
+6. Service Worker: shell e image cache pasan de V1.13.7 a V1.13.8.

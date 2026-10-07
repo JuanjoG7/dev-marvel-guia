@@ -1,0 +1,35 @@
+V1.21.1 · TEST REPORT
+
+BASE
+- V1.21.0 · INICIO + MARATÓN
+
+CAMBIO PRINCIPAL
+- Revisión visual en Android DEV tras captura real.
+- Se elimina la duplicidad visual del siguiente logro: queda una única representación en el bloque superior CONTINUAR MARATÓN.
+- Se elimina el bloque duplicado de TIEMPO POR RECORRER; esa información permanece integrada en CAMINO A DOOMSDAY.
+- Se compactan paddings/espaciados del dashboard.
+- En móvil, CAMINO A DOOMSDAY y PRÓXIMO HITO permanecen lado a lado para reducir scroll vertical.
+
+VALIDACIÓN ESTÁTICA
+- Inline JS: 46/46 bloques con sintaxis válida.
+- Etiquetas script: 47/47 balanceadas.
+- Etiquetas style: 46/46 balanceadas.
+- package.json: JSON válido.
+- manifest.webmanifest: JSON válido.
+- package/manifest/build marker: 1.21.1.
+- Service Worker cache shell: V1-21-1.
+
+REGRESIÓN DE FUNCIONALIDAD
+- No se cambian funciones de progreso, favoritos, Cloud, Timeline, estadísticas, catálogo ni actividad.
+- Favoritos: funcionamiento confirmado manualmente por el usuario en DEV para V1.21.0; V1.21.1 no modifica su lógica.
+
+PRUEBA DE SERVICIO LOCAL
+- GET /index.html → HTTP 200.
+- Smoke render Chromium: no finaliza dentro del tiempo de ejecución de esta herramienta; no se cuenta como prueba superada.
+
+PENDIENTE MANUAL DEV
+- Comprobar visualmente la reducción de altura del dashboard.
+- Comprobar abrir Logros desde PRÓXIMO HITO.
+- Comprobar CONTINUAR MARATÓN.
+- Comprobar contadores y actividad.
+- Regresión completa de progreso → tarjeta → ficha → valoraciones → estadísticas → Timeline → Cloud.

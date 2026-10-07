@@ -1,0 +1,17 @@
+V1.19.1 · ACTIVIDAD — CORRECCIÓN CONSERVADORA
+
+BASE DIRECTA: V1.19.0.
+
+CORREGIDO
+- Se añade un punto de captura de respaldo a nivel de Store.commit.
+- Ratings, favoritos, vista conjunta e ignorados con guardIds quedan cubiertos incluso si la captura de la transacción principal no alcanza el evento.
+- El recorder existente deduplica la doble captura para no generar eventos duplicados.
+- Si un perfil ya dispone del historial legacy activityLog pero aún no activityEvents detallados, se recupera como evolución histórica sin inventar títulos.
+- La ventana de Actividad deja de aparecer vacía cuando existe historial de evolución disponible.
+
+CONSERVADO
+- netlify.toml sin cambios.
+- sw.js sin cambios.
+- Node 22 sin cambios.
+- Dependencias sin cambios.
+- Cloud, perfiles, sesiones y backups sin cambio de arquitectura.

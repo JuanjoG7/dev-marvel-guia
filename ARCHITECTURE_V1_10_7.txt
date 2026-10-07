@@ -1,0 +1,30 @@
+V1.10.7 Loki — Canonical state binding + single action gateway
+
+CAUSA RAÍZ CONFIRMADA
+La app base declara `const app = {...}`. Ese binding global no crea `window.app`. El core V1.10 estaba leyendo `window.app`, por lo que Ratings/Favorites y los selectors podían operar sobre un objeto distinto del estado real utilizado por la aplicación.
+
+SOLUCIÓN
+- `window.app = app` enlaza el mismo objeto vivo que usa la aplicación.
+- El core V1.10 se carga inline en index.html para que la ejecución local mediante content:// no dependa de un script externo.
+- El core verifica postcondiciones y devuelve booleanos reales.
+- V1.10.6 se elimina: ya no hay un propietario paralelo de estado de la ficha.
+- V99 queda como compatibilidad de render/sync; no escucha los clics de estado de la ficha.
+- V1.10.7 instala un único propietario de eventos para progreso, episodios, temporadas, ratings, favoritos y acciones equivalentes en ficha/tarjetas/páginas.
+- Se añade `TOGETHER_TOGGLE` al gateway.
+
+FLUJO CANÓNICO
+UI -> MarvelApp.dispatch -> dominio -> app.state -> persistencia -> render/sync
+
+PRUEBAS OBLIGATORIAS
+1. Card -> ficha: marcar Capitana Marvel como vista, abrir ficha y comprobar que aparece vista.
+2. Ficha Persona 1/Persona 2: activar/desactivar y verificar color inmediato.
+3. Rating: 8 -> 9 -> 9, color y texto.
+4. Favoritos: P1/P2 on/off y recarga.
+5. Eyes of Wakanda: capítulos y temporada sin afectar otros títulos.
+6. Timeline: película, capítulo y temporada.
+7. Página Valoraciones y valoración rápida.
+8. Recarga local.
+9. Netlify: Guardar en nube y comprobar recuperación en otro dispositivo.
+
+CRITERIO
+No se considera estable si card y ficha no muestran exactamente el mismo estado o existe cualquier acción duplicada.

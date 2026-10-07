@@ -1,0 +1,13 @@
+AUDITORÍA V1.13.27
+
+A) RECOMENDACIÓN → TARJETA
+La causa del desfase visual era que el flujo del hero utilizaba el dispatcher canónico con renderCatalog=false y dependía únicamente del evento global para repintar el catálogo. La versión nueva conserva la única mutación canónica y añade un refresco explícito y acotado del catálogo después de que la acción sea aceptada. Así, la tarjeta visible pasa a consumir inmediatamente el estado ya persistido.
+
+B) NETLIFY SECRET SCANNING
+El build fallaba porque el escáner detectaba el valor del secreto administrativo dentro de comentarios/documentación y en una referencia de código. La release elimina ese valor literal del repositorio; no desactiva ni omite el escaneo.
+
+C) PIN ROOT
+Se conserva la corrección V1.13.26: la migración histórica no sobrescribe el PIN actual al arrancar y el cambio de PIN se verifica tras persistirlo.
+
+D) NO TOCADO
+Progreso canónico, TMDB/posters, fichas, valoraciones, estadísticas, Timeline, logros, Cloud, perfiles, PWA y estilos generales.

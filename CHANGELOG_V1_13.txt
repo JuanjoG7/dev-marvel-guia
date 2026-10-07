@@ -1,0 +1,14 @@
+V1.13.1 · TMDB + caché
+
+- TMDB queda como única fuente remota.
+- Integración TMDB: búsqueda, detalles, créditos, aggregate credits, imágenes, IDs externos y temporadas/episodios.
+- Caché persistente en Netlify Blobs + caché local 30 días.
+- Póster real en la ficha cuando está disponible.
+- Backdrop como fondo visual sutil del encabezado.
+- Fotos reales de actores/personas cuando TMDB las proporciona.
+- Actor -> personaje preservado.
+- Duraciones de episodios enriquecidas cuando existen.
+- Datos adicionales de TMDB para países, idiomas, redes y productoras cuando están disponibles.
+- Fallback local sin bloqueo cuando TMDB no está disponible.
+- Atribución TMDB en ajustes/historial.
+- Se mantiene V1.12.4 visualmente como base: ficha completa abierta y sin acordeones.

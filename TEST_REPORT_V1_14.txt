@@ -1,0 +1,31 @@
+TEST REPORT — V1.14
+
+AUTOMATED / STATIC
+[x] HTML parseable
+[x] Duplicate IDs = 0
+[x] All executable inline scripts pass Node syntax check
+[x] Both Netlify Functions pass Node syntax check
+[x] package.json valid JSON
+[x] manifest.webmanifest valid JSON
+[x] Version surfaces aligned to 1.14.0
+[x] Service Worker cache namespace bumped to V1-14-0
+[x] Stale historical globals removed only when no internal consumers existed
+[x] TMDB/Cloud/progress core files unchanged except documented version metadata
+[x] No explicit secret-like literal found in source scan
+
+MANUAL / LIVE
+[ ] Deploy V1.14 to the production Netlify site
+[ ] Test Cloud recovery and manual save on production
+[ ] Test secondary-account Cloud deletion from root ADMIN
+[ ] Install PWA on Android
+[ ] Confirm app opens in standalone mode
+[ ] Update from the previous installed version to V1.14 and confirm old shell is replaced
+[ ] Disable network and test cached shell/catalog/ficha resources
+[ ] Re-enable network and confirm recovery without data loss
+[ ] Exercise recommendation -> card instant synchronization on Android without save/reload
+[ ] Switch profiles and confirm there is no data mixing
+[ ] Rename profile / change PIN and confirm cloud identity remains stable
+
+RESULT
+Static release gate: PASS.
+Production/device gate: pending manual validation after deployment.

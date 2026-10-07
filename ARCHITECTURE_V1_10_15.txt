@@ -1,0 +1,44 @@
+MARVEL · CAMINO AL MULTIVERSO
+V1.10.15 Loki · Refundación del núcleo
+
+BASE
+- V1.11.4 validada se conserva como base funcional.
+- La apariencia y el comportamiento existente se mantienen como contrato.
+
+FUENTE ÚNICA DE VERDAD
+- window.app.state: progreso/datos de títulos
+- window.app.meta: ajustes y metadatos de runtime
+- window.CATALOG: catálogo base y personalizado
+
+DOMINIOS
+Catalog · Progress · Episodes · Ratings · Achievements · Profile · Settings
+
+MOTOR DE PROGRESO
+MarvelProgressEngine es el único motor canónico para título, temporada y episodio.
+Las lecturas del motor usan snapshots puros; las mutaciones pasan por Store.commit/MarvelApp.dispatch.
+
+MUTACIÓN
+- Existe un único propietario público: window.mutate, apuntando a la implementación canónica de la transacción de V102 internalizada por Loki.
+- No se crean wrappers V100/V63 adicionales.
+- Store.commit suprime renders heredados y entrega la actualización de vistas a un coordinador único.
+- Las acciones de progreso están protegidas por guardIds.
+
+ACCIONES
+MarvelApp.dispatch() es el gateway único para progreso, episodios, temporadas, ratings, favoritos, juntos, ignorados, modos de catálogo/timeline y ajustes relevantes.
+
+EVENTOS
+- Un único propietario capture-phase intercepta los controles de estado antes de listeners históricos.
+- Un único propietario capture-phase de marvel:state-synced coordina la actualización de vistas.
+- Playback conserva su controlador separado porque guarda posición de reproducción, no progreso de títulos.
+
+SELECTORS
+Catalog, Episodes, Achievements, Settings y MarvelSelectorsV110 devuelven snapshots de solo lectura.
+
+NORMALIZACIÓN
+La normalización histórica V63 ya no se ejecuta después de cada acción. Solo se utiliza como migración/rehidratación explícita de estados externos.
+
+LEGACY
+V61/V63/V72/V89/V102/V115 permanecen temporalmente donde aportan UI/compatibilidad. Los controles de estado soportados por Loki ya no delegan su mutación a handlers históricos.
+
+NO CAMBIA
+Aspecto, layout, catálogo, progreso, Eyes of Wakanda, Spider-Noir, valoraciones, favoritos, logros, timeline, Cloud y perfiles/admin.

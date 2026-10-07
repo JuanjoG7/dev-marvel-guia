@@ -1,0 +1,25 @@
+V1.10.9 LOKI — IDENTIDAD GRÁFICA / PWA
+
+Objetivo
+- Sustituir el texto MARVEL de la marca visual superior por el nuevo icono personalizado de la aplicación.
+- Usar el mismo icono como identidad de navegador, PWA móvil y aplicación instalada en Windows.
+- Mantener intactos los estilos, layout y comportamiento funcionales existentes.
+
+Cambios
+- assets/mjj-app-logo.png: logo personalizado de Maratón Juanjo × María.
+- Cabecera: .brand-mark pasa a mostrar el logo, manteniendo Juanjo × María y Camino al Multiverso.
+- favicon PNG 16/32/48.
+- apple-touch-icon 180.
+- iconos PWA 150/192/256/384/512.
+- iconos maskable 192/512 para instalaciones PWA.
+- manifest actualizado con nombre de aplicación, iconos any/maskable y versión 1.10.9.
+- service worker actualizado con nueva caché e inclusión del logo/iconos.
+- meta title y título de aplicación móvil actualizados.
+
+Criterio de aceptación
+1. La cabecera no muestra el rectángulo de texto MARVEL: muestra el nuevo logo.
+2. El logo se ve correctamente en Android y escritorio.
+3. Al añadir la web a pantalla de inicio, aparece el nuevo icono.
+4. Al instalarla como PWA en Windows, el acceso usa el nuevo icono.
+5. El favicon del navegador usa el nuevo icono.
+6. No se modifica el estado/progreso/perfiles de la aplicación.

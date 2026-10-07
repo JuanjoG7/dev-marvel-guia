@@ -1,0 +1,40 @@
+STATIC VALIDATION — V1.14
+
+HTML/scripts
+- Script tags: 41
+- Executable inline script blocks: 40
+- Style blocks: 40
+- DOM id attributes: 145
+- Duplicate ids: 0
+
+Event system
+- addEventListener occurrences: 80
+- MutationObserver instances: 11
+- ResizeObserver instances: 0
+- IntersectionObserver instances: 0
+- marvel:state-synced listeners: 3 (retained intentionally because they belong to specialized detail/media owners plus the canonical view owner)
+
+Architecture checks
+- canonicalMutate present: yes
+- MarvelProgressEngine present: yes
+- MarvelSelectorsV110 present: yes
+- Public window.mutate points to canonical owner: checked statically through the owner wiring
+- High-confidence stale globals removed: 14
+- External core orphan is absent: yes
+
+Versioning
+- runtime/package/manifest: 1.14.0
+- visible history label: v1.14
+- Service Worker caches: V1-14-0
+- build base: 1.13.29
+
+Security/static package
+- No explicit secret-like literal detected in current source scan.
+- MARVEL_ROOT_ADMIN_TOKEN appears only as an environment-variable name / UI field, never as a value.
+
+Functions
+- netlify/functions/marvel-media.mjs: node --check PASS
+- netlify/functions/marvel-state.mjs: node --check PASS
+
+Limitations
+- No interactive browser/Android or live Netlify deploy access from this environment.

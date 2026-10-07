@@ -1,0 +1,13 @@
+V1.18.3 — CHECKLIST
+
+[x] Reproducir/identificar ReferenceError cloudSaving is not defined.
+[x] Confirmar que cloudSaving se declara dentro de un IIFE independiente.
+[x] Sustituir acceso directo por comprobación segura con typeof.
+[x] Mantener netlify.toml intacto.
+[x] Mantener Node 22 y dependencias de V1.15.5/V1.18.2.
+[x] Corregir versión visible del build a 1.18.3.
+[x] Corregir versión del módulo de copias Cloud a 1.18.3.
+[x] Validar sintaxis de todos los scripts inline.
+[x] Validar Functions.
+[x] Validar JSON package/manifest.
+[x] Validar integridad ZIP.

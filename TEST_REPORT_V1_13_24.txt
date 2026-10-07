@@ -1,0 +1,11 @@
+V1.13.24 · PRUEBAS ESTÁTICAS
+
+Feature: imagen personalizable de cabecera.
+- Campo de archivo en Personalización.
+- Vista previa.
+- Restauración de imagen original.
+- Persistencia en app.meta.settings.headerImage.
+- Export/import cubiertos por meta.
+- Ruta de asset existente reutilizada.
+
+Pendiente de esta versión: prueba interactiva en navegador real / deploy Netlify y validación manual Android.

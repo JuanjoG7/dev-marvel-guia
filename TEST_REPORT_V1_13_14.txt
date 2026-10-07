@@ -1,0 +1,34 @@
+V1.13.14 · VALIDACIÓN PROFUNDA
+
+1. Revisión estática del flujo de eventos:
+   - El listener primario comprobaba [data-person] antes de #nextEpisode.
+   - #nextEpisode llevaba data-person="both".
+   - person("both") normaliza a person1.
+   - Por tanto el click ejecutaba TITLE_PERSON sobre person1 antes de llegar al handler del hero.
+   - La acción correcta NEXT_EPISODE_BOTH no se ejecutaba.
+
+2. Reproducción automatizada con Chromium + Playwright:
+   - Estado de Eyes of Wakanda preparado con Juanjo 4/4 y María 0/4.
+   - Con V1.13.13, un click DOM sobre #nextEpisode dejó Juanjo en 0/4 y el candidato volvió a C1.
+   - Esto reproduce exactamente el síntoma descrito por el usuario.
+
+3. Corrección aplicada en V1.13.14:
+   - Los controles #next* se interceptan antes de [data-person].
+   - Se elimina data-person="both" del botón #nextEpisode.
+   - La acción llega a __MARVEL_HERO_ACTION_OWNER__ → MarvelApp.dispatch → NEXT_EPISODE_BOTH.
+
+4. Validación posterior con Chromium + Playwright:
+   - Se vuelve a ejecutar el mismo escenario tras la corrección.
+   - Se comprueba que C1 queda marcada para ambas personas y que el candidato cambia automáticamente a C2.
+   - Se comprueba que la acción no borra los capítulos ya vistos por Juanjo.
+   - Se comprueba el flujo de completar temporada y salto de temporada.
+   - Se comprueba que completar la última temporada deja la serie completa y permite continuar al siguiente título.
+
+5. Validación estática:
+   - Todos los scripts inline parsean correctamente.
+   - sw.js parsea correctamente.
+   - package.json y manifest.webmanifest son JSON válidos.
+   - Service Worker queda con caché V1-13-14.
+
+6. Nota:
+   - La prueba de navegador se hace sobre el HTML local; la validación de persistencia cloud y PWA se mantiene como comprobación de despliegue Netlify.

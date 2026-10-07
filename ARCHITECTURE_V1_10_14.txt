@@ -1,0 +1,32 @@
+MARVEL · CAMINO AL MULTIVERSO
+V1.10.14 Loki · Spider-Noir completo
+
+CAMBIO
+Se actualiza el título de catálogo Spider-Noir (id 110) para reflejar la temporada 1 completa.
+
+DATOS INCORPORADOS
+- Temporada 1: 8 capítulos.
+- Episodios:
+  1. Pasa a mi oficina
+  2. Actúa con cautela
+  3. Emboscada
+  4. Un error que no volveré a cometer
+  5. Traición
+  6. Pesadilla en una camilla
+  7. No soy un héroe
+  8. El hombre de la máscara
+- Duraciones según Prime Video España: 47, 43, 47, 49, 50, 43, 43 y 48 minutos.
+- Runtime total: 370 minutos.
+- Media: 46,25 minutos/capítulo.
+- Fecha de temporada para ordenación: 2026-05-25 (estreno MGM+).
+
+FUENTE DE VERIFICACIÓN EXTERNA
+Prime Video España muestra 8 episodios de la Temporada 1 y sus títulos en español. Los títulos y duraciones incorporados se basan en esa ficha oficial.
+
+PRUEBAS
+1. Spider-Noir aparece como serie de 8 capítulos.
+2. Temporada 1 contiene exactamente 8 episodios.
+3. episodeNames contiene exactamente los mismos 8 nombres y en el mismo orden.
+4. El catálogo no contiene el registro anterior de 6 episodios.
+5. El estado de progreso existente del título id 110 no se modifica por esta actualización de catálogo.
+6. JavaScript inline y ZIP deben superar las comprobaciones de sintaxis e integridad.

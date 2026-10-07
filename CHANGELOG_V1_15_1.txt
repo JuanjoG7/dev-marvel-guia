@@ -1,0 +1,28 @@
+V1.15.1 · GESTIÓN DE PERFILES, ELEVACIÓN ADMIN Y CIERRE DE SESIÓN
+
+OBJETIVO
+Corregir la gestión de cuentas desde perfiles USER y garantizar que Cerrar acceso/Cambiar de cuenta vuelvan realmente al selector de perfiles.
+
+CAMBIOS
+- Gestión de cuentas accesible desde cualquier perfil USER.
+- Cada perfil USER puede cambiar su propio PIN introduciendo el PIN actual.
+- Se añade elevación administrativa temporal mediante el mismo MARVEL_ROOT_ADMIN_TOKEN, sin sustituir la sesión USER.
+- La clave de administrador se introduce en un cuadro dentro de Gestionar cuentas, se valida en Netlify y no se guarda en LocalStorage ni sessionStorage.
+- La elevación usa cookie HttpOnly firmada y caduca a los 15 minutos; la rotación del token administrativo la invalida.
+- Con administración desbloqueada se puede crear, renombrar, restablecer PIN y eliminar perfiles USER no protegidos.
+- administrador1 × administrador2 es una identidad virtual fija y no editable/eliminable.
+- Juanjo × María queda protegido: no se puede renombrar, eliminar ni restablecer su PIN desde administración; su propia cuenta sí puede cambiar su PIN.
+- El administrador queda separado de Juanjo × María y no comparte estado Marvel de consumo.
+- Cerrar acceso/Cambiar de cuenta limpian la sesión local, eliminan recordatorios locales y revocan en servidor tanto la sesión normal como la elevación administrativa.
+- Se añade una marca de selector forzado para impedir que una recarga vuelva a entrar automáticamente después de cerrar acceso.
+- V1.15.1 conserva el estado Cloud, MarvelProgressEngine, sincronización inmediata, TMDB, PWA y catálogo.
+
+SEGURIDAD
+- No se añaden nuevos secretos de Netlify. Se mantienen los cuatro de V1.15.
+- No se guarda el token admin en el navegador.
+- Las operaciones sensibles siguen autorizándose server-side.
+- El cambio de PIN invalida las sesiones anteriores del perfil mediante sessionVersion.
+
+VALIDACIÓN
+- Sintaxis de Functions/core e inline JS: OK.
+- Test server-side de login, creación, cambio de PIN, elevación, permisos, protección Juanjo × María y logout: OK.

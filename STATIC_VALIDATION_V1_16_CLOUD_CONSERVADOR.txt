@@ -1,0 +1,16 @@
+Base exacta: V1.15.5
+
+netlify.toml: SIN CAMBIO
+sw.js: SIN CAMBIO
+netlify/functions/marvel-profile.mjs: SIN CAMBIO
+netlify/functions/marvel-media.mjs: SIN CAMBIO
+netlify/lib/profile-core.mjs: SIN CAMBIO
+Inline scripts: 43
+Inline syntax errors: 0
+HEAD endpoint present: True
+Build Node config unchanged: True
+package engines unchanged: True
+New cloud layer avoids idle health polling: true
+New cloud layer uses persisted per-profile queue: true
+New cloud layer uses retry backoff respecting nextAttemptAt: true
+

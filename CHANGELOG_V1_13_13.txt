@@ -1,0 +1,12 @@
+V1.13.13 · MÁQUINA DE ESTADOS DE «SIGUIENTE RECOMENDACIÓN»
+
+- Se rehace el flujo de la tarjeta superior para que una serie siempre determine el siguiente capítulo común a Juanjo y María dentro de la temporada mostrada.
+- «T1 · Capítulo N» marca exclusivamente ese capítulo para ambas personas; nunca todos los capítulos ni una sola persona.
+- Tras marcar un capítulo, la recomendación se vuelve a calcular desde el estado canónico y muestra automáticamente el siguiente capítulo.
+- Al completar todos los capítulos de una temporada, «Completar temporada» marca únicamente esa temporada para ambas personas y la recomendación salta automáticamente al primer capítulo de la siguiente temporada.
+- Al completar la última temporada, la serie pasa a estado completado y la recomendación continúa con el siguiente título.
+- «Ignorar» en una serie desde la recomendación pasa a usar SERIES_IGNORE_TOGGLE y sincroniza el check de ignorar de la tarjeta principal para toda la serie.
+- «Ir a la serie» conserva la apertura de ficha existente.
+- Las acciones del hero se delegan directamente al dispatch canónico; no existe una segunda ruta de mutación de progreso.
+- No se modifica el diseño visual de la tarjeta ni el comportamiento de scroll.
+- package.json, manifest.webmanifest y Service Worker pasan a V1.13.13.

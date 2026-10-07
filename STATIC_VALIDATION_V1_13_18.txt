@@ -1,0 +1,7 @@
+V1.13.18 static validation
+
+Inline scripts checked: 43
+Syntax errors: 0
+Legacy viewport listener markers: []
+Remaining scrollTo call sites: 4 (modal/navigation only; no action transaction/viewport lock)
+Index diff lines vs V1.13.14: 81

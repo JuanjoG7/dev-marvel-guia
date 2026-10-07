@@ -1,0 +1,55 @@
+AUDITORÍA V1.15 — IDENTIDAD CLOUD Y ADMINISTRACIÓN
+
+ARQUITECTURA
+- Directorio de usuarios: `marvel-marathon-profiles-v1`.
+- Estado Marvel existente: `marvel-marathon-accounts-v90`.
+- Autenticación: Function `marvel-profile` + cookie HttpOnly firmada.
+- Estado: Function `marvel-state`, autorización por sesión USER.
+- Admin: perfil virtual `marvel-admin-root`; token validado únicamente en servidor.
+
+MODELO DE IDENTIDAD
+- ADMIN visible: `administrador1 × administrador2`.
+- Juanjo × María: `jm-user`, USER normal, separado de ADMIN/root.
+- La autoridad para crear/eliminar perfiles se comprueba server-side por rol ADMIN.
+- Los campos enviados desde el navegador no pueden elevar una cuenta a ADMIN.
+
+SEGURIDAD
+- PIN nuevos: scrypt + pepper secreto server-side.
+- PIN migrados: PBKDF2 legado solo durante transición; upgrade a scrypt al primer login válido.
+- Session secret, profile pepper y PIN de bootstrap nunca se envían al cliente.
+- Cookie: HttpOnly + Secure + SameSite=Lax.
+- Bloqueo tras 5 PIN incorrectos durante 10 minutos.
+- Cambiar PIN incrementa `sessionVersion` y revoca las sesiones previas de ese usuario.
+- Rotar `MARVEL_ROOT_ADMIN_TOKEN` invalida sesiones ADMIN anteriores mediante huella del token.
+- El Service Worker no intercepta ni cachea `/api/marvel-profile` ni `/api/marvel-state`.
+- El endpoint de estado ignora cualquier `X-Marvel-Account-Key` enviado por el navegador y resuelve el estado desde la sesión autenticada.
+
+MIGRACIÓN
+- V1.14 puede enviar al servidor su verificador PBKDF2, snapshot local y cloudKey existente solo dentro de una sesión ADMIN.
+- Juanjo × María usa `MARVEL_JUANJO_MARIA_PIN` únicamente para bootstrap/preservación de la identidad Cloud V131.
+- Si existe la antigua identidad `juanjo-maria-root`, se remapea a `jm-user` como USER y se elimina el registro heredado ADMIN.
+- El bootstrap de Juanjo × María es de una sola inicialización y no reaparece tras un renombrado/borrado intencional.
+
+VALIDACIÓN AUTOMATIZADA REALIZADA EN ESTA ENTREGA
+- Test server smoke V1.15: PASS.
+- Test hardening admin-token rotation/bootstrap: PASS.
+- Test legacy root migration: PASS.
+- Syntax check de 40 scripts embebidos clásicos: PASS.
+- 1 script externo de metadata identificado; no se modifica como inline.
+- Syntax check de `marvel-profile.mjs`, `marvel-state.mjs`, `profile-core.mjs` y `sw.js`: PASS.
+- `package.json` y `manifest.webmanifest`: JSON válido.
+- Versionado package/manifest/runtime/SW: 1.15.0 / V1-15-0.
+- No hay asignaciones de secretos reales en el código.
+- ZIP final validado con `unzip -t`.
+
+VALIDACIÓN PENDIENTE DE PRODUCCIÓN
+- Configuración de las cuatro variables en Netlify.
+- Deploy live y entrada real como `administrador1 × administrador2`.
+- Migración de perfiles V1.14 desde el dispositivo que aún los contiene.
+- Creación de perfiles USER desde ADMIN.
+- Acceso al mismo USER desde segundo dispositivo con el mismo PIN.
+- Recuperación del mismo estado Cloud.
+- Prueba de eliminación, bloqueo PIN, cambio de PIN y PWA Android.
+
+NOTA
+No se ha hecho una instalación real de dependencias de Netlify en esta máquina ni una prueba interactiva contra el deploy de producción; esas validaciones quedan deliberadamente como live checks del usuario.

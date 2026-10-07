@@ -1,0 +1,26 @@
+TEST REPORT V1.13.7
+
+1. Sintaxis
+- sw.js: OK con node --check.
+- 41 scripts inline de index.html: OK con node --check individual.
+
+2. Mapeos exactos
+- Marvel One-Shots (id 100) -> TMDB 119569 / Marvel One-Shot: Item 47.
+- I Am Groot (id 106) -> TMDB 114469.
+- The Punisher: One Last Kill (id custom-1789485258455) -> TMDB 1657196.
+- Los 4 Fantásticos 1994 (id 90) -> TMDB 22059.
+
+3. Render
+- slot() de póster consulta primero la tabla exacta expuesta por la capa final.
+- Si existe mapeo exacto, la tarjeta recibe la URL TMDB antes de depender del caché asíncrono.
+- La misma capa exacta actualiza las fichas.
+
+4. Caché
+- POSTER_LS: v5.
+- IMAGE_CACHE/SERVICE WORKER: V1-13-7.
+- Esto evita que el navegador conserve la caché visual de versiones anteriores.
+
+5. Alcance
+- No se generan ni redibujan imágenes.
+- No se modifica el contenido de progreso, ratings, perfiles ni catálogo.
+- Solo se corrige la resolución/renderizado de pósteres.

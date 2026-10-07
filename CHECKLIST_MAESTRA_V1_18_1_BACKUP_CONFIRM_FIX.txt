@@ -1,0 +1,71 @@
+CHECKLIST V1.18 · BACKUP Y RECUPERACIÓN · CONSERVADOR
+
+BASE / DEPLOY
+[OK] Base tomada directamente de V1.17 conservadora.
+[OK] netlify.toml idéntico a V1.17 / V1.15.5.
+[OK] NODE_VERSION=22 mantenido.
+[OK] engines.node >=22.0.0 mantenido.
+[OK] @netlify/blobs 10.7.13 mantenido.
+[OK] Service Worker sin cambio.
+
+BACKUP LOCAL
+[OK] Nuevo formato versionado V1.18.
+[OK] SHA-256 sobre el payload sin el campo checksum.
+[OK] Perfil activo identificado públicamente sin secretos.
+[OK] PIN/cookies/tokens/hashes nunca incluidos en la exportación.
+[OK] Límite de tamaño de importación.
+[OK] Validación JSON/estructura antes de aplicar.
+[OK] Rechazo de copia V1.18 perteneciente a otro perfil.
+[OK] Compatibilidad con backup V83 previo.
+[OK] Restauración conservadora sobre el catálogo base de la release.
+[OK] Copia previa local + Undo antes de aplicar una importación.
+[OK] Importación local queda pendiente de guardar en Cloud.
+
+BACKUP CLOUD
+[OK] Function separada `marvel-backup`.
+[OK] Autenticación mediante sesión HttpOnly existente.
+[OK] Aislamiento por profileId server-side.
+[OK] Store dedicado `marvel-marathon-backups-v1`.
+[OK] Crear copia desde el estado Cloud actual.
+[OK] Listar copias del perfil activo.
+[OK] Restaurar solo copias del propio perfil.
+[OK] Crear copia `pre-restore` antes de restaurar.
+[OK] Eliminar copia individual.
+[OK] Retención máxima de 8 copias por perfil.
+[OK] Borrado de copias al eliminar un perfil.
+[OK] Restauración no cambia identidad/PIN.
+
+UI
+[OK] Nuevo acceso `Copias de seguridad Cloud` en Herramientas.
+[OK] Crear copia Cloud desde estado previamente sincronizado.
+[OK] Lista con fecha, tamaño y tipo de copia.
+[OK] Confirmación antes de restaurar/eliminar.
+[OK] Avisos de éxito/error sin revelar secretos.
+
+REGRESIÓN / NO TOCAR
+[OK] Motor de progreso no modificado.
+[OK] Catálogo base no sustituido por backups.
+[OK] Timeline no modificada.
+[OK] Valoraciones no modificadas.
+[OK] Estadísticas no modificadas.
+[OK] TMDB/posters no modificados.
+[OK] Sesiones V1.17 conservadas.
+[OK] Cloud V1.16 conservado.
+
+PENDIENTE DE PRODUCCIÓN
+[ ] Deploy real en Netlify.
+[ ] Verificar que el tiempo de build se mantiene en la línea V1.15.5/V1.17.
+[ ] Crear una copia Cloud real.
+[ ] Verificar listado desde otro dispositivo del mismo perfil.
+[ ] Restaurar una copia y confirmar recuperación completa.
+[ ] Verificar existencia de `pre-restore` después de restaurar.
+[ ] Probar exportación local e importación local.
+[ ] Probar checksum rechazando un archivo modificado.
+[ ] Probar backup de un perfil y rechazo desde otro perfil.
+[ ] Eliminar una cuenta de prueba y confirmar que sus copias Cloud desaparecen.
+[ ] Validar en Android/tablet.
+
+
+V1.18.3 — CORRECCIÓN FINAL DE ÁMBITO CLOUD
+- Corregida referencia a cloudSaving desde updateSave(): esa función vive fuera del IIFE donde se declara cloudSaving. Se usa una comprobación segura con typeof para evitar ReferenceError.
+- Corregido el identificador de versión mostrado por el marcador de build y por el módulo de copias Cloud.

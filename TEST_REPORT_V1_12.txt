@@ -1,0 +1,22 @@
+MARVEL · CAMINO AL MULTIVERSO
+V1.12 Loki · Fichas enriquecidas
+
+Inline scripts: 36 · syntax errors: 0
+core/marvel-core-v1.10.js: OK
+netlify/functions/marvel-state.mjs: OK
+sw.js: OK
+Catalog records: 124 · local cast coverage: 124/124
+V1.12 marker present: YES
+V1.12 diagnostics present: YES
+Admin token literal in package HTML: 0 (credential value not included in report)
+Service worker cache: maraton-marvel-shell-V1-12-2
+poster fallback: OK
+synopsis reader / existing no-spoiler synopsis: OK
+metadata section: OK
+people/person-character: OK
+animation voices: OK
+season summary: OK
+no second state: OK
+release marker: OK
+Non-script/non-V112 CSS/HTML parity with V1.10.15 base: DIFF (expected docs/markers may differ)
+Runtime browser smoke test: not executed in this build container because the managed Chromium instance blocks local/data URLs; prior V1.10.15 runtime audit remains the base integration validation.

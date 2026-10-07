@@ -1,0 +1,16 @@
+V1.18.1 · CORRECCIÓN DE CONFIRMACIÓN CLOUD DEL BACKUP
+
+BASE
+- V1.18 Backup y recuperación conservadora.
+- Sin cambios en NODE_VERSION, engines, dependencias, netlify.toml ni Service Worker.
+
+CORRECCIÓN
+- El botón «Crear copia ahora» interpretaba como fallo un guardado Cloud correcto porque el coordinador V1.16/V1.10 devuelve {ok, cloud} y no necesariamente boolean true.
+- Ahora se considera confirmado el guardado cuando el resultado es `true` o `result.cloud === true`.
+- Se aplica la misma corrección a la restauración Cloud, evitando falsos bloqueos.
+- Si Cloud realmente falla, se muestra el error disponible en lugar del mensaje genérico.
+
+NO CAMBIA
+- Lógica de guardado Cloud existente.
+- Sesiones, perfiles, progreso, catálogo, Timeline, valoraciones, estadísticas.
+- Build/deploy y variables de Netlify.

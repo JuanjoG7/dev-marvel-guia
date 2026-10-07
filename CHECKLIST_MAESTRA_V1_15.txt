@@ -1,0 +1,62 @@
+CHECKLIST MAESTRA — V1.15
+
+BASELINE
+[x] V1.14 estable y funcional
+[x] Núcleo de progreso y sincronización inmediata conservados
+
+IDENTIDAD CLOUD
+[x] Directorio server-side de perfiles
+[x] Perfil administrador virtual `administrador1 × administrador2`
+[x] `MARVEL_ROOT_ADMIN_TOKEN` único para acceso admin
+[x] Juanjo × María separado de ADMIN/root
+[x] PIN no almacenado como PIN claro en cliente
+[x] PIN nuevos con scrypt + `MARVEL_PROFILE_PEPPER`
+[x] Cookie de sesión HttpOnly + Secure + SameSite=Lax
+[x] Crear perfil solo ADMIN
+[x] Eliminar perfil solo ADMIN
+[x] Renombrar/cambiar PIN validado server-side
+[x] Lockout básico de PIN fallido
+[x] `marvel-state` autorizado por sesión, no por cloudKey enviado por cliente
+[x] Migración de perfiles locales V1.14
+[x] Bootstrap de Juanjo × María mediante secreto `MARVEL_JUANJO_MARIA_PIN`
+[x] Perfil ADMIN virtual separado de Juanjo × María con nombre `administrador1 × administrador2`
+[x] El administrador es la única identidad autorizada para crear/eliminar perfiles
+[x] PIN histórico de Juanjo × María ya no está embebido en el frontend
+[x] Service Worker excluye endpoints de identidad y estado de la caché
+[x] Rotación de `MARVEL_ROOT_ADMIN_TOKEN` invalida sesiones ADMIN anteriores
+[x] Bootstrap de Juanjo × María es de una sola inicialización y no reaparece tras un renombrado/borrado intencional
+[x] Identidad del perfil ya no depende de LocalStorage como fuente de verdad
+[x] Estado Cloud existente se conserva en `marvel-marathon-accounts-v90`
+[x] Administrador no puede eliminarse y no posee estado Marvel de consumo
+
+NETLIFY — DEBE CONFIGURAR EL USUARIO
+[ ] Mantener `MARVEL_ROOT_ADMIN_TOKEN` actual
+[ ] Crear `MARVEL_SESSION_SECRET` como secret value, scope Functions, Production
+[ ] Crear `MARVEL_PROFILE_PEPPER` como secret value, scope Functions, Production
+[ ] Crear `MARVEL_JUANJO_MARIA_PIN` con el PIN actual de Juanjo × María, secret value, scope Functions, Production
+[ ] Hacer nuevo deploy después de crear/modificar variables
+
+PRUEBAS LIVE OBLIGATORIAS
+[ ] Entrar como `administrador1 × administrador2` con el token existente
+[ ] Migrar los perfiles locales de la V1.14 desde el dispositivo que los conserva
+[ ] Confirmar Juanjo × María como USER no admin
+[ ] Crear un perfil nuevo desde ADMIN
+[ ] Ver el perfil nuevo desde otro dispositivo
+[ ] Entrar desde otro dispositivo con su PIN
+[ ] Confirmar que recupera el mismo estado cloud
+[ ] El usuario normal no puede crear ni eliminar perfiles
+[ ] ADMIN puede eliminar usuario y se elimina su estado cloud
+[ ] ADMIN no puede eliminarse desde la aplicación
+[ ] PIN incorrecto 5 veces activa bloqueo temporal
+[ ] Cambio de PIN invalida sesiones antiguas
+[ ] Juanjo × María mantiene su estado Cloud V131
+[ ] Guardar/cargar Marvel sigue igual
+[ ] PWA Android mantiene instalación/actualización/offline esperado
+
+PERFILES CONOCIDOS
+[ ] Desde ADMIN crear los demás perfiles de uso real que queramos conservar (ej. Antonio × Alba), asignando su PIN en ese momento
+
+CIERRE
+[ ] Confirmar deploy live completo
+[ ] Confirmar migración y acceso cross-device
+[ ] Cerrar V1.15 como baseline de identidad

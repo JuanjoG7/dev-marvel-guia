@@ -1,0 +1,28 @@
+V1.19.6 — TEST REPORT
+
+Base: maraton-marvel-MYJJ-V1.19.5-TRAILERS-TMDB-YOUTUBE.zip
+
+Pruebas estáticas realizadas:
+- node --check netlify/functions/marvel-media.mjs: PASS
+- 45 bloques <script> inline de index.html parseados con node --check: PASS
+- balance de etiquetas script/style en index.html: PASS
+- cache local versionada para vídeos oficiales: PASS
+- cache server-side versionada de multimedia: PASS
+- temporadas TMDB consultadas con videos incluidos: PASS
+- filtro de reproducción: YouTube + official=true + Trailer/Teaser: PASS
+- exclusión defensiva de nombres asociados a IA/fan-edit/concept/fake/reaction/parody/etc.: PASS
+- selección prioriza es → en → otros y Trailer → Teaser dentro de la misma prioridad: PASS
+- interfaz con un único iframe y lista completa seleccionable: PASS
+- subtítulos preferidos en español para vídeos en inglés mediante parámetros de YouTube: PASS
+- refuerzos oficiales actuales de Doomsday y Endgame Encore presentes: PASS
+- sin cambios en netlify.toml: PASS
+- sin nuevas dependencias: PASS
+
+Cobertura de catálogo auditada desde el build:
+- 124 títulos en CATALOG.
+- La capa de medios se aplica genéricamente a cualquier ficha abierta; no está limitada a IDs concretos.
+- Las series con varias temporadas reciben vídeos separados por temporada cuando TMDB los devuelve.
+
+Limitación:
+- Este entorno no dispone de TMDB_API_READ_ACCESS_TOKEN ni ejecución contra Netlify desplegado; por tanto no se puede verificar aquí la respuesta dinámica de TMDB de los 124 títulos ni comprobar su contenido real en producción.
+- Los vídeos recientes de Doomsday y Endgame Encore añadidos manualmente fueron comprobados contra publicaciones verificadas de Marvel España / Marvel Entertainment.

@@ -1,0 +1,14 @@
+VALIDACIÓN ESTÁTICA V1.15.3
+
+- package.json version: 1.15.3
+- manifest.webmanifest version: 1.15.3
+- index.html build version: 1.15.3
+- Service Worker shell: V1-15-3
+- Service Worker image cache: V1-15-3
+- Image proxy URLs: `mv=1153`
+- Netlify media cache: `image:<sha256(raw-url)>`
+- Netlify media cache schema: v1
+- Netlify media max value size: 5 MiB
+- Old Service Worker image bytes are deleted, not migrated.
+- Marvel One-Shots canonical map: 5/5.
+- Loki exact poster map: present.

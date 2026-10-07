@@ -1,0 +1,67 @@
+TEST REPORT · V1.20.0
+======================
+
+ESTADO DE RELEASE
+-----------------
+V1.20.0 implementada sobre V1.19.9.
+V1.19.9 fue dada por buena manualmente por el usuario en el entorno DEV.
+V1.19.8 permanece fuera de esta línea de trabajo y no se modifica.
+
+PASSED — VALIDACIÓN ESTÁTICA
+----------------------------
+1. package.json = 1.20.0.
+2. manifest.webmanifest = 1.20.0.
+3. __MARVEL_BUILD_VERSION__ = 1.20.0.
+4. __MARVEL_BUILD_BASE__ = 1.19.9.
+5. 45/45 bloques JavaScript inline pasan node --check.
+6. sw.js pasa node --check.
+7. 4/4 funciones Netlify .mjs pasan node --check.
+8. Balance HTML script/style correcto.
+9. Las 21 acciones del menú de V1.19.9 siguen presentes en V1.20.0.
+10. El botón de copias Cloud v1.18 sigue presente.
+11. La navegación V1.20 no usa scrollIntoView.
+12. Los recursos básicos responden 200 desde servidor HTTP local.
+
+PASSES DE INTEGRIDAD DEL CAMBIO
+-------------------------------
+- Selector Normal/Editar añadido.
+- Menú dividido en seis categorías sin eliminar herramientas.
+- Navegación interna de ficha añadida.
+- Volver arriba añadido.
+- Reserva inferior segura añadida.
+- Modales adaptativos añadidos.
+- Observadores V1.20 limitados mediante requestAnimationFrame para evitar
+  trabajo repetitivo excesivo durante enriquecimientos o repintados.
+
+NO CAMBIADO DELIBERADAMENTE
+---------------------------
+- Motor de progreso.
+- Episodios/temporadas.
+- Valoraciones/favoritos.
+- Timeline/estadísticas/logros.
+- Cloud y reintentos de V1.19.8.
+- TMDB, multimedia, tráileres/teasers.
+- Datos del catálogo.
+
+NO VALIDADO AUTOMÁTICAMENTE
+---------------------------
+El smoke test headless local no finalizó dentro del límite del entorno de
+herramientas, por lo que no se utiliza como evidencia de funcionamiento.
+La validación visual/funcional final debe hacerse sobre la nueva URL DEV.
+
+CHECKLIST DE PROMOCIÓN
+----------------------
+[ ] Ficha: navegación interna.
+[ ] Ficha: temporadas/personajes/valoración/reproducción/tráileres.
+[ ] Volver arriba.
+[ ] Normal/Editar + persistencia.
+[ ] Menú categorizado.
+[ ] Modales desktop/tablet/Android.
+[ ] Footer y barra inferior.
+[ ] Regresión de progreso/valoraciones/favoritos/Timeline/estadísticas/logros.
+[ ] Guardado/carga Cloud y backups.
+[ ] Prueba maestra completa.
+
+REGLA
+-----
+La release no se considera cerrada hasta que la batería manual quede completada.

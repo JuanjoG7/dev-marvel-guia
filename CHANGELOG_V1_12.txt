@@ -1,0 +1,23 @@
+MARVEL · CAMINO AL MULTIVERSO — V1.12 Loki · Fichas enriquecidas
+
+HECHO
+[x] Póster/fallback visual local determinista en la ficha.
+[x] Sinopsis reutilizando la fuente local existente, sin duplicar el bloque de sinopsis base.
+[x] Metadatos: tipo, saga, año, duración, orden original, mega cronología, Tierra/realidad, posición en saga, contenido episódico.
+[x] Progreso, valoraciones y favoritos siguen siendo los controles del núcleo Loki.
+[x] Resumen de temporadas y episodios con progreso por persona.
+[x] Reparto/personajes y relación actor → personaje.
+[x] Animación etiquetada como voces y personajes.
+[x] Avatar local estable para cada persona del reparto.
+[x] Búsqueda por actor y personaje sin crear un segundo estado.
+[x] Películas, series, animación, especiales y cortos tratados con variante de ficha.
+[x] Historial de versiones actualizado.
+[x] Service Worker cache bumped a V1-12-0.
+[x] MARVEL_ROOT_ADMIN_TOKEN no se incrusta en el paquete.
+
+RESERVADO A V1.13
+- Fotografías/URLs externas de personas.
+- Posters externos oficiales.
+- IDs TMDB.
+- Caché de fuentes externas.
+- Atribuciones de proveedores.

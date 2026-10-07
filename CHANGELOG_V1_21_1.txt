@@ -1,0 +1,12 @@
+V1.21.1 · AJUSTE DE DENSIDAD DEL INICIO
+
+CAMBIOS APLICADOS
+- El dashboard mantiene la información funcional de V1.21.0, pero elimina dos duplicidades detectadas en la revisión visual: el bloque inferior repetido de siguiente logro y el bloque inferior repetido de tiempo restante.
+- El tiempo restante queda representado dentro de CAMINO A DOOMSDAY, junto con días y ritmo orientativo.
+- El siguiente logro queda representado una sola vez en el lateral de CONTINUAR MARATÓN, con progreso y acceso a logros.
+- Se compactan espaciados y paddings del dashboard.
+- En anchos móviles de la captura de DEV se mantiene CAMINO A DOOMSDAY y PRÓXIMO HITO lado a lado para reducir scroll vertical.
+- No se modifica la lógica de progreso, favoritos, actividad, estadísticas, Timeline, Cloud ni catálogo.
+
+VALIDACIÓN MANUAL RECIBIDA
+- Favoritos confirmados por el usuario como funcionales en DEV.

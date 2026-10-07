@@ -1,0 +1,20 @@
+V1.15.3 · MULTIMEDIA PERSISTENTE Y POSTERS CANÓNICOS
+
+Objetivo
+- Evitar que una imagen incorrecta almacenada por un Service Worker anterior pueda reaparecer aunque la URL TMDB sea correcta.
+- Mantener las imágenes TMDB disponibles de forma persistente en Netlify, sin depender exclusivamente de la caché de cada dispositivo.
+- Unificar Marvel One-Shots y fijar Loki a un cartel inequívoco de Loki.
+
+Cambios
+- `marvel-media` ahora guarda los bytes de las imágenes TMDB solicitadas en el store persistente de Netlify Blobs, con clave SHA-256 de la URL de origen y metadata de tipo MIME.
+- Se mantiene la caché local del navegador como segunda capa de rendimiento, pero ya no es la fuente de persistencia principal de la imagen.
+- Se añade `mv=1153` a las URLs del proxy de imágenes para invalidar URLs contaminadas de releases anteriores.
+- El Service Worker V1.15.3 inicia una caché de imágenes limpia y elimina las cachés de imágenes anteriores en lugar de migrar sus bytes.
+- Marvel One-Shots deja de consultar una colección TMDB genérica. Su portada principal usa el cartel canónico de `The Consultant`, el primer corto.
+- Los cinco capítulos de Marvel One-Shots usan carteles canónicos por corto y los muestran también en las filas de episodios.
+- Loki (`id=29`, TMDB 84958) queda fijada a un cartel TMDB específico de Loki para tarjeta, ficha y recomendaciones.
+- Las capas de ficha enriquecida respetan el cartel exacto cuando existe, evitando carreras entre TMDB y el mapa canónico.
+
+Sin cambios funcionales
+- No se modifica el motor de progreso, recomendaciones, valoraciones, Timeline, estadísticas, perfiles, autenticación ni permisos.
+- No se añaden nuevas variables de entorno.

@@ -1,0 +1,52 @@
+V1.17 · ADMINISTRACIÓN Y SESIONES · BASE CONSERVADORA
+
+BASE
+- V1.17 se construye directamente sobre la V1.16 Cloud robusto conservador, que a su vez conserva el entorno de build de V1.15.5.
+- No se cambia el pipeline de deploy, Node, dependencias, Service Worker ni el motor de estado/progreso.
+
+OBJETIVO
+Convertir Gestión de cuentas en un panel más claro y añadir control server-side de sesiones sin rehacer la arquitectura de perfiles ni alterar la publicación rápida de V1.15.5.
+
+CAMBIOS AÑADIDOS
+- Tipos de cuenta visibles en el selector: ADMIN, USER protegido (Juanjo × María) y USER normal.
+- Último acceso visible para perfiles USER en el selector, sin mostrar IDs técnicos.
+- Gestión de cuentas con identificación explícita del tipo de cuenta, Cloud/última sincronización y último acceso cuando están disponibles.
+- Botón de sesiones para administración autorizada.
+- Registro server-side de sesiones por perfil usando Netlify Blobs existente.
+- Cada sesión conserva identificador, creación, último acceso, expiración, indicador de recordatorio y tipo de dispositivo aproximado.
+- Administración puede consultar sesiones activas de un perfil.
+- Administración puede revocar una sesión concreta.
+- Administración puede cerrar todas las sesiones de un perfil; en su propia cuenta conserva la sesión desde la que está operando.
+- Los perfiles USER soportan varias sesiones simultáneas entre dispositivos.
+- El cambio de PIN incrementa sessionVersion, revoca sesiones anteriores y reautentica la sesión actual del propio usuario.
+- El logout revoca server-side la sesión actual antes de limpiar el acceso local.
+- Las cookies siguen siendo HttpOnly; el token ADMIN no se guarda en LocalStorage/sessionStorage.
+- Mantiene la elevación temporal de administración ya existente y sus permisos server-side.
+- Se conserva la protección server-side de las cuentas fija ADMIN y Juanjo × María.
+- Se conserva la cola Cloud y observabilidad introducidas en V1.16 conservadora.
+
+CAMBIOS DE BUILD: NINGUNO
+- NODE_VERSION sigue en 22.
+- engines.node sigue en >=22.0.0.
+- build command sigue siendo npm install --omit=dev.
+- @netlify/blobs sigue en 10.7.13.
+- netlify.toml se conserva idéntico a V1.15.5.
+- sw.js se conserva idéntico a V1.15.5.
+
+ARCHIVOS MODIFICADOS FRENTE A V1.16 CONSERVADORA
+- index.html
+- manifest.webmanifest (solo versión)
+- netlify/functions/marvel-profile.mjs
+- netlify/lib/profile-core.mjs
+- package.json (solo versión)
+
+NO TOCADO
+- netlify.toml
+- sw.js
+- netlify/functions/marvel-state.mjs
+- netlify/functions/marvel-media.mjs
+- motores de progreso y catálogo
+- Timeline, valoraciones, estadísticas y TMDB
+
+PRINCIPIO DE CONSERVACIÓN
+V1.17 añade administración de sesiones alrededor del sistema de perfiles existente. No sustituye el almacenamiento de perfiles, no crea una aplicación paralela y no introduce un segundo motor de identidad en cliente.

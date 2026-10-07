@@ -1,0 +1,23 @@
+V1.20.0 · CHECKLIST DE SALIDA
+
+[x] package.json = 1.20.0.
+[x] manifest.webmanifest = 1.20.0.
+[x] build marker = 1.20.0 / base 1.19.9.
+[x] sw.js = shell V1-20-0.
+[x] Historial visible incluye V1.20.0.
+[x] Los seis grupos del menú contienen todas las herramientas anteriores.
+[ ] Normal oculta controles administrativos del catálogo. (MANUAL)
+[ ] Editar muestra controles administrativos del catálogo. (MANUAL)
+[ ] Cambio Normal/Edit se conserva tras recargar. (MANUAL)
+[ ] Navegación de ficha funciona dentro de modal. (MANUAL)
+[ ] Personajes aparece solo cuando existe la sección enriquecida. (MANUAL)
+[ ] Reproducción aparece solo cuando existe. (MANUAL)
+[ ] Tráilers aparece cuando existe la lista multimedia. (MANUAL)
+[ ] Volver arriba no desplaza la página subyacente al estar en ficha. (MANUAL)
+[ ] Footer/barra inferior no tapa el último contenido. (MANUAL)
+[ ] Modales pequeños no ocupan innecesariamente todo el viewport en escritorio/tablet. (MANUAL)
+[ ] Modales largos hacen scroll interno. (MANUAL)
+[ ] Sin cambios de estado al navegar/scroll. (MANUAL)
+[ ] Progreso, valoraciones, favoritos y Timeline siguen funcionando. (MANUAL)
+[ ] Cloud sigue usando el comportamiento de V1.19.8. (MANUAL)
+[ ] Prueba maestra de regresión completada manualmente. (MANUAL)

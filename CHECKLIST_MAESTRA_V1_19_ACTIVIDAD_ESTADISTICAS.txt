@@ -1,0 +1,17 @@
+V1.19 · ACTIVIDAD + ESTADÍSTICAS AVANZADAS
+[x] Base V1.18.3
+[x] Build/runtime conservado
+[x] Registro activityEvents
+[x] Límite 240 y deduplicación temporal
+[x] Persistencia dentro de app.meta por perfil
+[x] activityLog antiguo conservado
+[x] Filtros 7/30/90/todo
+[x] Eventos / días activos / títulos afectados
+[x] Racha actual
+[x] Ritmo de completado
+[x] Tipos de actividad
+[x] Actividad reciente
+[x] Acceso desde Menú
+[x] package/manifest 1.19.0
+[ ] Prueba de deploy real en Netlify
+[ ] Prueba Android/multidispositivo

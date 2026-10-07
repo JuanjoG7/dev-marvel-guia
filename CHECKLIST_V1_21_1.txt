@@ -1,0 +1,12 @@
+V1.21.1 · CHECKLIST MANUAL
+
+1. Inicio carga sin errores.
+2. CONTINUAR MARATÓN sigue llevando al título/capítulo correcto.
+3. CAMINO A DOOMSDAY muestra días, tiempo pendiente y ritmo.
+4. PRÓXIMO HITO aparece una sola vez y abre Logros.
+5. Favoritos siguen mostrando Juanjo / María / En común correctamente.
+6. Actividad reciente coincide con activityEvents.
+7. Películas / Series / Capítulos / Sin valorar siguen coincidiendo con el estado real.
+8. No hay botones cortados ni overflow horizontal en Android.
+9. El dashboard ocupa menos altura que V1.21.0 en móvil.
+10. Regresión completa: progreso → tarjeta → ficha → valoraciones → estadísticas → Timeline → Cloud.

@@ -1,0 +1,58 @@
+CHECKLIST V1.17 · ADMINISTRACIÓN Y SESIONES · CONSERVADOR
+
+BASE / DEPLOY
+[OK] Base tomada de V1.16 Cloud robusta conservadora.
+[OK] V1.16 conservadora mantiene la cadena de build de V1.15.5.
+[OK] netlify.toml idéntico a V1.15.5.
+[OK] NODE_VERSION=22 mantenido.
+[OK] engines.node >=22.0.0 mantenido.
+[OK] @netlify/blobs 10.7.13 mantenido.
+[OK] Service Worker mantenido sin cambio.
+
+ADMINISTRACIÓN
+[OK] ADMIN fijo: administrador1 × administrador2.
+[OK] ADMIN no eliminable.
+[OK] Juanjo × María permanece fijo y no renombrable/no eliminable desde ADMIN.
+[OK] Usuario normal puede modificar su propia identidad mediante la ruta existente.
+[OK] Usuario normal cambia su PIN con el PIN actual.
+[OK] Elevación temporal de ADMIN existente sigue siendo la vía para operaciones sobre terceros.
+[OK] Clave ADMIN no se guarda en LocalStorage/sessionStorage.
+[OK] IDs técnicos y secretos no se muestran al usuario normal.
+[OK] Selector muestra tipo de cuenta y último acceso de USER.
+[OK] Gestión de cuentas muestra tipo, Cloud/última sincronización y último acceso cuando están disponibles.
+
+SESIONES SERVER-SIDE
+[OK] Store dedicado de sesiones en Netlify Blobs.
+[OK] Una sesión obtiene un sid aleatorio independiente.
+[OK] Sesión registrada al login ADMIN y USER.
+[OK] Sesiones legacy sin registro se adoptan de forma compatible al primer uso.
+[OK] Sesión revocada deja de autenticar server-side.
+[OK] Sesión caducada deja de autenticar server-side.
+[OK] Varias sesiones simultáneas por USER.
+[OK] Lista de sesiones con identificador, fechas, expiración y dispositivo aproximado.
+[OK] Revocación individual desde ADMIN.
+[OK] Cierre de todas las sesiones desde ADMIN.
+[OK] En propia cuenta ADMIN, cierre masivo conserva la sesión actual.
+[OK] Cambio de PIN incrementa sessionVersion y revoca sesiones anteriores.
+[OK] Cambio de PIN del usuario actual reautentica la sesión actual con nuevo sid.
+[OK] Logout revoca la sesión actual antes de limpiar cookies.
+
+REGRESIÓN / NO TOCAR
+[OK] Motor de progreso no modificado por V1.17.
+[OK] Catálogo no modificado por V1.17.
+[OK] Timeline no modificada por V1.17.
+[OK] Valoraciones no modificadas por V1.17.
+[OK] Estadísticas no modificadas por V1.17.
+[OK] TMDB/posters no modificados por V1.17.
+[OK] Capa Cloud de V1.16 conservadora conservada.
+
+PENDIENTE DE PRODUCCIÓN
+[ ] Deploy real en Netlify.
+[ ] Comparar tiempo real de build con V1.15.5.
+[ ] Login USER desde dos dispositivos/navegadores y comprobar ambas sesiones.
+[ ] Revocar una sesión y verificar 401 en el dispositivo revocado.
+[ ] Cerrar todas las sesiones de un USER y comprobar invalidación.
+[ ] Cambiar PIN y comprobar invalidación de sesiones previas.
+[ ] Verificar selector/gestor desde Android/tablet.
+[ ] Comprobar que Cambiar de cuenta y Cerrar acceso vuelven al selector sin auto-login accidental.
+[ ] Validar Cloud y perfiles en producción.

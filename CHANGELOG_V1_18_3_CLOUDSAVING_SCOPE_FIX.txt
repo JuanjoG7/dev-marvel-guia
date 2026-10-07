@@ -1,0 +1,17 @@
+V1.18.3 — CORRECCIÓN CLOUD / ÁMBITO DE cloudSaving
+
+PROBLEMA
+- Crear copia Cloud terminaba en “cloudSaving is not defined”.
+- La causa era una referencia directa a cloudSaving dentro de updateSave(), que pertenece a otro ámbito de script/IIFE distinto del que declara esa variable.
+
+CORRECCIÓN
+- updateSave() usa ahora una comprobación segura con typeof para leer el estado ocupado sin lanzar ReferenceError.
+- Se mantiene intacta la implementación Cloud existente.
+- Corregidos los marcadores de versión que todavía mostraban 1.17.0/1.18.1.
+
+CONSERVACIÓN
+- netlify.toml sin cambios.
+- Node 22 sin cambios.
+- Dependencias sin cambios.
+- Service Worker sin cambios.
+- Sin nuevas variables de Netlify.

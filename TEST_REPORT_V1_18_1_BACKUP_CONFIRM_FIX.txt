@@ -1,0 +1,32 @@
+V1.18.1 · TEST REPORT · CORRECCIÓN CONFIRMACIÓN CLOUD
+
+1. Hallazgo reproducible por lectura del flujo
+- V1.18 llamaba a window.__marvelProfileSave() desde «Crear copia ahora».
+- El coordinador conservador de guardado (V1.10.10/V1.16) devuelve un objeto {ok:true, cloud:true} cuando Cloud se confirma, no necesariamente el booleano true.
+- V1.18 comparaba estrictamente saved !== true.
+- Resultado: un guardado Cloud correcto podía continuar internamente pero la interfaz rechazaba la creación de la copia con el mensaje «Primero debe quedar confirmado el guardado Cloud actual».
+
+2. Corrección aplicada
+- Se acepta saved === true o saved.cloud === true como confirmación Cloud.
+- Se aplica la misma corrección al flujo de restauración Cloud.
+- Cuando no hay confirmación, se muestra el error disponible en el resultado si existe.
+
+3. Guardrails
+- netlify.toml: idéntico a V1.18.
+- sw.js: idéntico a V1.18.
+- netlify/lib/profile-core.mjs: idéntico a V1.18.
+- NODE_VERSION: sin cambios.
+- engines: sin cambios.
+- dependencias: sin cambios.
+
+4. Validación estática
+- package.json: JSON válido.
+- manifest.webmanifest: JSON válido.
+- Functions/Library .mjs: node --check PASS.
+- 44 scripts inline: node --check PASS.
+
+5. Validación funcional dirigida
+- Caso result=true: aceptado.
+- Caso result={ok:true,cloud:true}: aceptado.
+- Caso cloud=false: rechazado y deja el estado local intacto.
+- Flujo de restauración usa la misma regla.

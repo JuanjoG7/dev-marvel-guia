@@ -1,0 +1,47 @@
+MARVEL JUANJO × MARÍA · V1.13.3
+TMDB · POSTERS EXACTOS · PRELOAD · FICHA CINEMATOGRÁFICA
+
+BASE
+- V1.13.2 TMDB-only.
+- Se conservan los pósters/mapeos existentes de los títulos no afectados.
+
+CORRECCIONES DE TÍTULOS
+- 28 WandaVision → TMDB TV 85271
+- 94 Los 4 Fantásticos (2005) → TMDB movie 9738
+- 106 I Am Groot → TMDB TV 114469
+- 116 Jessica Jones → TMDB TV 38472
+- 121 Inhumans → TMDB TV 68716
+- 123 Cloak & Dagger → TMDB TV 66190
+- 124 Legion → TMDB TV 67195
+- 126 Hit-Monkey → TMDB TV 133903
+- 127 M.O.D.O.K. → TMDB TV 111312
+- 128 Helstrom → TMDB TV 88987
+- custom-1789485258455 The Punisher: One Last Kill → TMDB movie 1657196
+- 100 Marvel One-Shots → búsqueda de colección TMDB; no se inventa un ID si TMDB no ofrece un agregado actual.
+
+FICHA
+- El póster de la ficha usa contain para mostrar el cartel completo.
+- El hueco del póster se ensancha ligeramente en tablet/móvil.
+- El backdrop TMDB se usa como fondo translúcido de toda la ficha, además del hero.
+- La ficha continúa completamente abierta, sin acordeones.
+
+TARJETAS
+- Las áreas de emoji/icono de tarjetas de títulos se sustituyen por mini-pósters TMDB.
+- Inicio/catálogo y tarjetas unificadas mantienen su estructura y acciones.
+- Ratings y timeline reciben el mismo componente visual.
+- El emoji permanece únicamente como fallback si no existe imagen disponible.
+
+CACHÉ Y MÓVIL
+- Nueva caché local de pósters V1-13-3.
+- Migración de la caché local V1-13-2 para títulos no afectados.
+- La caché del Service Worker de imágenes se migra sin perder imágenes ya descargadas.
+- Los títulos reparados se invalidan y fuerzan una descarga canónica una sola vez.
+- El catálogo completo (124 títulos) se precarga inmediatamente con concurrencia limitada de 5.
+- El precargado no bloquea el arranque de la interfaz.
+- Las imágenes pasan por /api/marvel-media para quedar en same-origin y CacheStorage.
+
+SEGURIDAD
+- No se incrustan secretos.
+- TMDB continúa usando exclusivamente TMDB_API_READ_ACCESS_TOKEN.
+- MARVEL_ROOT_ADMIN_TOKEN permanece externo a los archivos.
+- No existe integración Trakt.

@@ -1,0 +1,17 @@
+V1.15.5 · POSTERS CANÓNICOS COMPARTIDOS
+
+Objetivo
+Unificar la misma portada TMDB entre ficha, tarjetas individuales del catálogo, Timeline y Valoraciones, evitando que cada superficie dependa de una caché distinta.
+
+Cambios
+- La ficha TMDB publica su posterUrl canónico al motor compartido de posters.
+- El motor de tarjetas/timeline/valoraciones reutiliza primero ese poster canónico.
+- Todos los títulos pueden hidratar su poster desde el mismo endpoint `/api/marvel-media?action=poster`.
+- Si ese endpoint falla, se usa como respaldo el mismo endpoint `/api/marvel-media?action=enrich` que alimenta la ficha.
+- La hidratación se limita con pool e inflight para no duplicar peticiones.
+- Nueva caché de cliente `marvel-v1155-poster-cache-v1` y caché de imágenes Service Worker `V1-15-5`.
+- Las imágenes siguen pasando por `/api/marvel-media?action=image` y su persistencia server-side en Netlify Blobs.
+- Se corrige el caso en que la ficha tenía portada y las superficies de catálogo seguían mostrando solo emoji.
+
+Sin cambios
+- Progreso, acciones, tarjetas, Timeline, valoraciones, estadísticas, perfiles, Cloud y administración.

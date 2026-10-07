@@ -1,0 +1,16 @@
+V1.22.1 · TEST REPORT
+
+ESTÁTICO
+- package.json/manifest: versión 1.22.1
+- build marker: 1.22.1
+- bloque JS nuevo aislado
+- no se modifica el motor de progreso
+
+MANUAL PENDIENTE EN DEV
+1. Verificar que desaparece el bloque amarillo.
+2. Verificar que solo queda una ruta visual de tres puntos en la cabecera.
+3. Confirmar Último visto, Actual y Siguiente con el estado real.
+4. Pulsar Continuar en Actual y comprobar actualización de toda la aplicación.
+5. Abrir ficha desde Último/Siguiente.
+6. Comprobar móvil, tablet y escritorio.
+7. Regresión: progreso, favoritos, valoraciones, Timeline, estadísticas y Cloud.

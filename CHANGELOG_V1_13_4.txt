@@ -1,0 +1,10 @@
+MARVEL JUANJO × MARÍA · V1.13.5
+
+Ajuste visual de pósters solicitado:
+- La columna del mini-póster de las tarjetas pasa a ser sensiblemente más ancha.
+- El mini-póster ocupa toda la altura útil de la zona superior de la tarjeta y llega al borde inferior antes de las acciones.
+- Se usa object-fit: contain para conservar la portada completa y evitar recortes.
+- La zona de información derecha se estrecha proporcionalmente.
+- La ficha de título mantiene una portada más ancha y el panel de información ajustado.
+- Sin cambios de estado, acciones, TMDB, caché o lógica funcional.
+- Service Worker actualizado a V1-13-4.

@@ -1,0 +1,21 @@
+CHECKLIST MAESTRA V1.15.4
+
+[x] V1.15.3 multimedia persistente
+[x] Separación de perfiles Cloud y ADMIN
+[x] PIN server-side y sesiones HttpOnly
+[x] Estado Cloud explícito: unknown / online / offline
+[x] Perfil Cloud vacío tratado como caso válido
+[x] Bootstrap acepta coordinador {ok, cloud}
+[x] Sin fallback global que convierta false en «Nube no disponible»
+[x] Errores locales no se presentan como caída de Cloud
+[x] package.json / manifest / runtime = 1.15.4
+[x] Service Worker = V1-15-4
+[x] Validación sintáctica y empaquetado
+
+PENDIENTE DE PRUEBA EN PRODUCCIÓN
+[ ] Login real de un perfil
+[ ] Guardado real en Cloud
+[ ] Carga real desde Cloud en segundo dispositivo
+[ ] Confirmar que el indicador muestra «Nube conectada» y no el aviso antiguo
+[ ] Probar perfil nuevo vacío y primer guardado
+[ ] Probar caída real de Cloud y verificar aviso de desconexión

@@ -1,0 +1,30 @@
+AUDITORÍA V1.13.25 — POSTER DE SIGUIENTE RECOMENDACIÓN
+
+BASE
+V1.13.24 confirmada funcionalmente por el usuario.
+
+CAMBIO
+El renderer de “Siguiente recomendación” ya no busca una coincidencia de cache mediante el texto del título ni realiza una llamada directa a la API con el título sin ID TMDB bloqueado.
+
+Ahora:
+1. Se respeta el mapa de posters exactos existente, igual que tarjetas/fichas.
+2. Si no hay override exacto, se delega en __MARVEL_V1133_POSTER_API__.refresh(id,false).
+3. Ese motor reutiliza la misma cache y el mismo LOCKED_IDS que usan las tarjetas.
+4. Al no existir búsqueda ambigua por substring del título, “Thor” no puede resolverse accidentalmente al One-Shot “Algo divertido sucedió de camino al martillo de Thor” por una coincidencia textual.
+
+VALIDACIONES
+- 41 scripts inline comprobados con node --check: OK
+- Functions .mjs comprobadas con node --check: OK
+- package.json: OK
+- manifest.webmanifest: OK
+- Referencias al API erróneo __MARVEL_V113_POSTER_API__: 0
+- Búsqueda titleNeedle del renderer activo: 0
+- Patrón directo de URLSearchParams de recomendación: 0
+- Llamada canónica a __MARVEL_V1133_POSTER_API__.refresh(id,false): presente en los dos renderers históricos, incluido el renderer activo
+- Thor tiene locked TMDB id 10195 en LOCKED_IDS
+
+NO TOCADO
+Progreso, acciones, recomendaciones, valoraciones, estadísticas, Timeline, fichas, TMDB general, Cloud, perfiles, PWA y CSS funcional.
+
+PRUEBA DE PRODUCCIÓN
+No se ejecutó una prueba automatizada contra Netlify desde este entorno. La confirmación de funcionamiento real queda para la prueba del usuario tras desplegar la versión.

@@ -1,0 +1,12 @@
+V1.13.12 · VALIDACIÓN
+
+1. index.html validado con Node vm.Script: 0 errores de sintaxis.
+2. sw.js validado con Node vm.Script.
+3. El propietario primario intercepta #nextInfo/#nextEpisode/#nextCompleteSeason/#nextBoth/#nextIgnore y delega a __MARVEL_HERO_ACTION_OWNER__.
+4. heroBridgeAction() queda expuesto antes de que puedan producirse clics de usuario.
+5. No existen dos implementaciones de progreso para los botones del hero: el fallback legacy solo vuelve a llamar al mismo puente.
+6. El episodio usa data-episode + data-person; una recomendación sin contexto personal utiliza «both» como acción conjunta.
+7. Completar temporada y título usan el mismo Progress Engine canónico.
+8. El puente emite un único marvel:state-synced tras una acción de cambio, activando el refresco central de Catálogo/Hero/Ficha/Timeline/Valoraciones/Estadísticas/Logros.
+9. Se mantiene el bloqueo/estabilidad del viewport de V1.13.11.
+10. package.json, manifest.webmanifest y Service Worker quedan sincronizados en 1.13.12.

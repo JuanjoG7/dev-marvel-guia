@@ -1,0 +1,37 @@
+MARVEL JUANJO Y MARIA · V1.10.12
+CARGA CLOUD AUTOMÁTICA UNIFICADA
+
+OBJETIVO
+La sincronización automática al recargar, entrar con PIN o recuperar una sesión recordada debe hacer la misma operación que el botón «Cargar desde perfil».
+
+CAUSA LOCALIZADA
+Existían dos rutas:
+- Manual: window.__marvelProfileLoad -> cloudManualLoad().
+- Automática: cloudSessionSync -> capas/wrappers históricos.
+
+La ruta automática podía terminar sin aplicar el estado remoto y, en algunos casos, caer en la lógica de creación/guardado local. El botón manual sí llegaba directamente al cargador fiable.
+
+SOLUCIÓN
+- cloudManualLoad() sigue siendo el único cargador real.
+- __marvelProfileLoad sigue apuntando a cloudManualLoad.
+- __marvelCloudSessionSync apunta ahora a un coordinador que llama directamente a __marvelProfileLoad({sessionSync:true, notify:false}).
+- El arranque hace hasta 3 intentos con timeout para absorber carreras de carga/adaptador/red.
+- notify:false evita toasts durante el arranque; no cambia la operación de datos.
+- Si el estado local se modifica mientras llega la nube, sessionSync conserva esos cambios locales, como protección contra pisarlos.
+- Si existe un guardado cloud en curso, cloudManualLoad espera a que termine en lugar de devolver false inmediatamente.
+
+FLUJOS
+PIN -> enterAccount -> init -> __marvelCloudSessionSync -> __marvelProfileLoad -> cloudManualLoad -> GET -> normalizeRemote -> applyCloudState -> persistencia local.
+RECORDARME -> enterAccount -> init -> mismo flujo.
+RECARGA -> mismo flujo después de cargar la copia local.
+BOTÓN «CARGAR DESDE PERFIL» -> __marvelProfileLoad -> cloudManualLoad.
+
+PRUEBAS OBLIGATORIAS
+1. Modificar progreso/valoración en dispositivo A y pulsar Guardar en perfil.
+2. Recargar A: el estado remoto debe reaparecer automáticamente.
+3. Cerrar sesión/entrar con PIN: debe recuperar automáticamente el mismo estado.
+4. Activar Recordarme, cerrar/reabrir: debe recuperar automáticamente el mismo estado.
+5. Dispositivo B: entrar con el mismo perfil y PIN; debe recibir el estado cloud.
+6. Botón Cargar desde perfil debe producir el mismo estado que la carga automática.
+7. Si la nube está temporalmente caída, la app no puede bloquearse ni perder el estado local.
+8. Si el usuario modifica algo mientras se ejecuta la carga automática, esos cambios locales no deben ser pisados.

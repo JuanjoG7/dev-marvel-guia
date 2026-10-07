@@ -1,0 +1,14 @@
+V1.13.29 · PROYECCIÓN INMEDIATA DEL ESTADO EN TARJETAS
+
+Problema:
+Las acciones realizadas desde “Siguiente recomendación” modificaban el estado interno, pero la tarjeta equivalente del catálogo podía conservar visualmente el estado anterior hasta guardar y recargar.
+
+Corrección:
+- El estado canónico sigue siendo la única fuente de verdad.
+- Después de cada `canonicalMutate`, el estado afectado se proyecta sobre las tarjetas ya presentes en el DOM.
+- La proyección se realiza después de un posible render completo del catálogo.
+- El Hero fuerza además una proyección dirigida en el siguiente frame.
+- Se actualizan botones de persona, botones de temporada, botones de episodio, ignorado y las pastillas/estados visuales.
+- Todo se hace in-place para no introducir scroll ni reconstrucciones adicionales.
+
+No se modifica el motor de progreso ni se crea un segundo sistema de estado.

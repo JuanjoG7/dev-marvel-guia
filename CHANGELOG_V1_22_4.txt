@@ -1,0 +1,9 @@
+V1.22.4 — CONTINUAR VIENDO · AMBOS
+
+- Añadido «🟠 Ambos viendo» en CONTINUAR VIENDO de la ficha.
+- Si ambos tienen una posición activa idéntica, la ficha muestra una única posición compartida.
+- En una ficha sin posiciones de reproducción y con ambos pendientes, se ofrece activar «Ambos viendo · usar una sola posición» para iniciar con un único tiempo.
+- Guardar/borrar desde la posición compartida aplica la misma acción a person1 y person2.
+- «Separar posiciones» desactiva el modo compartido sin borrar los tiempos ya guardados.
+- `watchTogether` es independiente de `together` (Visto juntos).
+- No se modifica Cloud, favoritos, Timeline, estadísticas ni el motor canónico de progreso.

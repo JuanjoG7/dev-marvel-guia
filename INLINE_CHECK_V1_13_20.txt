@@ -1,0 +1,2 @@
+Inline scripts checked with node --check: 41
+All PASS

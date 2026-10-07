@@ -1,0 +1,21 @@
+V1.13.12 · ARQUITECTURA DE BOTONES DEL HERO
+
+CLICK HERO
+  ↓
+V1.10.15 PRIMARY EVENT OWNER
+  ↓
+__MARVEL_HERO_ACTION_OWNER__
+  ↓
+heroBridgeAction()
+  ├── episodio exacto/persona exacta → Progress Engine
+  ├── sin contexto personal → acción conjunta (both)
+  ├── temporada → completeSeasonBoth()
+  ├── título → setTitlePerson()
+  ├── ir → openTitle()
+  └── ignorar → estado de recomendación
+  ↓
+marvel:state-synced
+  ↓
+Catálogo + Hero + Ficha + Timeline + Valoraciones + Estadísticas + Logros
+
+Regla: el hero no mantiene un estado propio y no dispara clicks sintéticos sobre tarjetas DOM.

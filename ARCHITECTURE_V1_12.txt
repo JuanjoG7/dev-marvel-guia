@@ -1,0 +1,33 @@
+MARVEL · CAMINO AL MULTIVERSO
+V1.12 Loki · Fichas enriquecidas
+
+OBJETIVO
+- Enriquecer la ficha sin cambiar el aspecto general ni introducir un segundo sistema de estado.
+
+FUENTE DE DATOS
+- Catalog: window.MarvelApp.catalog / window.CATALOG
+- Progress: window.MarvelApp.progress
+- Episodes: window.MarvelApp.episodes
+- Ratings: window.MarvelApp.ratings
+- Profile: window.MarvelApp.profile
+- Settings: window.MarvelApp.settings
+- Reparto/personajes local: MARVEL_CAST heredado de V89 y consolidado sin mutar el estado.
+
+FICHA
+- Póster: fallback local SVG generado de forma determinista si no existe r.poster/r.posterUrl/r.image.
+- Sinopsis: lee synopsisFor() del catálogo actual; no se escribe de vuelta al estado.
+- Metadatos: tipo, saga, año, duración, orden original, mega cronología, Tierra/realidad, posición en saga, contenido episódico.
+- Progreso/valoraciones/favoritos: únicamente selectors/API del núcleo Loki.
+- Temporadas/episodios: estructura de Episodes + Progress por titleId + episodio.
+- Personas: actor/voz → personaje, avatar local de iniciales y búsqueda por actor/personaje como interacción de vista.
+
+TIPOS
+- Película, serie, animación, especial y corto tienen etiquetas/estilos específicos.
+- Las series muestran temporadas/episodios; la animación etiqueta el reparto como voces.
+
+EXTERNO
+- No se añade TMDB en V1.12. IDs, fotografías externas, caché y atribuciones pertenecen a V1.13.
+
+INTEGRIDAD
+- La ficha no crea ni guarda un segundo estado.
+- El render es idempotente: al refrescar elimina su propia capa V1.12 y vuelve a pintarla desde los selectors actuales.

@@ -1,0 +1,15 @@
+V1.13.18 — Backport seguro desde V1.13.14
+
+Base funcional: V1.13.14 (última versión confirmada con interacción correcta).
+
+Objetivo único: eliminar el micro-scroll sin modificar el sistema de acciones/progreso que funcionaba en V1.13.14.
+
+Cambios runtime:
+- eliminado el restore de scroll dentro de canonicalMutate;
+- retirado el legacy viewport-lock pointerdown/focusin/pointerup;
+- no se añade ningún nuevo handler que cancele clicks;
+- no se modifica la ruta de dispatch, Progress Engine, hero bridge ni listeners de interacción de V1.13.14.
+
+Metadatos:
+- manifest 1.13.18;
+- caches del Service Worker 1.13.18.

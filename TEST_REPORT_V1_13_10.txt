@@ -1,0 +1,12 @@
+V1.13.10 · VALIDACIÓN
+
+1. index.html validado con Node vm.Script: 0 errores de sintaxis.
+2. sw.js validado con Node vm.Script: 0 errores de sintaxis.
+3. El botón de episodio del hero porta id, persona y episodio exactos.
+4. El puente localiza la tarjeta origen y dispara su botón [data-ep-person] correspondiente.
+5. Cuando la recomendación es «Ambos», el segundo click se programa contra una tarjeta recién renderizada para evitar referencias DOM obsoletas.
+6. Completar temporada delega en [data-season-complete].
+7. Completar título delega en [data-person] de Juanjo y María.
+8. Ir a delega en [data-tl-open].
+9. Ignorar delega en [data-season-ignore], [data-series-ignore] o [data-rec-ignore] según el tipo.
+10. Si la tarjeta no está disponible, se usa fallback al Progress Engine sin crear un segundo estado.

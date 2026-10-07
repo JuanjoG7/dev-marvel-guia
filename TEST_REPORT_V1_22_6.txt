@@ -1,0 +1,18 @@
+V1.22.6 · STATIC / LOGIC TEST REPORT
+
+Base verificada: V1.22.5 uploaded ZIP
+
+STATIC
+- HTML script/style balance: pending after runtime smoke; run below.
+- Canonical global API marker present.
+- Existing ficha playback owner preserved.
+
+LOGIC CASES
+1. Movie, both same position -> one Both group.
+2. Movie, different positions -> two person rows in same title card.
+3. Movie, watchTogether=true + one active position -> Both group.
+4. Series, same episode + same position -> one Both group.
+5. Series, same episode + different position -> separate.
+6. Completed item -> excluded.
+7. Completed episode -> excluded.
+8. No resume position -> excluded.

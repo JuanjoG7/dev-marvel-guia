@@ -1,0 +1,24 @@
+V1.19.3 — TEST REPORT
+
+1. Corrección causal
+- Se eliminó el wrapper V1.19.1 de Store.commit.
+- Se verificó que no quedan referencias `Store.__v119ActivityWrapped` ni `activity fallback`.
+- Se verificó que la llamada Store.commit vuelve a apuntar directamente a canonicalMutation.
+
+2. Sintaxis
+- 45 bloques inline JS: pendiente de ejecución automatizada en navegador; comprobación Node realizada con extracción de scripts.
+- Functions: comprobadas con node --check.
+- package.json / manifest: JSON válido.
+
+3. Entorno deploy
+- netlify.toml idéntico a V1.19.2.
+- sw.js idéntico a V1.19.2.
+- Node 22 y dependencia @netlify/blobs 10.7.13 sin cambios.
+
+4. Riesgo de regresión
+- No se toca ningún listener general de click.
+- No se toca canonicalMutation salvo conservar el hook V1.19 ya existente.
+- No se añade ninguna dependencia ni Function nueva.
+
+5. Limitación
+- La verificación de interacción real en producción depende del deploy de Netlify y del navegador/dispositivo del usuario.

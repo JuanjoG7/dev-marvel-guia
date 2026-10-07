@@ -1,0 +1,11 @@
+TEST REPORT · V1.13.1
+- Inline JS scripts checked: 38 · errors: 0
+- marvel-media.mjs syntax: OK
+- sw.js syntax: OK
+- Remote multimedia source: TMDB only
+- No second-provider environment variable is present.
+- API host from second provider occurrences: 0
+- Admin credential literal occurrences: 0
+- TMDB token values embedded: 0 (value is read only from Netlify environment)
+- Local fallback: preserved
+- Client/server cache: preserved

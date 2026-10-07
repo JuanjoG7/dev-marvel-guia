@@ -1,0 +1,39 @@
+MARVEL · CAMINO AL MULTIVERSO
+V1.10 Loki · Refundación del núcleo
+
+FUENTE ÚNICA DE VERDAD
+- El estado canónico sigue siendo window.app.* para no duplicar ni perder datos.
+- core/marvel-core-v1.10.js expone un Store tipado sobre ese estado; no crea una segunda copia persistente.
+
+DOMINIOS
+Catalog / Progress / Episodes / Ratings / Achievements / Profile / Settings
+
+FLUJO
+APP STATE → DOMAIN → PROGRESS ENGINE / ACTION GATEWAY → SELECTORS → VIEWS
+
+ACCIONES
+Las nuevas funcionalidades deben entrar por MarvelApp.dispatch() o por el gateway Store.commit(), que utiliza el único motor de mutación canónico ya existente.
+
+COMPATIBILIDAD
+Las APIs históricas siguen presentes temporalmente como adaptadores para no romper la interfaz. En V1.10 se desactiva la competencia de V115 sobre progreso, valoraciones, favoritos y acciones del héroe; V115 queda como controlador de reproducción.
+
+SELECTORS
+MarvelApp.selectors y window.MarvelSelectorsV110 son de solo lectura y no deben modificar estado.
+
+SIGUIENTE FASE
+Migrar progresivamente las vistas y handlers restantes al nuevo gateway y retirar los adaptadores legacy cuando ya no haya consumidores.
+
+
+V1.10.1 FIX
+- Corregida la navegación entre vistas para que ratingsView no permanezca visible al abrir Timeline u otra sección.
+- No se modifica el contenido ni el orden de ninguna de las tres timelines; solo se corrige el aislamiento visual de las vistas.
+
+
+V1.10.2 LOKI · MIGRACIÓN DEL GATEWAY
+- Progreso de títulos, capítulos, temporadas y acciones de “ambos” entra por MarvelApp.dispatch().
+- Valoraciones utilizan RatingsEngine y las acciones RATING_SET / RATING_CLEAR.
+- Favoritos utilizan FavoritesEngine y FAVORITE_TOGGLE.
+- Los handlers activos de catálogo, ficha, Timeline, recomendación y Valoraciones ya no escriben directamente ratingJ/ratingM/favoriteJ/favoriteM ni invocan directamente los mutadores de progreso.
+- MarvelProgressEngine sigue siendo el único motor de progreso.
+- V115 queda como compatibilidad de reproducción; sus antiguos caminos de progreso fueron redirigidos al gateway.
+- Siguiente fase: migrar acciones secundarias de estado (ignorados, together, configuración, catálogo personalizado) y retirar adaptadores legacy cuando no existan consumidores.

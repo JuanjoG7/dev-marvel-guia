@@ -1,0 +1,33 @@
+AUDITORÍA V1.14 — CIERRE TÉCNICO
+
+OBJETIVO
+Cerrar el bloque de saneamiento sin convertirlo en una refundación de arquitectura. La V1.13.29 continúa siendo la baseline funcional.
+
+LIMPIEZA REALIZADA
+- Retiradas 14 exposiciones/variables globales demostrablemente sin consumidores internos.
+- No se eliminan APIs diagnósticas especializadas ni compatibilidad utilizada.
+- No se modifica el motor de progreso ni el propietario canónico de acciones.
+- Se conserva la proyección inmediata de tarjetas de V1.13.29.
+
+AUDITORÍA DE EVENTOS/OBSERVERS
+- No se elimina ningún listener u observer del runtime V1.13.29 por falta de evidencia suficiente.
+- Los listeners de state-synced especializados y el propietario canónico se conservan por funciones distintas.
+- Los observers existentes se conservan porque corrigen/enriquecen DOM dinámico o soportan componentes concretos.
+
+DEPENDENCIAS
+- El alias público de mutate sigue apuntando al canonicalMutate.
+- MarvelProgressEngine y MarvelSelectors siguen presentes.
+- Las compatibilidades V102/V115 se mantienen donde tienen consumidores.
+- Las funciones Netlify siguen presentes y con sintaxis válida.
+AISLAMIENTO DE PERFILES
+- makeLS/account namespace se conserva como mecanismo de separación local.
+- cloudKey estable por perfil se conserva.
+- No se modifica el flujo de entrada/cambio de cuenta en esta release.
+VERSIONADO
+- package.json: 1.14.0
+- manifest.webmanifest: 1.14.0
+- runtime build: 1.14.0
+- SW shell/image: V1-14-0
+- build base: 1.13.29
+LIMITACIÓN
+No se dispone de navegador interactivo ni de acceso de despliegue Netlify desde este entorno; por tanto, instalación/actualización/offline Android y validación live Cloud quedan como comprobaciones manuales del usuario tras desplegar el ZIP.

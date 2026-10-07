@@ -1,0 +1,32 @@
+AUDITORÍA V1.17 · ADMINISTRACIÓN Y SESIONES · CONSERVADOR
+
+1. ALCANCE
+V1.17 toma V1.16 Cloud conservadora como base directa. El objetivo es completar administración y sesiones sin alterar el pipeline de deploy de V1.15.5.
+
+2. CAMBIOS DE CÓDIGO
+- index.html: UI de cuentas, último acceso, sesiones y diálogo de gestión de sesiones; versiones de superficie.
+- netlify/functions/marvel-profile.mjs: creación/registro/revocación/listado de sesiones y sincronización de sessionVersion con cambio de PIN.
+- netlify/lib/profile-core.mjs: store de sesiones, claves, metadatos, validación/revocación y compatibilidad con cookies legacy.
+- manifest.webmanifest/package.json: versión 1.17.0.
+
+3. PRESERVACIÓN CRÍTICA
+- netlify.toml idéntico a V1.15.5.
+- sw.js idéntico a V1.15.5.
+- Node y dependencias idénticos a V1.15.5.
+- marvel-state y marvel-media no modificados en V1.17.
+
+4. SEGURIDAD
+- Sesión server-side con sid aleatorio.
+- Revocación server-side.
+- sessionVersion invalidado al cambiar PIN.
+- Clave ADMIN nunca persistida por el cliente.
+- No se exponen tokens, PIN, hashes ni cookies en el panel normal.
+
+5. RIESGO CONTROLADO
+El único objetivo nuevo es administración/sesiones. No se modifica el motor de progreso, catálogo, Timeline, valoraciones, estadísticas ni TMDB.
+
+6. ESTADO
+- Validación estática: realizada.
+- Integración local simulada de sesiones: realizada.
+- Netlify producción: pendiente.
+- Android/cross-device: pendiente.

@@ -1,0 +1,10 @@
+V1.13.12 · BOTONES DE RECOMENDACIÓN REALMENTE UNIFICADOS
+
+- Los controles «Siguiente recomendación» pasan a tener un único propietario de eventos.
+- Se activa correctamente el puente canónico heroBridgeAction(), que ya estaba preparado pero podía quedar eclipsado por el capturador primario.
+- Episodio recomendado: ejecuta exactamente el episodio y la persona que muestra el hero; cuando no existe contexto personal porque es una «Siguiente recomendación» nueva, la acción conjunta marca el episodio para ambas personas.
+- «Completar temporada», «Completar título», «Ir a» e «Ignorar» pasan por el mismo puente del hero.
+- Tras una acción del hero se fuerza un state-sync que vuelve a pintar Catálogo, Hero, Ficha, Timeline, Valoraciones, Estadísticas y Logros desde el estado canónico.
+- El fallback legacy de eventos queda reducido a una llamada al mismo puente, sin una segunda implementación de progreso.
+- No se modifica el diseño ni el tamaño de los botones.
+- Service Worker/cachés pasan a V1.13.12.

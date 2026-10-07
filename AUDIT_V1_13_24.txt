@@ -1,0 +1,8 @@
+V1.13.24 · AUDITORÍA
+
+Cambio aislado a UI/personalización de cabecera.
+No se altera el Progress Engine ni los propietarios canónicos de acciones.
+La imagen personalizada se almacena en settings; el estado de progreso permanece separado.
+El default sigue usando assets/marvel-multiverse-logo.webp, actualizado con la imagen proporcionada por el usuario.
+
+Regla: la imagen puede sustituirse o restaurarse sin tocar catálogo ni progreso.

@@ -1,0 +1,4 @@
+V1.21.1 · BUILD SUMMARY
+Base: V1.21.0
+Objetivo: compactar el dashboard de Inicio después de revisión real en Android DEV.
+Status: STATIC VALIDATION PENDING EXECUTION

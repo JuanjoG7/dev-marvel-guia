@@ -1,0 +1,23 @@
+V1.19.9 · ESTABILIZACIÓN Y COHERENCIA DE RELEASE
+
+Base directa: V1.19.8-CLOUD-ROBUSTO.
+
+CAMBIOS APLICADOS
+- package.json: versión 1.19.9.
+- manifest.webmanifest: versión 1.19.9.
+- index.html: __MARVEL_BUILD_VERSION__ actualizado a 1.19.9.
+- index.html: __MARVEL_BUILD_BASE__ pasa a 1.19.8 para identificar esta release como derivada directamente de la base estable.
+- Historial visible: añadido V1.19.9 como punto de control técnico.
+- sw.js: nueva caché de shell V1-19-9 para evitar reutilizar el shell de V1.19.8 después de una actualización.
+- Se añade documentación de hoja de ruta, checklist y pruebas.
+
+INTENCIONADAMENTE NO CAMBIADO
+- Motor de progreso y reglas de capítulos/temporadas.
+- Valoraciones, favoritos, Timeline, estadísticas y logros.
+- Netlify Blobs y lógica de reintento Cloud de V1.19.8.
+- Integración TMDB, tráileres/teasers oficiales y proxy multimedia.
+- Catálogo, fichas y composición visual, salvo la nueva entrada de historial.
+- Dependencias y netlify.toml.
+
+NOTA
+Los literales VERSION internos pertenecientes a módulos históricos (por ejemplo backup/recovery 1.18.3, Cloud 1.16.0 y multimedia 1.19.6/1.19.7) no se han renombrado porque identifican el módulo/contrato histórico y no la release global. Cambiarlos sin necesidad aumentaría el riesgo y no aporta funcionalidad.

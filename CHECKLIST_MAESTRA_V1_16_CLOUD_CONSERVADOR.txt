@@ -1,0 +1,26 @@
+CHECKLIST V1.16 · CLOUD ROBUSTO CONSERVADOR
+
+BASE
+[OK] Base tomada directamente de V1.15.5-POSTERS-CANONICOS.
+[OK] netlify.toml mantenido igual a V1.15.5.
+[OK] Node 22 mantenido.
+[OK] package dependency @netlify/blobs 10.7.13 mantenida.
+[OK] Service Worker mantenido.
+
+CLOUD
+[OK] Cola pendiente separada por perfil.
+[OK] Reintentos persistentes con backoff.
+[OK] Reintento al recuperar conectividad.
+[OK] Health check autenticado HEAD.
+[OK] Última sincronización por perfil.
+[OK] Diagnóstico sin secretos.
+[OK] La ruta de guardado existente sigue siendo la propietaria real.
+[OK] La ruta de carga existente sigue siendo la propietaria real.
+
+PENDIENTE DE PRODUCCIÓN
+[ ] Probar en Netlify que el tiempo de build sigue el patrón de V1.15.5.
+[ ] Provocar fallo de red y verificar que el cambio queda en cola.
+[ ] Recuperar red y verificar sincronización automática.
+[ ] Recargar con cola pendiente y verificar persistencia.
+[ ] Cambiar de perfil y comprobar aislamiento de colas/metadatos.
+[ ] Verificar manualmente GET/PUT/HEAD de marvel-state en entorno desplegado.

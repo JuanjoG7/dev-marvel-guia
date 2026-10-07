@@ -1,0 +1,6 @@
+V1.22.5 - FIX AMBOS VIENDO
+
+Correccion: el guard de eventos de V1.22.4 bloqueaba los botones data-pb-shared-start y data-pb-separate antes de llegar al manejador. Se incluyen ahora como acciones permitidas del propietario de eventos.
+
+Pruebas estaticas: estructura de index.html conservada; correccion localizada; sin cambios en motor de progreso, Cloud, favoritos o Timeline.
+Prueba manual pendiente: activar Ambos viendo en pelicula/serie y comprobar render compartido.

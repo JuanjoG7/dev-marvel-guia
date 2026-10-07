@@ -1,0 +1,21 @@
+V1.21.0 · INICIO + MARATÓN
+
+CAMBIOS APLICADOS
+- Se añade un dashboard derivado en Inicio antes del selector de catálogo.
+- CONTINUAR MARATÓN usa la recomendación canónica existente y ejecuta el dispatch existente para completar el siguiente capítulo o título.
+- Se añaden contadores de películas pendientes, series/episódicos pendientes y capítulos no completados por ambos.
+- Se añaden títulos sin valorar.
+- Se añaden favoritas de Persona 1, Persona 2 y en común.
+- Se reutiliza app.meta.activityEvents para actividad reciente; no se crea un segundo registro de actividad.
+- Se reutilizan los logros existentes para mostrar el siguiente hito.
+- Se calcula el tiempo restante y el ritmo diario orientativo hasta el 18/12/2026.
+- El panel escucha marvel:state-synced y marvel:settings-changed para reflejar inmediatamente los cambios.
+- Se actualiza package/manifest/build marker/cache shell a 1.21.0.
+
+NO CAMBIADO DELIBERADAMENTE
+- Motor de progreso canónico.
+- Cloud y reintentos de V1.19.8.
+- Valoraciones y favoritos como mecanismos de persistencia.
+- Timeline, estadísticas y logros existentes.
+- Catálogo y datos.
+- TMDB, personajes, pósteres, trailers y teasers.

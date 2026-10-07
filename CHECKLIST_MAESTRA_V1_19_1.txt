@@ -1,0 +1,11 @@
+V1.19.1 · CHECKLIST
+[x] Base V1.19.0
+[x] Punto de captura Store.commit
+[x] Deduplicación con recorder existente
+[x] Backfill conservador desde activityLog legacy
+[x] Modal de actividad con fallback histórico
+[x] package/manifest 1.19.1
+[x] netlify.toml sin cambios
+[x] sw.js sin cambios
+[ ] Deploy real Netlify
+[ ] Validación Android/multidispositivo

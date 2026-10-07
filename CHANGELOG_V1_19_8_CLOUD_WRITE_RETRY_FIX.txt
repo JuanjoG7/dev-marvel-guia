@@ -1,0 +1,9 @@
+V1.19.8 · ROBUSTEZ CLOUD / REINTENTO DE ESCRITURA
+
+- Se mantiene Netlify Blobs como almacenamiento del estado Cloud.
+- marvel-state PUT reintenta las escrituras transitorias varias veces antes de devolver 503.
+- cloudPut del cliente reintenta respuestas HTTP 5xx y errores de red transitorios.
+- La cola persistente V1.16 sigue actuando como segunda línea de reintento y conserva el estado local.
+- Un fallo de Cloud ya no se presenta como si el progreso se hubiera perdido.
+- No se modifica el motor de progreso, catálogo, fichas, tráileres ni UI fuera del flujo Cloud.
+- No se añade PostgreSQL porque el modelo actual es key/value por perfil y no requiere consultas relacionales.

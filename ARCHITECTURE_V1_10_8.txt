@@ -1,0 +1,66 @@
+V1.10.8 LOKI — IDENTIDAD Y VALORES INICIALES POR PERFIL
+
+OBJETIVO
+Cada perfil nuevo debe arrancar con la identidad que se introdujo al crearlo,
+sin obligar a entrar en Ajustes > Personalización.
+
+REGLAS
+1. Persona 1 y Persona 2 visibles usan los nombres guardados en la cuenta.
+2. El perfil raíz se presenta por defecto como Juanjo × María.
+3. Las iniciales visibles se generan automáticamente a partir de los nombres:
+   Juanjo -> J.
+   María -> M.
+   Sergio -> S.
+   Si el usuario escribe una abreviatura en Personalización, esa abreviatura tiene prioridad.
+4. La Ventana de valoración automática nace en «No mostrar nunca» cuando el perfil
+   todavía no tiene una preferencia guardada. Después el usuario puede cambiarla.
+5. Un perfil que ya tenía nombres personalizados no se sobrescribe.
+6. Un perfil antiguo que todavía conserva «Persona 1»/«Persona 2» se migra a los
+   nombres de su cuenta, por ser valores de marcador y no personalización explícita.
+7. La semilla se ejecuta tanto con estado local como después de una carga cloud,
+   para que ambos orígenes mantengan la misma identidad.
+
+ARQUITECTURA
+Cuenta -> seedProfileDefaultsForAccount() -> app.meta.settings -> applySettings()/personInitials()
+
+No se duplica el estado. Los nombres y preferencias siguen dentro del perfil activo.
+Las iniciales continúan siendo calculadas por personInitials() cuando no existe una
+abreviatura explícita.
+
+PRUEBAS OBLIGATORIAS V1.10.8
+A) Perfil raíz
+- Entrar en Juanjo × María.
+- Sin abrir Personalización, comprobar Juanjo/María en dashboard, fichas,
+  estadísticas, timeline, valoraciones y botones.
+- Comprobar J. y M. donde la interfaz usa iniciales.
+- Abrir Personalización: la ventana automática debe mostrar «No mostrar nunca».
+
+B) Perfil nuevo
+- Crear un perfil, por ejemplo Sergio × Ana.
+- Entrar directamente sin abrir Personalización.
+- Comprobar Sergio/Ana y S./A. en la interfaz.
+- Completar un título: la ventana automática no debe aparecer.
+- Entrar en Personalización y cambiar la ventana a otra opción; salir y volver a entrar.
+  Debe conservar la elección.
+
+C) Retrocompatibilidad
+- Un perfil con «Persona 1»/«Persona 2» debe migrar a los nombres de la cuenta.
+- Un perfil con nombres personalizados reales no debe ser sobrescrito.
+- Un estado cloud con nombres marcadores debe corregirse al aplicar la nube.
+
+D) Aislamiento
+- Cambiar de perfil y comprobar que nombres, iniciales, valoraciones, progreso y
+  preferencia quickRating no se filtran al otro perfil.
+
+E) Regresión fija
+- PIN/arranque sin bloqueo.
+- Guardado local.
+- Progreso de película/serie/Eyes of Wakanda.
+- Valoraciones y favoritos.
+- Timeline sin Valoraciones encima.
+- Cloud queda pendiente de validación hasta desplegar en Netlify.
+
+CRITERIO DE APROBACIÓN
+🟢 Todos los casos A-D correctos.
+🟠 Incidencia visual no crítica: corregir antes de marcar completa.
+🔴 Mezcla entre perfiles, pérdida de nombre/preferencia o bloqueo de arranque: no avanzar.

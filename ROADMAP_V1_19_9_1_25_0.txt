@@ -1,0 +1,85 @@
+MARVEL · CAMINO AL MULTIVERSO
+ROADMAP DE RELEASES · BASE V1.19.8
+
+Objetivo de esta hoja de ruta
+--------------------------------
+Partir de V1.19.8 como base estable y avanzar en iteraciones pequeñas, independientes y comprobables. Cada release debe conservar las funciones anteriores; ninguna versión nueva se considera cerrada si la prueba maestra de regresión falla.
+
+V1.19.8 · BASE ESTABLE
+-----------------------
+Robustez Cloud mediante reintentos transitorios en cliente y servidor, manteniendo la copia local y la cola persistente como respaldo. No se modifica el motor de progreso ni el catálogo.
+
+V1.19.9 · ESTABILIZACIÓN Y COHERENCIA DE RELEASE · ACTUAL
+----------------------------------------------------------
+Objetivo: crear un punto de restauración limpio antes de introducir UX nueva.
+Cambios: coherencia de versión entre package.json, manifest, build marker de index.html, historial y caché del shell PWA; documentación de la release; batería de validaciones estáticas.
+No cambiar: progreso, episodios, valoraciones, favoritos, Timeline, estadísticas, Cloud, TMDB, multimedia, fichas o aspecto visual fuera del texto de historial.
+Criterio de salida: todos los chequeos estáticos PASS y ninguna diferencia funcional respecto a V1.19.8 por diseño.
+
+V1.20.0 · NAVEGACIÓN Y UX · ACTUAL
+---------------------------------------
+- Navegación interna de fichas largas mediante anclas/secciones, sin ocultar información.
+- Botón/atajo para volver arriba en pantallas largas.
+- Espacio inferior seguro para que footer/barras flotantes no tapen contenido.
+- Modales adaptativos: formularios pequeños compactos y contenido largo con scroll interno.
+- Menú reorganizado por categorías sin eliminar herramientas.
+- Separación visual entre modo normal y edición del catálogo.
+Pruebas clave: móvil estrecho/grande, tablet y desktop; botones tapados; modales cortados; auto-scroll; volver atrás; trailers; temporadas; Timeline.
+
+V1.21.0 · INICIO + MARATÓN
+---------------------------
+- Bloque “Continuar maratón”.
+- Pendientes, actividad reciente, favoritas, próximos hitos y tiempo restante.
+- Cálculo “Camino a Doomsday” basado en el mismo estado actual.
+Regla: todos los indicadores deben derivarse de la misma fuente de estado que catálogo/ficha/estadísticas/Timeline.
+
+V1.22.0 · CATÁLOGO + TIMELINE + FICHAS
+---------------------------------------
+- Filtros rápidos y vistas guardadas.
+- “Ir a mi posición” en Timeline.
+- Navegación por secciones de ficha sin ocultar contenido.
+- Modo spoiler.
+- Compartir enlaces/vistas cuando sea compatible.
+- Controles administrativos del catálogo menos invasivos.
+
+V1.23.0 · CLOUD + SEGURIDAD
+----------------------------
+- Estado Cloud explícito: guardado, cambios pendientes, error.
+- Comparación Local/Cloud antes de sobrescribir.
+- Backup automático antes de restaurar/importar/borrar/resetear/cargar Cloud sobre local.
+- Resumen de backup.
+- Diagnóstico Cloud.
+Prueba crítica: dispositivo A → guardar → dispositivo B → cargar/modificar/guardar → A vuelve a cargar; repetir con desconexión, error HTTP, reintento y restauración.
+
+V1.24.0 · ESTADÍSTICAS + GAMIFICACIÓN
+--------------------------------------
+- Bloques visuales de estadísticas.
+- Comparación por persona.
+- Progreso por saga.
+- Progreso de logros.
+- Calendario de actividad y rachas.
+- Resumen de sesión.
+Regla: derivar todo de los mismos eventos/estado para evitar dobles conteos.
+
+V1.25.0 · PULIDO FINAL / RELEASE CANDIDATE
+-------------------------------------------
+- Estandarización final del modo oscuro en todas las pantallas.
+- Flujo de instalación PWA más claro.
+- Modo Maratón.
+- Salud del catálogo.
+- Créditos/fuentes.
+- Regresión completa web + Android/PWA.
+Después: congelación de funcionalidades salvo bugs críticos.
+
+PRUEBA MAESTRA DE REGRESIÓN
+----------------------------
+CREAR PERFIL → CATÁLOGO → BUSCAR → FILTRAR → FICHA → TRAILER → MARCAR JUANJO → MARCAR MARÍA → VALORAR → FAVORITA → COMPLETAR → TIMELINE → ESTADÍSTICAS → LOGROS → ACTIVIDAD → CLOUD → OTRO DISPOSITIVO → CARGAR → COMPROBAR TODO.
+
+REGLA DE PROMOCIÓN
+------------------
+V1.19.8 permanece intocable. V1.19.9 se prueba de forma independiente. Solo tras cerrar su checklist pasa a V1.20.0. Cada versión debe conservarse como ZIP desplegable independiente.
+
+
+ESTADO
+-------
+V1.19.9 cerrada manualmente por el usuario. V1.20.0 implementada sobre esa base y validada estáticamente; pendiente de cierre formal tras batería de pruebas manuales en el nuevo entorno DEV.

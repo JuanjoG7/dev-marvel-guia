@@ -1,0 +1,20 @@
+V1.12.2 · TEST REPORT UX / BUILD FIX
+
+Static checks:
+- HTML contains V1.12.1 visual CSS: OK
+- HTML contains V1.12.1 visual JS: OK
+- SW cache bumped V1-12-1: OK
+- Manifest version 1.12.1: OK
+- No admin token value inserted by this patch: visual patch only
+
+Runtime checks to run in Chromium harness after serving the package:
+- abrir ficha movie + series
+- comprobar que no aparece el hero histórico duplicado
+- comprobar acordeones Contexto/Reparto cerrados inicialmente
+- comprobar expansión/cierre de temporadas
+- comprobar expansión de Tiempo de visionado sin bloquear inputs
+- comprobar que valoraciones/favoritos/progreso siguen siendo interactivos
+- comprobar que refrescar la ficha no duplica bloques
+
+Build safety fix:
+- Secret scanner regression: fixed; credential value is absent from repository files and reports.

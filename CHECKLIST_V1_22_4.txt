@@ -1,0 +1,8 @@
+V1.22.5 CHECKLIST
+- Pulsar Ambos viendo
+- Verificar una unica caja compartida
+- Guardar posicion compartida
+- Borrar posicion compartida
+- Separar posiciones
+- Comprobar pelicula y serie
+- Comprobar que Juanjo/Maria independientes siguen funcionando

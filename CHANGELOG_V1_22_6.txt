@@ -1,0 +1,22 @@
+V1.22.6 · AMBOS VIENDO GLOBAL
+
+Base: V1.22.5 · FIX AMBOS VIENDO
+
+CAMBIOS
+- Unificada la lectura de reproducción activa en un servicio global de solo lectura.
+- La ficha, Inicio y catálogo consultan la misma representación de reproducción en curso.
+- “Ambos en curso” se activa cuando watchTogether está habilitado con alguna posición activa, o cuando ambos tienen exactamente el mismo punto de reproducción.
+- En series se exige mismo capítulo y mismo tiempo para colapsar dos posiciones en una sola; si difieren, permanecen separadas.
+- Títulos completados, capítulos completados, temporadas no iniciadas y simples marcas de visto no entran en “en curso”.
+- El panel de Inicio se actualiza después de cambios de estado/storage y al refrescar la vista.
+- Decoración visual opcional en catálogo para indicar Juanjo/María/Ambos en curso sin modificar estado.
+
+NO TOCADO
+- progreso canónico
+- Cloud
+- favoritos
+- estadísticas
+- Timeline
+- valoraciones
+- tráileres
+

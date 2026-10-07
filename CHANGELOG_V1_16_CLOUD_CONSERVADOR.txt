@@ -1,0 +1,19 @@
+V1.16 · CLOUD ROBUSTO SOBRE BASE V1.15.5
+
+OBJETIVO
+Extender la fiabilidad de la nube sin rehacer el núcleo de V1.15.5 ni modificar el entorno de build que ya desplegaba rápido.
+
+CAMBIOS
+- Cola local por perfil para cambios cuyo guardado Cloud no pudo confirmarse.
+- Reintentos con backoff y persistencia tras recarga/cierre.
+- Reanudación automática al volver la conectividad.
+- Comprobación real de Cloud mediante HEAD autenticado al endpoint marvel-state.
+- Registro por perfil de última sincronización, última comprobación y último fallo.
+- Diagnóstico Cloud accesible desde el menú, sin mostrar tokens, PIN, hashes ni claves.
+- La carga automática/manual mantiene la arquitectura de V1.15.5 y solo añade observabilidad sobre su resultado.
+- Se mantiene Node 22, engines >=22 y el mismo comando npm install --omit=dev.
+- No se modifica la función marvel-profile ni marvel-media.
+- No se modifica el Service Worker ni la caché de posters de V1.15.5.
+
+PRINCIPIO DE CONSERVACIÓN
+El guardado Cloud real sigue siendo cloudManualSave() / coordinador V1.10.10. V1.16 no sustituye el almacenamiento ni crea una segunda fuente de datos; añade una cola de compensación local y una capa de diagnóstico alrededor del adaptador existente.

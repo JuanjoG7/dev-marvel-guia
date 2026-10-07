@@ -1,0 +1,21 @@
+V1.21.0 · CHECKLIST MAESTRA
+
+1) Abrir Inicio
+2) Verificar CONTINUAR MARATÓN
+3) Abrir ficha desde el dashboard
+4) Continuar una película y comprobar que el mismo título cambia en tarjeta/ficha
+5) Continuar un capítulo de serie y comprobar progreso de temporada
+6) Verificar pendientes (películas/series/capítulos)
+7) Verificar valoraciones pendientes
+8) Verificar favoritas de Juanjo, María y en común
+9) Abrir siguiente logro desde Inicio
+10) Verificar actividad reciente
+11) Verificar tiempo restante y porcentaje hasta Doomsday
+12) Repetir la prueba con un cambio de estado real
+13) Comprobar Timeline, estadísticas y Cloud
+14) Recargar y confirmar persistencia
+15) Repetir en segundo dispositivo/ventana
+16) Ejecutar regresión de V1.20.0
+
+CRITERIO DE CIERRE
+Un solo cambio de estado debe reflejarse en todos los paneles sin contadores independientes ni duplicación de capítulos/títulos.

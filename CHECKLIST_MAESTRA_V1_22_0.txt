@@ -1,0 +1,52 @@
+V1.22.0 — CHECKLIST MANUAL DE CIERRE
+
+CATÁLOGO
+[ ] Todos
+[ ] Pendientes
+[ ] En progreso
+[ ] Ambos
+[ ] Favoritas
+[ ] Películas
+[ ] Series
+[ ] Animación
+[ ] Especiales
+[ ] Cortos
+[ ] Búsqueda + filtro
+[ ] Modo original
+[ ] Mega cronología
+[ ] Sagas
+[ ] Vistas guardadas
+[ ] Recarga conserva la vista guardada
+[ ] Borrar vista guardada
+
+TIMELINE
+[ ] Ir a mi posición
+[ ] Fallback cuando no existe recomendación en el modo actual
+[ ] El título resaltado coincide con el siguiente pendiente
+[ ] No altera ningún estado
+
+FICHA
+[ ] Abrir desde catálogo
+[ ] Abrir desde Timeline
+[ ] Modo spoiler activa/desactiva
+[ ] Progreso permanece visible con spoiler
+[ ] Compartir en Android
+[ ] Compartir/copia en escritorio
+[ ] Abrir enlace #titulo=<id>
+
+REGRESIÓN
+[ ] Marcar película Juanjo
+[ ] Marcar película María
+[ ] Completar película ambos
+[ ] Capítulo
+[ ] Temporada
+[ ] Serie
+[ ] Valoración
+[ ] Favorita
+[ ] Timeline
+[ ] Estadísticas
+[ ] Logros
+[ ] Actividad
+[ ] Guardar Cloud
+[ ] Cargar Cloud
+[ ] Backup / restauración

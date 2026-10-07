@@ -1,0 +1,11 @@
+V1.12.3 · TEST REPORT · ACCORDION FIX
+
+- Target: ficha V1.12.2 en tablet/Chrome Android.
+- Problema reportado: secciones plegadas no respondían al toque.
+- Corrección: se sustituye el <details> visual por un contenedor interactivo propio con botón explícito y atributo data-v1123-open.
+- El toggle usa captura local, touch-action: manipulation y no depende del comportamiento nativo de <details>.
+- Estado Marvel: el fix no escribe app.state ni app.meta.
+- Progress/Episodes/Ratings/Favorites: sin mutación por este fix.
+- Seasons: control existente preservado.
+- Cargado al final del documento para evitar interferencia con listeners históricos.
+- Versiones: manifest/package/SW = 1.12.3 / V1-12-3.

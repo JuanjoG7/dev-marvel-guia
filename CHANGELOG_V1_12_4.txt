@@ -1,0 +1,8 @@
+V1.12.4 · FICHA COMPLETA ABIERTA
+
+- Se eliminan los acordeones de la ficha por preferencia de uso en tablet/móvil.
+- Contexto de la ficha, Datos adicionales, Reparto/Personajes y Tiempo de visionado quedan siempre visibles.
+- Las temporadas muestran directamente el resumen y todos los capítulos sin desplegable.
+- Se mantiene la compactación visual de V1.12.1, pero sin ocultar contenido.
+- No se modifica el estado Marvel ni se crea un segundo sistema de progreso.
+- Se actualiza el Service Worker a V1.12.4 para evitar caché de la UX anterior.

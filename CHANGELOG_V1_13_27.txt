@@ -1,0 +1,14 @@
+V1.13.27 — SINCRONIZACIÓN INSTANTÁNEA RECOMENDACIÓN → TARJETA + BUILD NETLIFY
+
+1. Tarjeta real del catálogo
+- Las acciones de “Siguiente recomendación” siguen entrando por MarvelApp.dispatch / Progress Engine.
+- Tras una acción aceptada se fuerza el refresco de la tarjeta del catálogo en el mismo ciclo de interacción.
+- No se introduce un segundo estado de progreso.
+- No se modifica el comportamiento del scroll.
+
+2. Error de publicación Netlify
+- El valor literal que coincidía con el secreto configurado en MARVEL_ROOT_ADMIN_TOKEN se ha eliminado de comentarios y documentación de la release.
+- El PIN predeterminado sigue generándose mediante constantes de código y no se copia literalmente al repositorio.
+- No se utiliza SECRETS_SCAN_OMIT_PATHS ni se desactiva el escaneo.
+
+3. Se mantiene la corrección V1.13.26 del PIN raíz.

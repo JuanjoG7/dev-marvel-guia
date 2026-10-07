@@ -1,0 +1,49 @@
+V1.18 · BACKUP Y RECUPERACIÓN · BASE CONSERVADORA
+
+BASE
+- V1.18 se construye directamente sobre V1.17 Administración y sesiones conservadora.
+- Se conserva la cadena de build estable de V1.15.5.
+- No se cambia Node, engines, dependencias, netlify.toml ni Service Worker.
+
+OBJETIVO
+- Añadir recuperación real sin sustituir el Cloud existente.
+- Mantener exportación/importación local compatible con backups anteriores.
+- Añadir copias Cloud server-side por perfil.
+- Evitar restauraciones destructivas sin una copia previa.
+
+CAMBIOS AÑADIDOS
+- Backup local versionado V1.18.
+- Integridad SHA-256 del archivo exportado.
+- Identidad pública del perfil dentro del backup; nunca se exportan PIN, hashes, cookies, tokens ni secretos.
+- Importación conservadora: restaura estado, metadatos, logros/sagas personalizadas, títulos personalizados y orden del perfil sin sustituir el catálogo base de la release.
+- Compatibilidad explícita con el formato de backup antiguo V83 ya existente.
+- Verificación de pertenencia al perfil activo para backups V1.18.
+- Validación de tamaño, estructura y checksum antes de modificar datos.
+- Copia interna previa local cuando se importa un archivo, además del Undo existente.
+- Tras una importación local, el estado queda marcado como pendiente para que el usuario decida cuándo actualizar Cloud.
+- Nueva Function `marvel-backup` para crear/listar/restaurar/eliminar copias Cloud autenticadas por sesión.
+- Las copias Cloud se almacenan en un Blob Store dedicado `marvel-marathon-backups-v1`.
+- Cada perfil conserva como máximo 8 copias Cloud.
+- Antes de una restauración Cloud se crea automáticamente una copia `pre-restore` del estado Cloud actual.
+- Restaurar una copia Cloud no modifica la identidad ni el PIN del perfil.
+- Al eliminar una cuenta de usuario, se eliminan también sus copias Cloud asociadas.
+
+NO CAMBIOS DE BUILD
+- NODE_VERSION sigue en 22.
+- engines.node sigue en >=22.0.0.
+- build command sigue siendo `npm install --omit=dev`.
+- @netlify/blobs sigue en 10.7.13.
+- `netlify.toml` permanece idéntico.
+- `sw.js` permanece idéntico.
+
+ARCHIVOS MODIFICADOS
+- index.html
+- manifest.webmanifest (solo versión)
+- package.json (solo versión)
+- netlify/functions/marvel-backup.mjs (nuevo)
+- netlify/lib/profile-core.mjs (nuevo store de backups + limpieza al eliminar perfil)
+- CHANGELOG / CHECKLIST / TEST REPORT / NETLIFY SETUP V1.18
+
+PRINCIPIO DE CONSERVACIÓN
+- El motor de progreso, catálogo base, Timeline, valoraciones, estadísticas, TMDB, sesiones y Cloud existente no se sustituyen.
+- V1.18 añade una capa de recuperación y un almacén de copias alrededor de la infraestructura ya existente.

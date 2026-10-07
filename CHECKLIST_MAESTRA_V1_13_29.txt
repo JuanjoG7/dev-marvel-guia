@@ -1,0 +1,49 @@
+CHECKLIST MAESTRA — V1.13.29
+
+BASELINE
+[x] V1.13.20 estable y funcional
+[x] V1.13.21 saneamiento de historial/versionado
+[x] V1.13.22 UI series
+[x] V1.13.23 limpieza UX
+[x] V1.13.24 imagen de cabecera personalizable
+[x] V1.13.25 posters de recomendación unificados
+[x] V1.13.29 PIN raíz persistente
+[x] V1.13.29 sincronización instantánea recomendación → tarjeta y corrección del build por secret scan
+
+PENDIENTE REAL
+[ ] Revisar últimos restos legacy demostrables
+[ ] Auditoría final de listeners/observers
+[ ] Auditoría final de dependencias entre módulos
+[ ] Limpieza de variables globales históricas
+[ ] Revisión final de MarvelProfileManager
+[ ] Auditoría definitiva de aislamiento de perfiles
+[ ] Validación final Cloud en producción
+[ ] Instalación Android PWA
+[ ] Actualización PWA real
+[ ] Offline PWA real
+[ ] Recuperación online PWA
+[ ] Revisión final de documentación histórica V141–V144
+[ ] Revisión final de número de versión en todas las superficies
+[ ] Auditoría final de archivos
+[ ] Cierre del historial
+
+CERRADO FUNCIONALMENTE
+[x] Progreso títulos / temporadas / episodios
+[x] Recomendaciones
+[x] Valoraciones
+[x] Estadísticas
+[x] Timeline
+[x] Logros
+[x] Fichas enriquecidas
+[x] TMDB / posters / personas / actores
+[x] Caché multimedia
+[x] Cloud funcional
+[x] Perfiles funcionales
+[x] Administración funcional
+[x] Diseño responsive
+[x] Sin micro-scroll
+[x] Imagen de cabecera personalizable
+
+[x] V1.13.29 — eliminación del literal sensible que bloqueaba Secret Scanning de Netlify
+
+[x] Tarjetas de catálogo sincronizan inmediatamente desde el estado canónico tras acciones del Hero/ficha

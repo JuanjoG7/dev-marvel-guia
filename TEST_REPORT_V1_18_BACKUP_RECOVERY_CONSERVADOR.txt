@@ -1,0 +1,36 @@
+TEST REPORT V1.18 · BACKUP Y RECUPERACIÓN · CONSERVADOR
+
+FECHA
+2026-09-24
+
+VALIDACIONES ESTÁTICAS
+- 44 bloques inline de JavaScript: node --check -> 0 errores.
+- netlify/functions/marvel-backup.mjs: node --check -> OK.
+- netlify/lib/profile-core.mjs: node --check -> OK.
+- package.json: JSON válido.
+- manifest.webmanifest: JSON válido.
+- netlify.toml: comparación binaria/lógica con V1.17 -> sin cambios.
+- sw.js: comparación con V1.17 -> sin cambios.
+- Diff de archivos: cambios limitados a index.html, package.json, manifest.webmanifest, profile-core.mjs, Function nueva y documentación V1.18.
+
+PRUEBAS DE DISEÑO LÓGICO
+- Exportación V1.18 incluye estado, checkpoint, metadatos, personalizados y orden, sin credenciales.
+- Checksum se calcula sobre el payload sin checksum y se verifica antes de importar.
+- Backup V1.18 de un perfil distinto se rechaza antes de aplicar cambios.
+- Backup antiguo V83 se reconoce de forma explícita y se transforma al formato interno esperado.
+- Importación no sustituye el catálogo base de la release; aplica overrides/customTitles/orden sobre la base actual.
+- Importación marca `app.dirty=true` para no sincronizar Cloud silenciosamente.
+- Restauración Cloud exige primero que el estado actual pueda guardarse y el servidor crea `pre-restore` antes de sobrescribir el estado.
+- Los backups Cloud se aíslan por profileId server-side.
+- La retención se limita a 8 copias por perfil.
+- La eliminación server-side de perfiles limpia sus backups asociados.
+- Prueba funcional server-side con Blob mock: crear/listar/crear 10 y podar a 8/restaurar con `pre-restore`/eliminar/aislamiento entre perfiles/401 sin sesión/405 por método no permitido -> PASS.
+
+LIMITACIONES
+- No se pudo ejecutar un `npm install` completo en este entorno sin depender de internet/instalación externa.
+- No se puede validar desde aquí el almacenamiento Netlify Blobs de producción.
+- No se puede certificar desde aquí el comportamiento real de varios dispositivos/Android hasta el deploy.
+
+RESULTADO
+ESTÁTICO: APROBADO.
+PRODUCCIÓN: PENDIENTE DE DEPLOY Y PRUEBAS REALES.

@@ -1,0 +1,31 @@
+V1.13.11 · ARQUITECTURA DE ACCIONES DEL HERO
+
+Hero "Continuar viendo"
+        │
+        ▼
+heroBridgeAction()
+        │
+        ├── episodio exacto ──► MarvelProgressEngine.toggleEpisode()
+        ├── temporada         ──► MarvelProgressEngine.completeSeasonBoth()
+        └── título             ──► MarvelProgressEngine.setTitlePerson()
+        │
+        ▼
+canonicalMutate()
+        │
+        ├── persiste app.state
+        ├── mantiene aislamiento por titleId
+        ├── actualiza logros/actividad/guardado
+        └── restaura viewport
+        │
+        ▼
+marvel:state-synced
+        │
+        ├── Catálogo
+        ├── Siguiente recomendación
+        ├── Ficha
+        ├── Valoraciones
+        ├── Estadísticas
+        ├── Logros
+        └── Timeline
+
+Regla: el hero no mantiene un segundo estado de progreso ni dispara clicks sintéticos sobre tarjetas DOM.

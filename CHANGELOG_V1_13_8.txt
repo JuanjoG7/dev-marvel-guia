@@ -1,0 +1,9 @@
+V1.13.8 · PÓSTER EN SIGUIENTE RECOMENDACIÓN
+
+- Añadido un área de póster real en la tarjeta «Siguiente recomendación» / «Continuar viendo».
+- Mantiene intacta la rejilla y el tamaño de los botones de acción existentes.
+- El póster se resuelve con la misma capa TMDB/proxy utilizada por las fichas y tarjetas.
+- Prioridad: mapeo exacto V1.13.7 → caché local → consulta remota no bloqueante a /api/marvel-media.
+- El póster se oculta correctamente cuando no existe una recomendación pendiente.
+- Responsive específico para móvil sin alterar las proporciones de las acciones.
+- Service Worker actualizado a V1.13.8 para evitar reutilizar el shell anterior.

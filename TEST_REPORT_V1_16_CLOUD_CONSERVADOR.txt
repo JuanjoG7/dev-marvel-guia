@@ -1,0 +1,38 @@
+TEST REPORT · V1.16 CLOUD ROBUSTO CONSERVADOR
+
+BASE Y ALCANCE
+- Base de trabajo: V1.15.5-POSTERS-CANONICOS.
+- Se mantienen sin cambios el comando de build, NODE_VERSION=22, engines de Node, dependencia @netlify/blobs 10.7.13, Service Worker, marvel-profile, marvel-media y profile-core.
+- Se añade únicamente una capa Cloud de compensación/observabilidad y soporte HEAD en marvel-state.
+
+PRUEBAS ESTÁTICAS
+[OK] 43 bloques <script> de index.html pasan node --check.
+[OK] netlify/functions/marvel-state.mjs pasa node --check.
+[OK] netlify/functions/marvel-profile.mjs pasa node --check.
+[OK] netlify/functions/marvel-media.mjs pasa node --check.
+[OK] netlify/lib/profile-core.mjs pasa node --check.
+[OK] package.json válido.
+[OK] manifest.webmanifest válido.
+[OK] ZIP con unzip -t: correcto.
+[OK] netlify.toml idéntico al de V1.15.5.
+[OK] Service Worker idéntico al de V1.15.5.
+
+PRUEBAS FUNCIONALES LOCALES DE LA NUEVA CAPA
+[OK] Guardado Cloud simulado con fallo de red deja cola persistida por perfil.
+[OK] Primer fallo crea attempts=0.
+[OK] Fallo posterior incrementa attempts.
+[OK] La cola es aislada por profileId.
+[OK] La capa envuelve el coordinador de guardado existente y no crea otro almacenamiento Cloud.
+[OK] scheduleRetry respeta nextAttemptAt y no reinicia continuamente un backoff largo durante la reconciliación local.
+[OK] Health check usa HEAD autenticado y timeout de 8 s.
+
+NO VERIFICADO EN PRODUCCIÓN
+[ ] Despliegue real en Netlify.
+[ ] Tiempo real del build comparado con V1.15.5.
+[ ] Fallo real de red durante un guardado y sincronización automática al recuperar conexión.
+[ ] Persistencia de la cola tras cerrar/reabrir el navegador.
+[ ] Comprobación real de GET/PUT/HEAD en el endpoint publicado.
+[ ] Comprobación Android/PWA del cambio de versión.
+
+CONCLUSIÓN TÉCNICA
+La release está construida sobre V1.15.5 y no modifica el pipeline de build. Por diseño, los cambios Cloud no deben provocar la compilación de Node ni introducir un paso de build adicional. La validación definitiva del tiempo de despliegue depende del build real de Netlify.

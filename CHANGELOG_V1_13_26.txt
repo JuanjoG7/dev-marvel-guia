@@ -1,0 +1,24 @@
+V1.13.26 — CORRECCIÓN PERSISTENCIA PIN RAÍZ
+
+Problema detectado:
+- La migración histórica V1.11.1 comprobaba en cada arranque si el PIN raíz era el PIN histórico anterior.
+- Si el administrador cambiaba manualmente el PIN raíz a el PIN histórico anterior, el siguiente arranque lo interpretaba como PIN histórico y lo restauraba automáticamente a DEFAULT_PIN (el valor predeterminado del perfil).
+
+Corrección:
+- La migración histórica deja de ejecutarse automáticamente.
+- Se respetan todos los PIN existentes.
+- Las cuentas nuevas siguen usando DEFAULT_PIN como PIN inicial.
+- El cambio manual de PIN comprueba que localStorage ha persistido el nuevo hash.
+- El nuevo PIN se verifica inmediatamente después de guardar.
+- Si el almacenamiento falla, la interfaz muestra el error y no comunica un falso éxito.
+
+No se modifica:
+- Motor de progreso
+- Cloud key estable
+- TMDB
+- Posters
+- Recomendaciones
+- Valoraciones
+- Estadísticas
+- Timeline
+- PWA

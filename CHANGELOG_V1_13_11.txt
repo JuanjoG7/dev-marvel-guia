@@ -1,0 +1,11 @@
+V1.13.11 · ACCIONES UNIFICADAS Y SCROLL ESTABLE
+
+- "Continuar viendo" deja de disparar clicks sintéticos sobre tarjetas DOM.
+- El botón del hero ejecuta el mismo Progress Engine y la misma semántica de persona/capítulo que la tarjeta original.
+- El episodio se aplica al capítulo exacto indicado por data-episode y a la persona indicada por data-person.
+- "Completar temporada" y "Completar título" usan el mismo motor canónico.
+- Tras cualquier acción del hero se emite un único evento marvel:state-synced para refrescar Catálogo, Hero, Ficha, Valoraciones, Estadísticas, Logros y Timeline desde el mismo estado.
+- El viewport se conserva durante las mutaciones canónicas para eliminar el mini-scroll de ida y vuelta al pulsar botones.
+- Se añade un guard de pointer/focus para evitar que el foco táctil provoque desplazamientos visibles.
+- No se modifica la rejilla ni el tamaño de los botones del hero.
+- Service Worker/cachés pasan a V1.13.11.

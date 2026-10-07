@@ -1,0 +1,9 @@
+V1.13.24 · VALIDACIÓN ESTÁTICA
+- 41 bloques script; 0 errores de sintaxis inline.
+- Netlify Functions: sintaxis OK.
+- package.json/manifest: JSON OK y versión 1.13.24.
+- IDs duplicados en DOM HTML estático: 0.
+- Imagen de cabecera: selector, preview, restore y persistencia configurados.
+- Imagen proporcionada por el usuario convertida a assets/marvel-multiverse-logo.webp (1536x562).
+- No se modifica el motor de progreso.
+- Pendiente: prueba manual en navegador desplegado y Android real.

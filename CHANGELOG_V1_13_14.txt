@@ -1,0 +1,11 @@
+V1.13.14 · REPARACIÓN DEL CONFLICTO DE EVENTOS EN «SIGUIENTE RECOMENDACIÓN»
+
+- Se identifica y corrige el conflicto real que impedía avanzar la tarjeta superior.
+- El botón #nextEpisode tenía data-person="both" y el propietario de eventos de V1.10.15 lo capturaba antes que la rama específica del hero por coincidir con [data-person].
+- Ese conflicto convertía «both» en person1, ejecutaba TITLE_PERSON=false y podía desmarcar todos los capítulos de Juanjo; por eso la tarjeta parpadeaba y volvía a C1.
+- Los cinco controles del hero (#nextEpisode, #nextCompleteSeason, #nextInfo, #nextBoth, #nextIgnore) ahora tienen prioridad explícita en el propietario de eventos antes de cualquier selector genérico de progreso.
+- Se elimina además data-person="both" del botón de capítulo del hero para que el HTML no vuelva a chocar con el selector genérico.
+- El hero continúa delegando la acción real en __MARVEL_HERO_ACTION_OWNER__ y, desde ahí, en MarvelApp.dispatch / Progress Engine.
+- Se mantiene el estado canónico único y el evento marvel:state-synced para refrescar Catálogo, Hero, Ficha, Timeline, Valoraciones, Estadísticas y Logros.
+- No se modifica el diseño visual ni el algoritmo de recomendación; se corrige exclusivamente la propiedad del evento que impedía ejecutar la acción correcta.
+- package.json, manifest.webmanifest y Service Worker pasan a V1.13.14.

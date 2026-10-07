@@ -1,0 +1,9 @@
+V1.12.3 · FIX DE ACORDEONES
+
+- Se corrige la interacción de las secciones plegables de las fichas en Chrome Android/tablet.
+- Las secciones ahora usan un controlador de botón explícito, independiente del toggle nativo de <details>.
+- Contexto, Reparto/Personajes, Datos adicionales y Tiempo de visionado se pueden abrir/cerrar con un toque.
+- Las temporadas mantienen su control independiente por botón.
+- Solo cambia presentación/UX; no introduce un segundo estado ni modifica Progress, Episodes, Ratings o Profile.
+- El nuevo controlador se carga al final del documento para quedar como último dueño de interacción de la ficha.
+- Service Worker y manifest pasan a V1.12.3.

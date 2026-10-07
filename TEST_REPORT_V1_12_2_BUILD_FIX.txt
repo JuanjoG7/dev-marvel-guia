@@ -1,0 +1,11 @@
+MARVEL · CAMINO AL MULTIVERSO
+V1.12.2 · BUILD FIX
+
+- Root cause from Netlify log: secrets scanning detected the configured MARVEL_ROOT_ADMIN_TOKEN value in TEST_REPORT_V1_12.txt line 11.
+- Fixed: report no longer contains the credential value.
+- Repository-wide literal credential check (known prior credential): 0 occurrences.
+- Inline JavaScript syntax: 36/36 OK.
+- netlify/functions/marvel-state.mjs: OK.
+- sw.js: OK.
+- Service worker cache: maraton-marvel-shell-V1-12-2.
+- Administrative token remains server-side in Netlify environment variable; no token value is shipped in the package.

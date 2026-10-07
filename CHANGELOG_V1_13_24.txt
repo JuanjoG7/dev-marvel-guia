@@ -1,0 +1,8 @@
+V1.13.24 · IMAGEN DE CABECERA PERSONALIZABLE
+
+- Añadida imagen de cabecera sustituible desde PERSONALIZACIÓN.
+- La imagen seleccionada se redimensiona en cliente y se guarda dentro de app.meta.settings.headerImage.
+- Se puede restaurar la imagen original incluida en la aplicación.
+- Exportaciones/copia de seguridad mantienen la personalización porque app.meta viaja en el backup.
+- No se modifica la lógica de progreso, recomendaciones, valoraciones, estadísticas, Timeline, Cloud, TMDB ni PWA.
+- Se reutiliza la ruta existente assets/marvel-multiverse-logo.webp para mantener la compatibilidad del Service Worker.

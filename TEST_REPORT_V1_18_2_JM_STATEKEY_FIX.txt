@@ -1,0 +1,20 @@
+V1.18.2 — Validación estática y regresión
+
+[PASS] package.json JSON válido y versión 1.18.2
+[PASS] manifest.webmanifest JSON válido y versión 1.18.2
+[PASS] netlify.toml sin cambios respecto de V1.18.1
+[PASS] sw.js sin cambios respecto de V1.18.1
+[PASS] requireSession mantiene roles y validaciones existentes
+[PASS] Reparación jm-user solo se activa cuando falta stateKey
+[PASS] Reparación usa legacyStateKeys antes de derivar la clave histórica
+[PASS] No se genera clave aleatoria para jm-user
+[PASS] Backup UI mantiene el flujo conservador de V1.18.1
+[PASS] Integridad del ZIP verificada
+
+NO VALIDADO
+- Despliegue y petición real autenticada contra el Netlify del usuario.
+
+
+V1.18.3 — CORRECCIÓN FINAL DE ÁMBITO CLOUD
+- Corregida referencia a cloudSaving desde updateSave(): esa función vive fuera del IIFE donde se declara cloudSaving. Se usa una comprobación segura con typeof para evitar ReferenceError.
+- Corregido el identificador de versión mostrado por el marcador de build y por el módulo de copias Cloud.

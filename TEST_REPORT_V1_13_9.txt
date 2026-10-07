@@ -1,0 +1,14 @@
+V1.13.9 · VALIDACIÓN
+
+Objetivo: permitir ordenar los títulos activos de «Vuestras valoraciones» sin alterar el catálogo global.
+
+Comprobaciones:
+1. La lista usa una copia local (slice) antes de ordenar: no se modifica CATALOG.
+2. A-Z: título ascendente en español.
+3. Cronológico: CHRONO_ORDER, con releaseKey y título como desempates.
+4. Por saga: título de saga ascendente y cronología dentro de cada saga.
+5. Orden original: DEFAULT_CATALOG_ORDER, con título como desempate.
+6. Los filtros Todas/Juanjo/María/Ambos iniciaron/Sin valorar siguen aplicándose antes de ordenar.
+7. La búsqueda se conserva al cambiar el modo de ordenación.
+8. Los botones de valoración y «Ficha» mantienen sus selectores existentes.
+9. Service Worker y caché de imágenes pasan a V1.13.9.

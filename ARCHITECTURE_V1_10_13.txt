@@ -1,0 +1,47 @@
+MARVEL JUANJO × MARÍA — V1.10.13 Loki · Autocarga de arranque final
+
+OBJETIVO
+La carga automática al recargar la aplicación, entrar con PIN o recuperar una sesión recordada debe ejecutar exactamente el mismo cargador que el botón «Cargar desde perfil».
+
+CAUSA RAÍZ DE V1.10.12
+init() renderiza primero la copia local y después inicia startCloudSync(). Una excepción de una capa local de renderizado/derived-state podía abortar init() antes de llegar a startCloudSync(). enterAccount() interpretaba entonces el error genérico de init como un fallo de sincronización y mostraba «Sincronización no disponible».
+
+CORRECCIÓN V1.10.13
+- Se elimina el falso toast de sincronización del catch genérico de enterAccount().
+- El último propietario de __marvelCloudSessionSync se instala al final de todo el HTML, después de las capas legacy, para impedir sobrescrituras posteriores.
+- __marvelCloudSessionSync llama directamente a window.__marvelProfileLoad({sessionSync:true, notify:false}).
+- __marvelProfileLoad sigue siendo cloudManualLoad(), el mismo cargador utilizado por «Cargar desde perfil».
+- El auto-load se serializa para no lanzar dos cargas simultáneas.
+- Se conservan tres intentos con timeout por intento para cubrir carrera de arranque/red.
+- init() se envuelve únicamente para recuperar un error local y garantizar que la autocarga cloud se lance aunque el render inicial falle.
+- La sincronización sigue siendo no bloqueante para la UI y nunca sustituye el estado local por una respuesta remota si el perfil ya fue modificado localmente durante la petición (contrato existente de cloudManualLoad).
+
+FLUJO CANÓNICO
+RECARGA / PIN / SESIÓN RECORDADA
+  → init()
+  → __marvelCloudSessionSync()
+  → __marvelProfileLoad()
+  → cloudManualLoad()
+  → cloudGet()
+  → normalizeRemote()
+  → applyCloudState()
+  → persistencia local
+
+BOTÓN «CARGAR DESDE PERFIL»
+  → __marvelProfileLoad()
+  → cloudManualLoad()
+
+No existe un cargador automático paralelo.
+
+CHECKLIST V1.10.13
+1. Recargar con sesión recordada: recuperar estado cloud sin pulsar «Cargar desde perfil».
+2. Entrar con PIN: recuperar estado cloud sin pulsar manualmente el botón.
+3. Cambiar localmente → guardar en nube → recargar → comprobar recuperación.
+4. Marcar una valoración en ficha → Guardar en perfil → recargar → comprobar Valoraciones.
+5. Pulsar manualmente «Cargar desde perfil» y comparar resultado con la recarga automática.
+6. Con nube no disponible, la aplicación no queda bloqueada y conserva la copia local.
+7. Comprobar que no aparece «Sincronización no disponible» por un error genérico de renderizado local.
+8. Revisar consola: __MARVEL_V1_10_13_DIAGNOSTICS__().
+
+CRITERIO DE NO REGRESIÓN
+No avanzar si aparece mezcla de perfiles, bloqueo de arranque, pérdida de datos, doble ejecución de carga o un desacople entre «Cargar desde perfil» y la autocarga.

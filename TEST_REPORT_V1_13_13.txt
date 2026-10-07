@@ -1,0 +1,10 @@
+V1.13.13 · VALIDACIÓN
+
+1. Se valida que #nextEpisode genera data-person="both" y conserva el seasonIndex/episode exactos de la temporada mostrada.
+2. El handler de #nextEpisode usa NEXT_EPISODE_BOTH con el seasonIndex de la tarjeta, por lo que solo se añade el siguiente capítulo no visto por ambos dentro de esa temporada.
+3. El handler de #nextCompleteSeason usa SEASON_BOTH con el seasonIndex mostrado y no toca otras temporadas.
+4. El handler de #nextIgnore usa SERIES_IGNORE_TOGGLE para cualquier serie y no mezcla la decisión con recommendationIgnoredSeasons.
+5. Tras dispatch, MarvelApp.notify emite marvel:state-synced y el propietario central vuelve a pintar Catálogo/Hero/Ficha/Timeline/Valoraciones/Estadísticas/Logros.
+6. El selector de recomendación vuelve a calcular el candidato desde el estado canónico: siguiente capítulo de la temporada actual → siguiente temporada → siguiente título.
+7. package.json, manifest.webmanifest y Service Worker quedan sincronizados en 1.13.13.
+8. Pendiente de smoke test interactivo en Chrome/Android y despliegue Netlify para validar también persistencia real y caché del Service Worker.

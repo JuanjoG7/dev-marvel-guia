@@ -1,0 +1,8 @@
+V1.13.10 · PUENTE ACCIONES SIGUIENTE RECOMENDACIÓN ↔ TARJETA ORIGEN
+
+- El bloque «Continuar viendo» ahora ejecuta los controles reales de la tarjeta de catálogo correspondiente.
+- Para episodios se conserva exactamente la persona y el capítulo que muestra la recomendación, en lugar de recalcular otro capítulo compartido.
+- «Completar temporada», «Completar título», «Ir a» e «Ignorar» se delegan a los mismos botones de la tarjeta cuando están disponibles.
+- Se mantiene fallback al motor Loki si la tarjeta origen no está renderizada.
+- No se modifica la rejilla ni el tamaño de los botones del bloque hero.
+- Service Worker/cachés pasan a V1.13.10.

@@ -1,0 +1,10 @@
+MARVEL JUANJO × MARIA · V1.13.5
+
+- Mantiene los posters existentes fuera del conjunto de correcciones solicitado.
+- Corrige la identificación TMDB de Los 4 Fantásticos (1994): TMDB 22059.
+- Fija poster/backdrop exactos para WandaVision, Los 4 Fantásticos (1994), I Am Groot, Jessica Jones, Inhumans, Cloak & Dagger, Legion, Hit-Monkey, M.O.D.O.K., Helstrom y Punisher: One Last Kill.
+- Añade una capa final de corrección que sobrescribe únicamente esos títulos y evita que una caché antigua vuelva a mostrar otra obra.
+- Hace la portada de la ficha más ancha en móvil/tablet, mantiene proporción 2:3 y usa object-fit: contain para no recortar el poster.
+- El fondo completo de la ficha usa el backdrop real de TMDB con opacidad baja y velo de lectura.
+- Refuerza precarga/caché de las imágenes corregidas con Service Worker/CacheStorage.
+- Trakt permanece eliminado.

@@ -1,0 +1,19 @@
+V1.20.0 · NAVEGACIÓN Y UX
+
+CAMBIOS APLICADOS
+- Navegación interna de fichas largas mediante anclas dentro del scroll propio del modal; no utiliza scrollIntoView ni desplaza la página subyacente.
+- Botón flotante «Volver arriba» para pantallas largas y fichas.
+- Reserva inferior global ampliada para que la barra de navegación y el guardado flotante no tapen contenido.
+- Modales adaptativos: en escritorio/tablet se ajustan al contenido dentro de un máximo de viewport; en móvil conservan scroll interno y espacio seguro.
+- Menú de herramientas reorganizado por seis categorías sin eliminar acciones existentes.
+- Selector «Normal / Editar» en el catálogo. El modo normal oculta controles administrativos (editar, ignorar recomendación/serie/temporada) y el modo Editar los vuelve a mostrar.
+- Estado del modo de edición guardado en la configuración del perfil.
+- Versionado de release actualizado a 1.20.0 y caché de shell PWA V1-20-0.
+NO CAMBIADO DELIBERADAMENTE
+- Motor de progreso.
+- Episodios y temporadas.
+- Valoraciones, favoritos y vistos juntos.
+- Timeline, estadísticas y logros.
+- Cloud y reintentos de V1.19.8.
+- TMDB, multimedia, trailers y teasers oficiales.
+- Catálogo y datos existentes.

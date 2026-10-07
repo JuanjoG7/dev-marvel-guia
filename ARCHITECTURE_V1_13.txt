@@ -1,0 +1,24 @@
+MARVEL JUANJO × MARÍA · V1.13.2
+
+1. FUENTE DE VERDAD
+El núcleo Loki V1.10+ sigue siendo la única fuente de verdad para estado local. V1.13.2 no crea un segundo estado de progreso.
+
+2. MEDIA GATEWAY
+El navegador llama a /api/marvel-media. Netlify Function resuelve TMDB en servidor y nunca expone el secreto de TMDB al cliente.
+
+3. IDENTIFICACIÓN
+TMDB se utiliza como fuente primaria para identificar cada película o serie por título y año, con selección de coincidencia por relevancia y fecha.
+
+4. DATOS
+Póster, backdrop, sinopsis, año, duración, IDs externos, reparto/personajes, fotos de personas, temporadas, episodios, valoraciones públicas y metadatos complementarios.
+
+5. CACHÉ
+- Cliente: localStorage, clave derivada de tipo + título + año, TTL 30 días.
+- Servidor: Netlify Blobs, TTL lógico 30 días.
+- La caché no se mezcla con app.state.
+
+6. FALLBACK
+Si falta la variable de entorno o TMDB falla, el render local de V1.12.4 permanece operativo.
+
+7. NO BLOQUEO
+La carga remota ocurre después de openTitle y nunca se espera durante el boot de la aplicación.

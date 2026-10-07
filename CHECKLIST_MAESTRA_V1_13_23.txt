@@ -1,0 +1,78 @@
+CHECKLIST MAESTRA · ESTADO REAL · V1.13.23
+
+BASELINE
+[x] V1.13.20 estable y funcional
+[x] V1.13.21 saneamiento de historial y hooks auxiliares
+[x] V1.13.22 ajuste visual del control de ignorar serie
+[x] V1.13.23 limpieza de listeners visuales redundantes
+
+ARQUITECTURA
+[x] fuente de verdad centralizada funcional
+[x] MarvelProgressEngine
+[x] MarvelApp.dispatch / canonical mutation
+[x] Selectors
+[x] propietarios canónicos de acciones
+[x] aislamiento por titleId / season / episode / person
+[x] limpieza quirúrgica V1.13.20
+[x] eliminación de listeners globales redundantes del decorador V1.12.4
+[ ] revisar restos legacy no demostrados como huérfanos
+[ ] auditoría final de listeners/observers
+[ ] auditoría final de dependencias entre módulos
+[ ] limpieza de variables globales históricas
+
+PERFILES / ADMIN
+[x] perfiles separados funcionalmente
+[x] Cloud independiente por perfil
+[x] root protegido server-side
+[x] crear / editar / cambiar PIN / eliminar perfil autorizado
+[ ] limpieza de variables globales históricas de perfil
+[ ] revisión final de API interna de MarvelProfileManager
+
+FICHAS / TMDB
+[x] fichas enriquecidas
+[x] posters / backdrops
+[x] reparto / personajes / voces en animación
+[x] TMDB vía proxy
+[x] caché y fallback
+[ ] validación final en producción
+
+PWA
+[x] manifest
+[x] iconos any + maskable
+[x] Service Worker
+[x] shell cache + image cache
+[ ] instalación real Android
+[ ] actualización real
+[ ] offline real
+[ ] recuperación online
+
+HISTORIAL / VERSIONADO
+[x] showVersionHistory como propietario único
+[x] V1.13.14 registrada
+[x] V1.13.18 registrada
+[x] V1.13.19 registrada
+[x] V1.13.20 registrada
+[x] V1.13.21 registrada
+[x] V1.13.22 registrada
+[x] V1.13.23 registrada
+[x] package.json alineado
+[x] manifest alineado
+[x] Service Worker alineado
+[x] atribución TMDB dentro del historial
+[ ] revisión final de archivos históricos de documentación
+
+UI
+[x] control de ignorar serie muestra solo icono
+[x] title/aria-label conservados
+[x] decorador V1.12.4 conserva MutationObserver y elimina listeners globales redundantes
+
+PROTECCIÓN FUNCIONAL
+[x] progreso de títulos / temporadas / episodios
+[x] recomendación
+[x] valoraciones
+[x] estadísticas
+[x] Timeline
+[x] logros
+[x] tarjetas y fichas
+[x] Cloud y perfiles
+[x] diseño y responsive

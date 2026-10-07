@@ -1,0 +1,53 @@
+V1.22.3 · TEST REPORT
+
+BASE
+- V1.22.2 · Tarjeta de recomendación restaurada.
+
+CAMBIO PRINCIPAL
+- Nuevo panel superior “Títulos en curso”.
+- Mantiene intacta la tarjeta blanca “Siguiente recomendación” con portada y sus acciones/KPI.
+
+CRITERIO DE “EN CURSO”
+- Solo se incluyen posiciones de reproducción guardadas con segundos > 0.
+- Películas: posición resume.person1/person2 existente y título no completado por esa persona.
+- Series: posición resumeEpisodes.person1/person2 existente, episodio no completado por esa persona.
+- Se excluyen títulos futuros, borrados o ignorados.
+- No se cuentan títulos simplemente marcados como vistos sin posición de reproducción activa.
+- No se crean ni modifican registros de estado al renderizar el panel.
+
+AGRUPACIÓN
+- Un título aparece una sola vez.
+- Solo Juanjo activo → “JUANJO EN CURSO”.
+- Solo María activa → “MARÍA EN CURSO”.
+- Ambos activos → “AMBOS EN CURSO”, mostrando ambas posiciones si difieren.
+- Si hay varias posiciones activas de una misma persona para el mismo título, se muestra la más recientemente actualizada.
+
+VALIDACIÓN ESTÁTICA
+- JavaScript inline: 49/49 bloques pasan `node --check`.
+- Etiquetas <script>: 49/49 equilibradas.
+- Etiquetas <style>: 49/49 equilibradas.
+- Build marker: 1.22.3.
+- Build base: 1.22.2.
+- package.json: 1.22.3.
+- manifest.webmanifest: 1.22.3.
+
+REGRESIÓN INTENCIONADA
+- No se modifica el motor canónico de progreso.
+- No se modifica Cloud.
+- No se modifica Timeline.
+- No se modifica favoritos.
+- No se modifica la tarjeta “Siguiente recomendación”.
+- El panel lee directamente app.state.items para evitar crear registros al consultar el estado.
+
+PRUEBA MANUAL PENDIENTE EN DEV
+1. Crear/usar una película con posición guardada para Juanjo.
+2. Crear/usar una película con posición guardada para María.
+3. Crear/usar una película con posición guardada para ambos.
+4. Usar una serie con un episodio en curso para ambos.
+5. Usar una serie con episodio distinto en curso para cada persona.
+6. Completar el episodio y comprobar que desaparece del panel.
+7. Borrar la posición y comprobar que desaparece.
+8. Marcar un título como visto sin posición y comprobar que NO aparece.
+9. Comprobar que temporadas no iniciadas NO aparecen.
+10. Comprobar que la tarjeta “Siguiente recomendación” sigue idéntica y funcional.
+11. Probar Android/móvil y escritorio.

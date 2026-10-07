@@ -1,0 +1,14 @@
+V1.16 · NETLIFY BUILD PRESERVADO
+
+Esta release mantiene el entorno de build de V1.15.5 de forma deliberada.
+
+package.json
+- engines.node: >=22.0.0
+- @netlify/blobs: 10.7.13
+
+netlify.toml
+- command: npm install --omit=dev
+- NODE_VERSION: 22
+
+VARIABLES
+No se añade ninguna variable nueva ni se cambia ninguna existente. Se mantienen las variables server-side ya configuradas en Netlify.

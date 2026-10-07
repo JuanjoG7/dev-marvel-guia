@@ -1,0 +1,54 @@
+CHECKLIST MAESTRA — V1.14
+
+BASELINE
+[x] V1.13.20 estable y funcional
+[x] V1.13.21 saneamiento de historial/versionado
+[x] V1.13.22 UI series
+[x] V1.13.23 limpieza UX
+[x] V1.13.24 imagen de cabecera personalizable
+[x] V1.13.25 posters de recomendación unificados
+[x] V1.13.29 PIN raíz persistente
+[x] V1.13.29 sincronización instantánea recomendación → tarjeta y corrección del build por secret scan
+
+CIERRE TÉCNICO REALIZADO EN V1.14
+[x] Revisar últimos restos legacy demostrables
+[x] Auditoría de listeners/observers sin retirar piezas no demostradas como huérfanas
+[x] Auditoría final de dependencias entre módulos
+[x] Limpieza de variables globales históricas demostrablemente sin consumidores internos
+[x] Revisión final de MarvelProfileManager y APIs de perfil: se conserva por compatibilidad/uso potencial
+[x] Auditoría definitiva de aislamiento de perfiles sin cambiar el esquema funcional
+[x] Corrección del marcador de baseline de build 1.13.28 → 1.13.29
+[x] Revisión de número de versión en runtime/package/manifest/SW
+[x] Auditoría final de archivos del release
+[x] Cierre del historial con entrada v1.14
+
+CERRADO FUNCIONALMENTE
+[x] Progreso títulos / temporadas / episodios
+[x] Recomendaciones
+[x] Valoraciones
+[x] Estadísticas
+[x] Timeline
+[x] Logros
+[x] Fichas enriquecidas
+[x] TMDB / posters / personas / actores
+[x] Caché multimedia
+[x] Cloud funcional
+[x] Perfiles funcionales
+[x] Administración funcional
+[x] Diseño responsive
+[x] Sin micro-scroll
+[x] Imagen de cabecera personalizable
+[x] Secret Scan: sin literal secreto incrustado en el paquete
+[x] Tarjetas de catálogo sincronizan inmediatamente desde el estado canónico
+
+VALIDACIÓN MANUAL POST-DESPLIEGUE
+[ ] Comprobar Guardar en nube / recuperación del perfil raíz
+[ ] Comprobar borrado Cloud de una cuenta secundaria desde ADMIN
+[ ] Instalar la PWA en Android
+[ ] Cerrar y volver a abrir la PWA instalada
+[ ] Actualizar a V1.14 y confirmar que desaparece cualquier shell anterior en caché
+[ ] Probar modo offline: abrir aplicación, navegar por catálogo/fichas y comprobar recursos cacheados
+[ ] Volver online y comprobar recuperación normal sin pérdida de progreso
+[ ] Probar desde Android que una acción de Siguiente recomendación actualiza inmediatamente la tarjeta equivalente sin Guardar/recargar
+[ ] Probar cambio de cuenta y confirmar que no se mezcla progreso/valoraciones/configuración
+[ ] Probar edición de nombres/PIN conservando la identidad cloud del perfil

@@ -1,0 +1,28 @@
+V1.13.14 · ARQUITECTURA / CONFLICTO RESUELTO
+
+CLICK HERO
+  ↓
+V1.10.15 PRIMARY EVENT OWNER
+  ↓
+PRIORIDAD EXPLÍCITA DE #next*
+  ↓
+__MARVEL_HERO_ACTION_OWNER__
+  ↓
+heroAction11313()
+  ↓
+MarvelApp.dispatch()
+  ↓
+Progress / Catalog canonical domains
+  ↓
+marvel:state-synced
+  ↓
+Catálogo + Hero + Ficha + Timeline + Valoraciones + Estadísticas + Logros
+
+Causa raíz encontrada:
+
+#nextEpisode tenía data-person="both".
+El propietario de eventos comprobaba antes [data-person] que #nextEpisode.
+Por tanto "both" pasaba por person('both') → person1 y se ejecutaba TITLE_PERSON
+contra la serie completa, en lugar de NEXT_EPISODE_BOTH.
+
+V1.13.14 corrige la prioridad y elimina el atributo conflictivo.

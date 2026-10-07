@@ -1,0 +1,19 @@
+V1.14 · CIERRE TÉCNICO Y SANEAMIENTO QUIRÚRGICO
+
+BASELINE
+V1.13.29 — sincronización inmediata de tarjetas + PIN raíz persistente + corrección Secret Scan.
+
+CAMBIOS
+- Versionado consolidado de release: runtime/package/manifest → 1.14.0; UI/historial → v1.14.
+- Service Worker y cachés multimedia versionados a V1-14-0.
+- Se eliminan alias/banderas/globales históricas sin consumidores internos: V99 render-only, autoload V1.10.12/V1.10.13, marcadores V136/V137, alias V46/V72/V76, prioridad V115, warming V1133 y placeholders cloud/auth sin lectores.
+- Se corrige el marcador de baseline de build de 1.13.28 a 1.13.29.
+- Se incorpora la entrada v1.14 al historial funcional.
+- Se actualiza README de despliegue y PWA.
+
+NO CAMBIA
+- MarvelProgressEngine / canonicalMutate.
+- Progreso, recomendaciones, tarjetas, fichas, valoraciones, estadísticas, Timeline y logros.
+- TMDB/proxy/caché y funciones Netlify.
+- Perfiles, aislamiento, PIN y root protegido.
+- Diseño visual y responsive.

@@ -1,0 +1,44 @@
+V1.22.0 — TEST REPORT
+Base: V1.21.1
+
+AUTOMÁTICAS / ESTÁTICAS
+[PASS] package.json versión 1.22.0
+[PASS] manifest.webmanifest versión 1.22.0
+[PASS] __MARVEL_BUILD_VERSION__ = 1.22.0
+[PASS] __MARVEL_BUILD_BASE__ = 1.21.1
+[PASS] 48 bloques <script> extraídos y validados individualmente con node --check
+[PASS] 48 cierres </script> para 48 aperturas
+[PASS] 47 bloques <style> y 47 cierres </style>
+[PASS] Marcadores V1.22.0 presentes
+[PASS] Código V1.22.0 no modifica funciones base de progreso/Cloud; se implementa como capa de UI/estado de vista
+[PASS] 6 tipos de vista rápida declarados
+[PASS] 5 filtros de estado declarados
+[PASS] guardado de vistas con límite de 12
+[PASS] Timeline “Ir a mi posición” con fallback
+[PASS] compartir ficha con Web Share + clipboard fallback
+[PASS] deep-link #titulo= con apertura de ficha
+
+VALIDACIONES DE INTEGRIDAD
+[PASS] Los archivos de V1.21.1 permanecen como base y no se sobrescriben.
+[PASS] Las funciones Netlify del paquete permanecen sin cambios.
+[PASS] Los assets existentes se conservan.
+
+PRUEBA LOCAL DE SERVIDOR
+[PASS] HTTP 200 en /index.html mediante servidor local Python
+[PASS] HTTP 200 en /manifest.webmanifest
+
+LIMITACIONES CONOCIDAS
+- No se ha ejecutado una prueba de navegador real en este entorno por falta de un navegador automatizado operativo dentro del tiempo disponible.
+- El paquete base V1.21.1 no contiene sw.js; V1.22.0 conserva esa situación en lugar de inventar un Service Worker.
+
+PRUEBA MANUAL PENDIENTE EN DEV
+1. Abrir Catálogo y comprobar filtros rápidos.
+2. Combinar búsqueda + filtro rápido + tipo.
+3. Guardar una vista, cerrar/recargar y cargarla.
+4. Borrar una vista guardada.
+5. Cambiar modo original/mega/sagas y repetir filtros.
+6. Entrar en Timeline y pulsar “Ir a mi posición”.
+7. Abrir una ficha y probar Modo spoiler.
+8. Compartir ficha desde Android y desde escritorio.
+9. Abrir un enlace #titulo=<id> y comprobar que abre la ficha.
+10. Regresión maestra: progreso, episodios, temporadas, valoraciones, favoritos, Timeline, estadísticas, logros, actividad y Cloud.

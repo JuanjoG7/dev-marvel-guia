@@ -1,0 +1,14 @@
+V1.13.11 · VALIDACIÓN
+
+1. index.html validado con Node vm.Script: 0 errores de sintaxis esperados para scripts inline.
+2. sw.js validado con Node vm.Script.
+3. El botón #nextEpisode conserva id, data-person, data-episode y data-season-index exactos.
+4. La acción del hero ya no usa HTMLElement.click() sobre la tarjeta ni setTimeout para encadenar un segundo DOM click.
+5. Episodio Juanjo/María: se ejecuta Engine.toggleEpisode sobre el mismo titleId y episodio que usa la tarjeta.
+6. Acción "Ambos": dos operaciones Engine.toggleEpisode dentro de una sola mutación canónica y un solo state-sync.
+7. Completar temporada: Engine.completeSeasonBoth.
+8. Completar título: Engine.setTitlePerson para ambas personas.
+9. El state-sync central refresca catálogo, recomendaciones, ficha, timeline, valoraciones, estadísticas, logros y demás vistas conectadas al mismo estado.
+10. La mutación canónica conserva scrollX/scrollY y lo restaura antes de pintar, en el siguiente frame y en el frame posterior.
+11. Se añade guard de pointer/focus para evitar el micro-scroll táctil previo al click.
+12. Sin cambios en la estructura/tamaños CSS de los botones del hero.

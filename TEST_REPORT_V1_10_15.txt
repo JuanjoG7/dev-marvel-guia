@@ -1,0 +1,39 @@
+V1.10.15 Loki · Informe de validación técnica
+
+Base
+- V1.11.4 validada por el usuario como base funcional.
+- Se conserva la apariencia: el HTML/CSS no-script coincide con la base salvo comentarios/líneas en blanco introducidos por el refactor.
+
+Validaciones estáticas
+- 34 scripts inline comprobados con node --check: 0 errores.
+- core/marvel-core-v1.10.js: OK.
+- netlify/functions/marvel-state.mjs: OK.
+- Una sola definición de function mutate(): bootstrap placeholder.
+- Una sola implementación completa de la transacción canónica (V102); Loki la reutiliza por referencia, sin wrappers V100/V63 nuevos.
+- Una sola definición de MarvelApp.dispatch().
+- Una sola instalación del propietario primario de eventos de estado.
+- Una sola instalación del propietario central de marvel:state-synced.
+- El valor literal del token de administración no aparece en el paquete.
+
+Validaciones runtime (Chromium)
+- __MARVEL_V11015_FINAL_CHECK__(): PASS.
+- Diagnostics: public mutation owner / progress engine / selectors read-only / primary event owner / state-sync owner: PASS.
+- Selectors: intento de escritura falla y el estado real permanece intacto.
+- State snapshot: modificar el clon no altera el estado real.
+- Eyes of Wakanda T1 episodio 1: un click sintético cambia únicamente Eyes; Werewolf by Night permanece intacto; el cambio se revierte correctamente.
+- Valoración de Eyes of Wakanda: set/clear y restauración sin afectar otro título.
+- Modos Catalog/Timeline: cambio y restauración correctos.
+- Motor de progreso: lecturas de progreso/temporada no modifican el estado.
+- Spider-Noir: 1 temporada y 8 episodios detectados; 8 nombres de episodio presentes.
+- Toggle de título: cambia solo el título objetivo y se revierte.
+- Propagación: un listener marvel:state-synced añadido después del propietario central no recibe el evento, evitando renders históricos duplicados.
+- Click sintético de episodio: el listener de burbuja no se ejecuta y el cambio ocurre una sola vez.
+
+Compatibilidad histórica
+- V61/V63/V72/V89/V102/V115 no se eliminan de golpe. Las capas históricas se mantienen donde todavía aportan UI/compatibilidad, pero los controles de estado canónicos ya pasan por MarvelApp.dispatch()/Progress Engine.
+- __v63Normalize() queda reservado a migración/rehidratación explícita y no se ejecuta después de cada acción.
+- Playback V115 conserva su controlador porque administra posición de reproducción, no progreso de títulos.
+
+Criterio de salida
+- V1.10.15 está lista como refundación funcional del núcleo, con compatibilidad legacy aislada.
+- Queda pendiente una limpieza posterior más agresiva del código muerto histórico si se desea eliminar físicamente todos los bloques antiguos. Esa limpieza no se mezcla con V1.10.15 para reducir riesgo de regresión visual/funcional.

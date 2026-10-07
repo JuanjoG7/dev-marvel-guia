@@ -1,0 +1,9 @@
+V1.22.3 · TÍTULOS EN CURSO
+
+- Añade un panel superior de títulos actualmente en reproducción.
+- Fuente de verdad: puntos de reproducción de MarvelPlayback, no el simple estado de visto.
+- Excluye títulos/episodios completados, títulos simplemente vistos, ignorados y futuros.
+- Agrupa por título y distingue AMBOS, JUANJO o MARÍA en curso.
+- Si ambos tienen posiciones activas en el mismo título, se muestran ambas posiciones.
+- Mantiene intacta la tarjeta blanca de Siguiente recomendación y su KPI.
+- No crea un segundo sistema de progreso ni modifica el estado al renderizar.

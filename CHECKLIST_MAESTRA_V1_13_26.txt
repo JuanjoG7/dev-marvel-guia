@@ -1,0 +1,173 @@
+CHECKLIST MAESTRA — MARVEL JUANJO × MARÍA
+Estado: V1.13.26
+Fecha: 23/09/2026
+
+BASELINE
+[x] V1.13.20 — Limpieza quirúrgica estable
+[x] V1.13.21 — Saneamiento de historial/versionado
+[x] V1.13.22 — UI de series: ignorar serie como icono
+[x] V1.13.23 — Limpieza UX de listeners redundantes
+[x] V1.13.24 — Imagen de cabecera personalizable
+[x] V1.13.26 — Poster de siguiente recomendación usa el mismo motor que tarjetas/fichas
+
+PROGRESO / MOTOR
+[x] Fuente de verdad centralizada funcionalmente
+[x] MarvelProgressEngine
+[x] MarvelApp.dispatch
+[x] canonicalMutate
+[x] MarvelSelectorsV110
+[x] Propietario único por acción relevante
+[x] Películas / series / temporadas / episodios
+[x] Juanjo / María / Ambos
+[x] Recomendaciones
+[x] Sin micro-scroll
+[x] Actualización cruzada tarjeta/ficha/valoraciones/estadísticas/Timeline
+[ ] Revisar últimos restos legacy demostrables
+[ ] Auditoría final de listeners/observers
+[ ] Auditoría final de dependencias entre módulos
+
+PERFILES / ADMIN
+[x] Perfil independiente
+[x] Cloud independiente
+[x] Cambio de cuenta
+[x] Progreso, episodios, valoraciones, favoritos, logros y configuración separados
+[x] Root ADMIN protegido server-side
+[x] Crear / editar usuarios
+[x] Cambiar PIN
+[x] Eliminación autorizada mediante Cloud
+[ ] Limpiar variables globales históricas
+[ ] Revisión final de MarvelProfileManager y APIs internas
+[ ] Auditoría definitiva del aislamiento entre perfiles
+
+FICHAS ENRIQUECIDAS
+[x] Póster
+[x] Sinopsis / metadatos
+[x] Temporadas / episodios
+[x] Personajes / reparto
+[x] Voces en animación
+[x] Imágenes de títulos
+[x] Imágenes de actores/personas
+[x] Fallback
+
+TMDB / MULTIMEDIA
+[x] Integración TMDB mediante proxy
+[x] IDs TMDB y locked IDs
+[x] Posters / backdrops
+[x] Personas / personajes
+[x] Temporadas / episodios
+[x] Caché
+[x] Fallback / errores
+[x] Fotos visibles en títulos y actores
+[x] Validación real de uso confirmada por el usuario
+[x] Poster de recomendación unificado con el mismo motor de tarjetas/fichas
+[x] Evitar búsqueda ambigua por texto de título en recomendación
+[ ] Revisar ubicación final de atribución TMDB, si procede
+[x] Trakt fuera de alcance
+
+PWA
+[x] Manifest
+[x] Iconos any + maskable
+[x] Standalone / theme color
+[x] Splash/branding
+[x] Service Worker
+[x] Shell + image cache
+[x] Actualización de cachés
+[x] Recuperación offline implementada
+[ ] Validar instalación Android real
+[ ] Validar actualización real
+[ ] Validar offline real
+[ ] Validar recuperación online real
+
+CLOUD / SINCRONIZACIÓN
+[x] Carga / guardado / recuperación
+[x] Estado por usuario
+[x] Arranque sin bloqueo
+[x] Guardado manual
+[x] Protección administrativa
+[ ] Auditoría final de duplicidades del listener de guardado
+[ ] Validación final de producción
+
+DISEÑO / UX
+[x] Diseño visual consolidado
+[x] Responsive
+[x] Estados visuales
+[x] Posters en tarjetas/fichas
+[x] Imagen de cabecera personalizable
+[x] Series sin texto de “Ignorar serie” dentro del control estrecho
+[x] Siguiente recomendación comparte fuente de poster con tarjetas y fichas
+
+HISTORIAL / VERSIONADO
+[x] package.json alineado
+[x] manifest alineado
+[x] Service Worker alineado
+[x] Historial hasta V1.13.26
+[x] V1.13.14 registrada como estabilización
+[x] V1.13.19 registrada
+[x] V1.13.20 registrada
+[x] V1.13.21 registrada
+[x] V1.13.22 registrada
+[x] V1.13.23 registrada
+[x] V1.13.24 registrada
+[x] V1.13.26 registrada
+[ ] Revisión final de referencias históricas V141–V144
+[ ] Revisión final del número de versión en todas las superficies
+[ ] Auditoría final de archivos
+
+LEGACY FINAL
+[x] Helpers claramente huérfanos eliminados
+[x] Marcadores retirados eliminados/reducidos
+[x] Listeners demostrablemente redundantes eliminados
+[x] Core externo no utilizado eliminado
+[x] Hooks UX redundantes eliminados
+[ ] Revisar listeners restantes uno a uno
+[ ] Revisar observers restantes uno a uno
+[ ] Revisar módulos antiguos sin consumidores
+[ ] Revisar variables globales históricas
+[ ] Eliminar solamente código demostrado como inútil
+[ ] Auditoría final sin cambio funcional
+
+FUNCIONALIDADES PROTEGIDAS
+[x] Progreso
+[x] Episodios
+[x] Temporadas
+[x] Recomendaciones
+[x] Valoraciones
+[x] Estadísticas
+[x] Timeline
+[x] Logros
+[x] Fichas
+[x] TMDB
+[x] Posters
+[x] Personas/actores
+[x] Cloud
+[x] Perfiles
+[x] Administración
+[x] PWA
+[x] Diseño
+
+TABLERO REAL
+🎬 Progreso ................... 🟢 Cerrado
+🎯 Recomendaciones ............ 🟢 Cerrado
+⭐ Valoraciones ............... 🟢 Cerrado
+📊 Estadísticas ............... 🟢 Cerrado
+🏆 Logros ..................... 🟢 Cerrado
+🕒 Timeline ................... 🟢 Cerrado
+⭐ Fichas ..................... 🟢 Cerrado
+🖼️ TMDB ....................... 🟢 Cerrado
+👤 Personas/actores ........... 🟢 Cerrado
+💾 Caché ...................... 🟢 Cerrado
+🎨 Diseño ..................... 🟢 Cerrado
+👥 Perfiles ................... 🟢 Funcional / 🟡 limpieza
+👑 Administración ............. 🟢 Funcional / 🟡 limpieza
+☁️ Cloud ...................... 🟢 Funcional / 🟡 validación
+📱 PWA ........................ 🟢 Implementada / 🟡 dispositivo
+🧠 Arquitectura ............... 🟢 Funcional / 🟡 saneamiento
+📚 Historial .................. 🟢 Muy avanzado / 🟡 cierre
+🧹 Legacy final ............... 🟡 Pendiente
+
+CRITERIO
+No se elimina código por antigüedad o por peso. Solo se elimina cuando se demuestra que no tiene consumidor ni función real. V1.13.20 sigue siendo el baseline de seguridad y V1.13.26 es la candidata actual.
+
+[x] Cambio de PIN de la cuenta raíz persistente y verificable
+
+[x] V1.13.28 — eliminación del literal sensible que bloqueaba Secret Scanning de Netlify

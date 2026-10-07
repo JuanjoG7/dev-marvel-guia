@@ -1,0 +1,10 @@
+V1.19.5 — TRÁILERES EN FICHA · TMDB → YOUTUBE
+
+- La ficha enriquecida consulta los vídeos asociados que TMDB devuelve junto a la película/serie.
+- Se prioriza tráiler oficial en español; si no existe, se usa el mejor tráiler/teaser disponible.
+- El reproductor se integra directamente en la ficha mediante iframe de YouTube.
+- No se añade ninguna API de YouTube ni ninguna variable nueva de Netlify.
+- Se mantiene TMDB_API_READ_ACCESS_TOKEN como única credencial de multimedia.
+- Caché de multimedia versionada para no reutilizar respuestas antiguas sin trailers.
+- No se modifica Catalog, Progress, Episodes, Ratings, Profile ni Settings.
+- netlify.toml, Node 22 y dependencias se mantienen sin cambios.

@@ -1,0 +1,14 @@
+V1.15.2 · CLOUD CORRECTO Y PORTADA DE MARVEL ONE-SHOTS
+
+OBJETIVO
+Corregir el indicador falso de «Nube no disponible · copia local activa» cuando el perfil está autenticado pero todavía no tiene snapshot Cloud, y sustituir la imagen incorrecta de la ficha Marvel One-Shots por la portada de un capítulo real.
+
+CAMBIOS
+- La carga inicial distingue un perfil Cloud nuevo/vacío de un fallo de red o backend.
+- Un perfil autenticado sin estado remoto crea automáticamente su primera copia oficial una vez finaliza la carga.
+- El propietario final de autoload deja de sobrescribir estados Cloud válidos con un mensaje de error genérico.
+- Marvel One-Shots (id 100) usa el capítulo Marvel One-Shot: The Consultant (TMDB #76122) como imagen principal de ficha.
+- Se actualizan package, manifest, Service Worker y build/runtime a V1.15.2.
+
+NO CAMBIA
+- Motor de progreso, tarjetas, Timeline, valoraciones, estadísticas, perfiles, administración, TMDB proxy, PWA y Cloud API.

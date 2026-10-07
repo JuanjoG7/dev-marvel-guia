@@ -1,0 +1,9 @@
+V1.22.1 · RUTA DE MARATÓN COMPACTA
+
+- Eliminado visualmente el bloque amarillo duplicado de “Continuar maratón”.
+- La zona blanca de recomendación superior pasa a mostrar una única ruta de tres puntos: Último visto · Actual · Siguiente.
+- El punto actual conserva la acción Continuar; los otros dos abren la ficha.
+- El último visto se deriva del registro de actividad de progreso y usa fallback al último punto completado de la ruta.
+- El siguiente se deriva de recommendationEntries/recommendationMode existentes.
+- No se modifica el motor de progreso, Cloud, favoritos, valoraciones, Timeline ni estadísticas.
+- Se mantiene V1.22.0 como versión anterior de referencia.

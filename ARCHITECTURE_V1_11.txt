@@ -1,0 +1,61 @@
+MARVEL · CAMINO AL MULTIVERSO — V1.11 LOKI
+PERFILES Y ADMINISTRACIÓN DEFINITIVA
+
+OBJETIVO
+Cerrar el bloque de perfiles iniciado en V1.10 sin cambiar la apariencia actual: un propietario explícito de la gestión de cuentas, separación por namespace local y una administración raíz con borrado cloud protegido.
+
+PROPIETARIO CANÓNICO
+window.MarvelProfileManager
+- list() / active() / diagnostics()
+- create()
+- rename()
+- changePin()
+- delete()
+- switch() / logout()
+
+IDENTIDAD
+- account.id es el identificador local estable.
+- identityPerson1/identityPerson2 forman parte de la identidad cloud estable existente.
+- Renombrar personas NO cambia cloudKey.
+- Cambiar PIN NO cambia cloudKey de una cuenta V131 ya migrada.
+
+AISLAMIENTO
+Cada cuenta usa makeLS(account.id) y namespaces .v83.<accountId> para state/checkpoint/meta/sagas/achievements/customTitles/order/access. El cambio de cuenta termina en una recarga para reejecutar autenticación, carga local y autoload cloud en el nuevo contexto.
+
+ADMINISTRACIÓN
+- root = true + role = ADMIN para juanjo-maria-root.
+- Root no se puede eliminar.
+- El root puede restablecer el PIN de otras cuentas tras validar su propio PIN.
+- El borrado cloud requiere MARVEL_ROOT_ADMIN_TOKEN en Netlify y se realiza contra DELETE /.netlify/functions/marvel-state.
+- El token de administración se conserva solo en sessionStorage del dispositivo.
+
+NO AÑADIDO
+No se inventa un registro cloud global de cuentas. Los perfiles siguen descubriéndose localmente y su estado se sincroniza por la clave cloud estable existente.
+
+CHECKLIST V1.11
+1. Crear perfil nuevo y comprobar namespace local independiente.
+2. Entrar en perfil nuevo y verificar autoload cloud del perfil.
+3. Cambiar entre root y perfil secundario sin mezclar estado.
+4. Renombrar perfil y comprobar que cloudKey permanece estable.
+5. Cambiar PIN propio y comprobar acceso con el nuevo PIN.
+6. Desde root, restablecer PIN de una cuenta secundaria.
+   (Si la cuenta ya tenía cloudKey, la conserva; si era una cuenta nunca sincronizada, la clave se establecerá al entrar con el nuevo PIN.)
+7. Intentar borrar root: debe estar bloqueado en cliente y servidor.
+8. Con MARVEL_ROOT_ADMIN_TOKEN configurado, borrar una cuenta secundaria y comprobar DELETE + eliminación local.
+9. Sin token, el borrado cloud debe rechazarse y la copia local debe conservarse.
+10. Recargar y recuperar ambos perfiles repetidamente.
+11. Verificar Recordarme no cruza cuentas.
+12. Verificar que progreso, episodios, valoraciones, favoritos y logros permanecen aislados.
+
+
+## V1.11.1
+- PIN inicial raíz: el valor predeterminado configurado en la aplicación.
+- Migración segura del PIN histórico al nuevo valor predeterminado solo cuando el PIN existente coincide con el antiguo valor por defecto.
+- No se sobrescriben PIN personalizados.
+- La eliminación Cloud continúa dependiendo exclusivamente de MARVEL_ROOT_ADMIN_TOKEN en servidor.
+
+
+V1.11.4 — NETLIFY ENV VALIDATION
+- MARVEL_ROOT_ADMIN_TOKEN is server-side only.
+- POST verify-admin provides a non-destructive validation of the configured server environment variable.
+- DELETE remains the only destructive operation and still requires the matching admin token.

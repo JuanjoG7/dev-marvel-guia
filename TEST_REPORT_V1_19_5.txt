@@ -1,0 +1,17 @@
+V1.19.5 — TEST REPORT
+
+Base: V1.19.3 confirmada como estable por el usuario.
+
+Pruebas realizadas en entorno local:
+- node --check netlify/functions/marvel-media.mjs: PASS
+- index.html conserva un único punto nuevo de iframe YouTube: PASS
+- caché de navegador versionada para trailers: PASS
+- caché server-side de multimedia versionada: PASS
+- comparación con V1.19.3: solo cambios de trailer/caché multimedia + versión de package/manifest + documentación nueva.
+- netlify.toml sin modificación: PASS
+- Service Worker sin modificación: PASS
+- no se añaden dependencias: PASS
+
+Limitación: este entorno no dispone de TMDB_API_READ_ACCESS_TOKEN, por lo que no se puede ejecutar aquí una llamada real contra TMDB ni comprobar el resultado dinámico de una ficha contra el backend de Netlify.
+
+La ruta YouTube usada por la ficha es el formato oficial de embed: https://www.youtube.com/embed/VIDEO_ID.

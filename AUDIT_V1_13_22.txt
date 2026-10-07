@@ -1,0 +1,19 @@
+AUDITORÍA V1.13.22 · UI SERIES
+
+CAMBIO
+- Únicamente se modifica la etiqueta visible del control data-series-ignore: texto -> icono.
+- title/aria-label conservados para tooltip y accesibilidad.
+- Misma clase CSS y mismo handler; no cambia el comportamiento.
+
+NO TOCADO
+- progreso, temporadas, episodios, recomendaciones, valoraciones, estadísticas, Timeline, logros
+- Cloud, perfiles, administración, TMDB, caché, PWA
+- estilos generales y estructura de tarjetas, salvo la salida textual del botón de serie ignorada.
+
+VALIDACIÓN REALIZADA
+- Node --check: 40 scripts inline, 0 errores.
+- package.json y manifest.webmanifest: JSON válido.
+- BeautifulSoup: HTML parseable, 0 ids duplicados.
+- Los 4 templates de data-series-ignore conservan title/aria-label y ya no incluyen texto visible 'Ignorar serie'/'Incluir serie'.
+- La acción y los selectores data-series-ignore no han cambiado.
+- El intento de smoke test con Chromium local no fue concluyente porque la página no terminó su inicialización en el entorno headless; no se considera una validación funcional de navegador.

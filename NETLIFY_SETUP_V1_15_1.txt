@@ -1,0 +1,29 @@
+NETLIFY · V1.15.1
+
+NO HAY VARIABLES NUEVAS. Mantén las mismas cuatro variables de V1.15:
+
+1) MARVEL_ROOT_ADMIN_TOKEN
+   · Mismo token de administrador que ya utilizas.
+
+2) MARVEL_SESSION_SECRET
+   · El secreto largo creado en V1.15.
+
+3) MARVEL_PROFILE_PEPPER
+   · El secreto largo creado en V1.15.
+
+4) MARVEL_JUANJO_MARIA_PIN
+   · El PIN actual de Juanjo × María.
+
+SCOPE RECOMENDADO
+- Production
+- Functions
+- Valores secretos protegidos
+
+DESPUÉS
+- Haz un nuevo deploy de V1.15.1 del mismo sitio Netlify.
+- No crees un sitio nuevo.
+- No borres el store de perfiles ni el store de estado.
+
+CAMBIO NUEVO V1.15.1
+No existe ninguna variable por usuario. Los perfiles continúan almacenándose en Netlify Blobs.
+La clave de administrador se introduce únicamente cuando se necesita elevar permisos desde un perfil USER; no se guarda en el navegador.

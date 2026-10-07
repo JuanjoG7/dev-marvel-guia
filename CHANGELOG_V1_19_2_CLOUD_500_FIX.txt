@@ -1,0 +1,7 @@
+V1.19.2 · CORRECCIÓN CLOUD HTTP 500
+
+- GET de Cloud reintenta errores transitorios 5xx antes de fallar.
+- La Function marvel-state hace lectura fuerte y fallback de lectura Blobs sin flag de consistencia.
+- Errores de almacenamiento se devuelven como 503 retryable en vez de 500 genérico.
+- La UI ya no muestra el detalle HTTP 500 como error definitivo: conserva copia local y programa reintento.
+- Sin cambios en netlify.toml, Node, dependencias ni Service Worker.

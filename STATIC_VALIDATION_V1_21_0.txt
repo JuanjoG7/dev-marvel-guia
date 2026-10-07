@@ -1,0 +1,31 @@
+V1.21.0 · VALIDACIÓN ESTÁTICA FINAL
+Base: V1.20.0
+
+[PASS] package 1.21.0
+[PASS] manifest 1.21.0
+[PASS] build marker 1.21.0
+[PASS] base marker 1.20.0
+[PASS] dashboard markup present
+[PASS] continue dashboard present
+[PASS] Doomsday dashboard present
+[PASS] pending counters present
+[PASS] favorites dashboard present
+[PASS] recent activity reuses app.meta.activityEvents
+[PASS] next achievement dashboard present
+[PASS] remaining marathon time present
+[PASS] canonical CATALOG access inside V1.21 block
+[PASS] canonical getRecord access inside V1.21 continue action
+[PASS] canonical MarvelApp.dispatch used for continue action
+[PASS] V1.21 block has no window.CATALOG dependency
+[PASS] V1.21 block has no scrollIntoView
+[PASS] V1.21 episode pending logic honors future/ignored seasons
+[PASS] common favorites use intersection
+[PASS] Doomsday route percentage uses total runtime
+[PASS] MutationObservers for catalog/achievements are deduplicated
+[PASS] activity feed has no second store
+[PASS] script tags balanced
+[PASS] style tags balanced
+[PASS] all inline JS blocks syntax-check
+[PASS] sw.js syntax-check
+[PASS] 4 Netlify functions syntax-check
+[PASS] ZIP integrity

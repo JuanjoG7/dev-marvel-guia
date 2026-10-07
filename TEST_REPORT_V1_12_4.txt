@@ -1,0 +1,12 @@
+V1.12.4 TEST REPORT
+
+no_v123_script: OK
+no_v123_css: OK
+v124_script: OK
+no_dynamic_accordion_conversion: OK
+current_sw: OK
+package_version: OK
+secret_literal_absent: OK
+index inline scripts: 37
+detected sensitive-literal files: 0
+UX policy: ficha completa abierta; no se crean acordeones para contexto, metadatos, reparto, temporadas ni reproduccion.

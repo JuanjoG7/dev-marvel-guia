@@ -1,0 +1,20 @@
+AUDITORÍA V1.19 · CONSERVADOR
+
+Base directa: V1.18.3.
+
+MODIFICADO
+- index.html: registro de actividad, visualización de actividad y extensión de estadísticas avanzadas.
+- package.json: únicamente la versión 1.19.0.
+- manifest.webmanifest: únicamente la versión 1.19.0.
+
+NO MODIFICADO
+- netlify.toml
+- sw.js
+- Node 22 / comando de build / dependencia @netlify/blobs 10.7.13
+- funciones Cloud/backup/sesiones existentes
+
+ACTIVITY EVENTS
+- Se guardan en app.meta.activityEvents, aislados por perfil porque app.meta pertenece al perfil activo.
+- Límite: 240 eventos.
+- No se registran PIN, tokens, cookies ni secretos.
+- activityLog histórico de snapshots se conserva.

@@ -1,0 +1,61 @@
+MARVEL · CAMINO AL MULTIVERSO
+V1.10.11 — LOKI · VALORACIONES SINCRONIZADAS
+
+OBJETIVO
+Hacer que la pantalla «Vuestras valoraciones» lea exactamente el mismo estado
+que las fichas y que una valoración hecha desde cualquier ficha sea visible en
+el archivo de valoraciones.
+
+CAUSA ENCONTRADA
+La pantalla de Valoraciones utilizaba:
+
+  ratingMovieRecords()
+
+que filtraba el catálogo con `movie(r)`. Eyes of Wakanda tiene tipo `ANIMATED`,
+por lo que podía tener progreso y una valoración perfectamente guardada en su
+ficha y, aun así, no aparecer nunca en la pantalla de Valoraciones. No era un
+fallo del valor 7.5/5/10 en sí, sino un filtro de presentación incompatible con
+la expectativa de que las valoraciones de las fichas sean compartidas con esta
+pantalla.
+
+CAMBIO V1.10.11
+- `ratingMovieRecords()` pasa a `ratingRecords()`.
+- Se incluyen películas, series, animación, especiales y cortos.
+- Un título entra en el archivo si tiene actividad de cualquiera de las dos
+  personas o si tiene una valoración explícita.
+- Un título ignorado sigue fuera del archivo.
+- La pantalla cambia su lenguaje de «películas» a «títulos» para reflejar el
+  comportamiento real.
+- Lecturas de `ratingJ`/`ratingM` protegidas ante estados todavía inexistentes.
+- La actualización de una nota desde una ficha solicita un refresco de la
+  pantalla de Valoraciones cuando esa vista está activa, sin crear un segundo
+  sistema de persistencia.
+- `MarvelApp.actions.ratings.toggle` usa el wrapper canónico de Ratings y no un
+  motor paralelo.
+
+PROPIETARIO
+La valoración sigue pasando por:
+
+  UI → MarvelApp.dispatch()
+      → Ratings.set / Ratings.clear
+      → Store.commit()
+      → estado app.state.items[titleId]
+
+La pantalla de Valoraciones solo lee ese estado y lo vuelve a renderizar.
+
+PRUEBAS REALIZADAS
+1. 29 scripts inline: 0 errores de sintaxis.
+2. Function Netlify `marvel-state.mjs`: sintaxis OK.
+3. `ratingRecords` probado con títulos de tipo ANIMATED, MOVIE y SERIES.
+4. Caso Eyes of Wakanda con actividad + rating: incluido.
+5. Película sin actividad ni rating: excluida.
+6. Serie con rating aunque no tenga actividad: incluida.
+7. Referencia antigua `ratingMovieRecords` eliminada.
+8. Historial de versiones actualizado con V1.10.11.
+9. ZIP íntegro tras empaquetado.
+
+CRITERIO DE ACEPTACIÓN
+Si desde una ficha se guarda una valoración válida para un título activo,
+al volver a «Valoraciones» el título debe aparecer y mostrar la misma nota para
+la misma persona. No se crean títulos adicionales por capítulo ni se alteran
+valoraciones de otros títulos.

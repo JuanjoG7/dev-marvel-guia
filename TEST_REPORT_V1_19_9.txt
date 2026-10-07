@@ -1,0 +1,67 @@
+V1.19.9 — TEST REPORT
+
+Base directa: maraton-marvel-MYJJ-V1.19.8-CLOUD-ROBUSTO.zip
+Tipo de release: estabilización / coherencia de release
+
+PRUEBAS AUTOMÁTICAS REALIZADAS
+--------------------------------
+1. Node syntax check de funciones Netlify:
+   - netlify/functions/marvel-media.mjs: PASS
+   - netlify/functions/marvel-profile.mjs: PASS
+   - netlify/functions/marvel-state.mjs: PASS
+   - netlify/functions/marvel-backup.mjs: PASS
+   - netlify/lib/profile-core.mjs: PASS
+
+2. JavaScript inline de index.html:
+   - 45 bloques inline extraídos.
+   - node --check de los 45 bloques: PASS.
+
+3. Estructura HTML:
+   - etiquetas <script> / </script>: PASS.
+   - etiquetas <style> / </style>: PASS.
+
+4. Metadatos de release:
+   - package.json = 1.19.9: PASS.
+   - manifest.webmanifest = 1.19.9: PASS.
+   - __MARVEL_BUILD_VERSION__ = 1.19.9: PASS.
+   - __MARVEL_BUILD_BASE__ = 1.19.8: PASS.
+   - shell cache PWA = V1-19-9: PASS.
+   - cache de imágenes TMDB permanece en V1-19-6 de forma intencionada: PASS.
+
+5. Regresión de contenido frente a V1.19.8:
+   - cambios de código funcional fuera de los archivos expresamente previstos: 0.
+   - archivos de aplicación modificados: index.html, manifest.webmanifest, package.json, sw.js.
+   - archivos de documentación añadidos: CHANGELOG_V1_19_9.txt, CHECKLIST_MAESTRA_V1_19_9.txt, README_V1_19_9.txt, ROADMAP_V1_19_9_1_25_0.txt, TEST_REPORT_V1_19_9.txt.
+
+6. Secret scan básico del paquete: PASS.
+
+7. Smoke test HTTP local del paquete:
+   - /index.html: PASS (200).
+   - /manifest.webmanifest: PASS (200).
+   - /sw.js: PASS (200).
+
+PRUEBAS PENDIENTES DE EJECUCIÓN MANUAL
+--------------------------------------
+La validación automática confirma sintaxis, estructura y ausencia de cambios funcionales no previstos, pero no sustituye la prueba dinámica en navegador/dispositivo.
+
+- Abrir la V1.19.9 en Chrome Android.
+- Verificar que el service worker abandona el shell V1.19.8 y adopta V1-19-9.
+- Crear/abrir perfil.
+- Marcar y desmarcar película.
+- Marcar capítulos y comprobar temporada/serie.
+- Marcar ambos usuarios.
+- Valorar y marcar favorita.
+- Comprobar Timeline, estadísticas, logros y actividad.
+- Guardar Cloud y cargar Cloud.
+- Simular pérdida de red y comprobar conservación local/reintento.
+- Probar backup/restauración.
+- Abrir fichas y reproducir trailers/teasers oficiales.
+- Comprobar responsive y footer en móvil.
+
+PRUEBA MAESTRA
+--------------
+CREAR PERFIL → CATÁLOGO → BUSCAR → FILTRAR → FICHA → TRAILER → MARCAR JUANJO → MARCAR MARÍA → VALORAR → FAVORITA → COMPLETAR → TIMELINE → ESTADÍSTICAS → LOGROS → ACTIVIDAD → CLOUD → OTRO DISPOSITIVO → CARGAR → COMPROBAR TODO.
+
+CRITERIO DE SALIDA
+------------------
+V1.19.9 se considera técnicamente preparada para iniciar las pruebas manuales. No se promociona a V1.20.0 hasta cerrar la prueba maestra sin regresiones.

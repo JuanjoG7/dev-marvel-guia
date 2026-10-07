@@ -1,0 +1,16 @@
+V1.22.6 CHECKLIST
+
+[ ] Ficha Hawkeye -> Ambos viendo -> guardar posición -> volver a Inicio
+[ ] Inicio muestra HAWKEYE como 🟠 Ambos en curso
+[ ] Ficha muestra una sola posición compartida
+[ ] Película con posiciones distintas -> Juanjo/María separados
+[ ] Película con misma posición -> Ambos
+[ ] Serie mismo capítulo + mismo tiempo -> Ambos
+[ ] Serie mismo capítulo + tiempos distintos -> separados
+[ ] Completar capítulo -> desaparece del panel
+[ ] Completar título -> desaparece del panel
+[ ] Título solo marcado visto -> no aparece como en curso
+[ ] Temporada no iniciada -> no aparece
+[ ] Catálogo muestra insignia sin alterar estado
+[ ] Siguiente recomendación/KPI permanece intacto
+[ ] Cloud y favoritos regresión

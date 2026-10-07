@@ -1,0 +1,18 @@
+V1.19.3 — RESTAURACIÓN DEL MOTOR DE ACCIONES + ACTIVIDAD CONSERVADORA
+
+Corrección crítica sobre V1.19.2.
+
+Causa encontrada:
+- V1.19.1 había envuelto Store.commit con una referencia a `asId` que pertenece al ámbito interno de la capa canónica y no es una variable global.
+- Al ejecutar cualquier Store.commit, esa referencia podía lanzar ReferenceError antes de llegar a la mutación.
+- El síntoma era exactamente el observado: los botones de progreso, valoración, favoritos y otras acciones dejaban de cambiar el estado.
+
+Corrección:
+- Se elimina completamente ese wrapper de Store.commit.
+- Se conserva el registro de actividad ya integrado en la mutación canónica, que es el propietario correcto de la actividad.
+- No se modifica la arquitectura de Cloud, sesiones, backup, perfiles ni el pipeline de deploy.
+
+Principio de esta versión:
+- V1.18.3 funcional como base.
+- V1.19 actividad mantiene su UI y registro canónico.
+- Se elimina únicamente el mecanismo que rompía Store.commit.

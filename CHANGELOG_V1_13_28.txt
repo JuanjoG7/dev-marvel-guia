@@ -1,0 +1,17 @@
+V1.13.28 — SECRET-SCAN CLEANUP
+
+- Eliminado del paquete cualquier literal del PIN que coincidía con el valor configurado en MARVEL_ROOT_ADMIN_TOKEN.
+- Eliminada la constante histórica de PIN que ya no tenía ningún uso runtime.
+- Sanitizados los informes/documentos heredados para no contener el valor secreto literal.
+- Se mantiene intacta la corrección V1.13.27 de sincronización inmediata Hero → tarjeta.
+- No se desactiva Netlify Secret Scanning ni se añade ninguna excepción.
+
+No se modifica:
+- progreso
+- recomendaciones
+- valoraciones
+- fichas
+- TMDB
+- Cloud
+- PWA
+- diseño

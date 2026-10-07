@@ -1,0 +1,20 @@
+MARVEL JUANJO × MARÍA · V1.13.2
+
+Objetivo
+- V1.13.2 sustituye los iconos emoji de las tarjetas de títulos por mini-pósters TMDB cuando existe una coincidencia.
+- La ficha V1.12.4 se conserva abierta, sin acordeones ni cambios de estructura.
+- TMDB sigue siendo la única fuente multimedia externa.
+
+Exactitud
+- El cliente contiene un mapa de IDs TMDB bloqueados para títulos conocidos/ambiguos.
+- La capa server acepta tmdbId para evitar búsquedas por título cuando el ID está fijado.
+- Las entradas sin un registro único (colecciones) mantienen búsqueda/fallback en lugar de inventar un ID.
+
+Rendimiento móvil
+- /api/marvel-media?action=image actúa como proxy same-origin de image.tmdb.org.
+- Service Worker mantiene un caché de imágenes independiente.
+- Se calientan primero 18 títulos y después el resto en segundo plano con concurrencia limitada.
+- El arranque no espera a que terminen todas las imágenes.
+
+Estado
+- No modifica Catalog, Progress, Episodes, Ratings, Profile ni Settings.

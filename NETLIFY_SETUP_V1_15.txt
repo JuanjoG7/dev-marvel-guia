@@ -1,0 +1,65 @@
+V1.15 · CONFIGURACIÓN DE NETLIFY
+
+OBJETIVO
+Dejar la identidad y los PIN de los perfiles fuera de LocalStorage como fuente de verdad. Netlify pasa a mantener el directorio de perfiles y a validar la autenticación. El estado Marvel existente continúa en el mismo store Cloud.
+
+VARIABLES DE ENTORNO
+En Netlify → Project configuration / Environment variables crea o conserva estas cuatro variables.
+
+1) MARVEL_ROOT_ADMIN_TOKEN
+   Valor: conserva EXACTAMENTE el token administrativo que ya utiliza este proyecto.
+   Uso: única credencial del perfil administrador.
+   No cambiar durante la migración salvo que se quiera rotar deliberadamente.
+
+2) MARVEL_SESSION_SECRET
+   Valor: secreto aleatorio largo y único para este sitio.
+   Recomendación práctica para generarlo localmente: `openssl rand -hex 64`.
+   No reutilizar en otro proyecto.
+   Uso: firma de las sesiones HttpOnly.
+
+3) MARVEL_PROFILE_PEPPER
+   Valor: secreto aleatorio largo y único para este sitio.
+   Recomendación práctica para generarlo localmente: `openssl rand -hex 64`.
+   No reutilizar en otro proyecto.
+   Uso: pepper server-side de los verificadores scrypt de PIN.
+
+4) MARVEL_JUANJO_MARIA_PIN
+   Valor: el mismo PIN actual que ya usa Juanjo × María.
+   No copiarlo al código, al repositorio, a netlify.toml ni a documentación pública.
+   Uso: bootstrap inicial de `jm-user` y preservación de la identidad Cloud V131.
+
+ÁMBITO DE LAS VARIABLES
+- Environment: Production.
+- Scope: Functions (y el scope necesario para que el deploy de producción pueda materializarlas; no se necesitan en el frontend).
+- Marcar como secret values / Contains secret values cuando la interfaz lo ofrezca.
+- No crear una variable para `administrador1 × administrador2`: el perfil ADMIN es virtual y se autentica con MARVEL_ROOT_ADMIN_TOKEN.
+
+NO HAY QUE CREAR
+- No hace falta una base de datos externa.
+- No hace falta Firebase/Supabase/MongoDB.
+- No hace falta una variable con los PIN de los demás perfiles.
+- No hace falta introducir una clave de Netlify Blobs en la interfaz: las Functions usan el store asociado al sitio.
+
+DESPLIEGUE
+1. Configura las cuatro variables.
+2. Ejecuta un nuevo deploy. Los cambios de variables no deben quedarse esperando un deploy antiguo.
+3. Abre la web y comprueba que aparece `administrador1 × administrador2`.
+4. Entra como administrador usando `MARVEL_ROOT_ADMIN_TOKEN`.
+5. Comprueba que el panel de ADMIN permite crear, renombrar, resetear PIN y eliminar perfiles.
+6. En el dispositivo donde existen perfiles V1.14 locales, usa «Migrar perfiles de este dispositivo» una sola vez.
+7. Comprueba que Juanjo × María queda como USER normal y que conserva su Cloud.
+8. Desde otro dispositivo, selecciona Juanjo × María o un perfil creado por ADMIN e inicia sesión con su PIN.
+
+MODELO DE SEGURIDAD
+- ADMIN: `administrador1 × administrador2`, virtual, sin progreso Marvel, acceso solo por `MARVEL_ROOT_ADMIN_TOKEN`.
+- USER: cada pareja tiene un perfil server-side y un PIN verificado en la Function.
+- El PIN nunca se guarda en claro en el navegador.
+- Los nuevos PIN se almacenan como verificador scrypt + pepper server-side.
+- Los perfiles V1.14 migrados usan el PBKDF2 legado solo durante la transición y se actualizan a scrypt en el primer login válido.
+- La cookie de sesión es HttpOnly + Secure + SameSite=Lax.
+- Cambiar un PIN invalida las sesiones anteriores del perfil.
+- Rotar `MARVEL_ROOT_ADMIN_TOKEN` invalida inmediatamente las sesiones ADMIN anteriores.
+- El Service Worker no cachea endpoints de identidad ni de estado.
+
+MANTENIMIENTO
+Si se rota `MARVEL_ROOT_ADMIN_TOKEN`, deja el mismo `MARVEL_SESSION_SECRET` y `MARVEL_PROFILE_PEPPER` salvo que también quieras invalidar todas las sesiones USER. Para una rotación de `MARVEL_SESSION_SECRET`, todos los usuarios tendrán que iniciar sesión otra vez. Para una rotación de `MARVEL_PROFILE_PEPPER`, no se debe hacer sin una migración planificada de los verificadores scrypt existentes.

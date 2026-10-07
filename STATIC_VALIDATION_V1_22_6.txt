@@ -1,0 +1,6 @@
+V1.22.6 STATIC VALIDATION
+{"script_open": 50, "script_close": 50, "style_open": 50, "style_close": 50}
+JS blocks checked: 50
+JS syntax errors: 0
+Global API present: True
+v1226 decorator present: True

@@ -1,0 +1,32 @@
+AUDITORÍA V1.15.3
+
+1. Alcance
+- Baseline: V1.15.2
+- Cambio: persistencia server-side de imágenes TMDB + normalización de posters One-Shots/Loki.
+
+2. Hallazgo que originó la corrección One-Shots
+- El Service Worker de V1.15.2 migraba bytes desde las cachés de imágenes de releases anteriores hacia la caché nueva si no existía una coincidencia. Eso permitía conservar una respuesta de imagen incorrecta aun cuando el código ya apuntaba a una URL TMDB correcta.
+- V1.15.3 elimina esa migración para imágenes y usa una URL versionada (`mv=1153`) en el proxy.
+
+3. Persistencia Netlify
+- `marvel-media` calcula una clave SHA-256 a partir de la URL TMDB y usa `getWithMetadata(..., { type: 'arrayBuffer', consistency: 'strong' })`.
+- En cache miss descarga la imagen, la guarda con `STORE.set(..., { onlyIfNew: true, metadata })` y devuelve los bytes desde la Function.
+- Límite de almacenamiento por valor aplicado en cliente servidor: 5 MiB para no convertir la caché de imágenes en una operación de payload grande.
+
+4. Posters canónicos
+- Marvel One-Shots: 5 posters asociados a TMDB 76122, 76535, 119569, 211387 y 253980.
+- La ficha agregada V100 usa el poster del primer corto (TMDB 76122).
+- Loki V29 usa TMDB 84958 y poster `/53aonG0QS3ynbYuuwhPtyoOwTDD.jpg`.
+
+5. Riesgo funcional
+- Ninguna mutación de estado de progreso ni de identidad de perfiles.
+- El cambio queda aislado en poster engine, TMDB media layer, Service Worker y Function `marvel-media`.
+
+6. Validación estática
+- `node --check`: Functions 3/3 OK.
+- Scripts inline: 7/7 OK.
+- JSON package/manifest: OK.
+- Proxy antiguo sin `mv=1153`: 0 apariciones.
+- Collection genérica One-Shots para `100`: eliminada.
+- Exact poster Loki: presente.
+- Exact poster One-Shots 100: presente.

@@ -1,0 +1,49 @@
+CHECKLIST MAESTRA — V1.15.1
+
+BASELINE
+[x] V1.15 estable como base de identidad Cloud
+[x] Directorio server-side de perfiles
+[x] administrador1 × administrador2 virtual y separado de Juanjo × María
+[x] PIN server-side + scrypt + pepper
+[x] Sesión HttpOnly
+
+GESTIÓN DE PERFILES V1.15.1
+[x] Gestionar cuentas funciona desde USER
+[x] USER puede cambiar su propio PIN con PIN actual
+[x] Elevación temporal mediante MARVEL_ROOT_ADMIN_TOKEN
+[x] Elevación sin sustituir la sesión USER
+[x] Admin puede crear perfiles con elevación
+[x] Admin puede renombrar perfiles no protegidos
+[x] Admin puede cambiar PIN de perfiles no protegidos
+[x] Admin puede eliminar perfiles no protegidos
+[x] administrador1 × administrador2 protegido
+[x] Juanjo × María protegido de rename/delete/reset admin
+[x] Juanjo × María puede cambiar su propio PIN
+[x] Sesión admin/elevación se invalida al cerrar acceso
+[x] Cerrar acceso vuelve al selector
+[x] Cambiar de cuenta vuelve al selector
+[x] No auto-login inmediatamente después de cerrar acceso
+
+SEGURIDAD
+[x] Token admin nunca se guarda en LocalStorage/sessionStorage nuevo
+[x] Cookie de elevación HttpOnly + Secure + SameSite=Strict
+[x] Elevación expira a los 15 min
+[x] Rotación del token admin invalida elevación y sesiones ADMIN antiguas
+[x] PIN change invalida sesiones previas del perfil
+
+VALIDACIÓN LOCAL
+[x] node --check de core/function
+[x] node --check de todos los scripts inline
+[x] Test server-side de login/creation/PIN/elevation/protection/logout
+[ ] Prueba live en Netlify con variables reales
+[ ] Prueba UI live: USER → Gestionar cuentas → Cambiar PIN propio
+[ ] Prueba UI live: USER → token admin → crear/editar/PIN/eliminar otro USER
+[ ] Prueba UI live: bloqueo de Juanjo × María
+[ ] Prueba live: Cerrar acceso → selector
+[ ] Prueba live: Cambiar de cuenta → selector
+[ ] Prueba cross-device después de cambios
+[ ] Prueba Android PWA post-deploy
+
+CIERRE
+[ ] Confirmar V1.15.1 desplegada
+[ ] Confirmar pruebas live completas

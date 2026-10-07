@@ -1,0 +1,19 @@
+V1.13.25 — POSTER DE RECOMENDACIÓN UNIFICADO
+
+Cambio:
+- La tarjeta "Siguiente recomendación" deja de buscar posters por coincidencia textual de título.
+- Ahora usa exactamente el mismo motor de posters que las tarjetas y fichas (`__MARVEL_V1133_POSTER_API__.refresh(id,false)`).
+- Mantiene las excepciones exactas del mapa V1.13.5 cuando existen.
+- Esto evita coincidencias incorrectas de TMDB, como buscar "Thor" y obtener el One-Shot relacionado en vez del poster del título Thor (2011).
+
+No se modifica:
+- Motor de progreso
+- Recomendaciones/acciones
+- Cloud
+- Valoraciones
+- Estadísticas
+- Timeline
+- Fichas
+- TMDB general
+- PWA
+- Diseño

@@ -1,0 +1,14 @@
+AUDITORÍA V1.13.28
+
+Causa del fallo de deploy:
+Netlify Secret Scanning detectaba en el repo el mismo valor que tenía configurado MARVEL_ROOT_ADMIN_TOKEN.
+
+Corrección:
+- Eliminado el literal secreto de todos los archivos de texto/código del paquete.
+- Eliminada la constante histórica sin uso.
+- No se desactiva Secret Scanning.
+- La funcionalidad que permite al usuario elegir su PIN sigue intacta porque el valor se introduce en runtime y no está escrito en el código fuente.
+- Se conserva V1.13.27 como base funcional.
+
+Limitación:
+El paquete se valida estáticamente; el resultado final de Secret Scanning solo puede confirmarse con un deploy real de Netlify.

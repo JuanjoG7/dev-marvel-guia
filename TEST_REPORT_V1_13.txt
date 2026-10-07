@@ -1,0 +1,9 @@
+TEST REPORT · V1.13.1
+- Fuente remota única: TMDB.
+- Variable esperada: TMDB_API_READ_ACCESS_TOKEN.
+- Sin credenciales incluidas en el repositorio o ZIP.
+- Boot no bloqueante: OK por diseño.
+- Caché local y Netlify Blobs: implementadas.
+- Fallback local sin TMDB: OK.
+- La validación contra la API real requiere configurar la variable en el sitio Netlify.
+- Pruebas recomendadas tras despliegue: Capitán América: El primer vengador y Loki, comprobando póster, backdrop, sinopsis, reparto/personajes, temporadas, episodios y caché.

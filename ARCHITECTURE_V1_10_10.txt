@@ -1,0 +1,51 @@
+MARVEL · CAMINO AL MULTIVERSO
+V1.10.10 — LOKI · GUARDADO UNIFICADO
+
+OBJETIVO
+Unificar todos los puntos de guardado manual para que «Guardar y salir» en la ficha,
+«Guardar en nube» (FAB) y «Guardar en perfil» (Ajustes) recorran exactamente el
+mismo coordinador y la misma implementación Cloud.
+
+CAMBIO
+- Nuevo coordinador único: window.__marvelSaveNow
+- Implementación real única: cloudManualSave / window.__marvelCloudSave
+- window.__marvelProfileSave queda redirigido al coordinador.
+- La ficha ya no interpreta un fallo Cloud como «no se pudo guardar la ficha».
+  Primero se conserva el estado local y después se intenta nube; si nube falla,
+  la ficha se cierra y se informa de que el cambio queda guardado localmente.
+- El FAB conserva su apariencia y pasa por el mismo coordinador.
+- Los guardados de Ajustes que llamaban a __marvelProfileSave pasan al mismo flujo.
+
+REGLA DE ARQUITECTURA
+No debe existir un segundo método de persistencia manual para una UI concreta.
+La UI solicita «guardar»; el coordinador decide la ejecución; cloudManualSave es
+la única implementación de guardado Cloud.
+
+NO CAMBIA
+- Catálogo
+- Estado de progreso
+- Diseño visual
+- Modelo de perfiles
+- Funcionalidad de Cloud API
+- Comportamiento de la app cuando Cloud no está disponible
+
+PRUEBAS OBLIGATORIAS V1.10.10
+1. FAB: cambiar un título -> Guardar en nube -> debe aparecer «Guardado».
+2. Ajustes: cambiar algo -> Guardar en perfil -> mismo resultado que FAB.
+3. Ficha: cambiar Juanjo/María, valoración o favorito -> Guardar y salir ->
+   la ficha se cierra y el cambio queda conservado.
+4. Ficha con Cloud temporalmente no disponible -> Guardar y salir -> la ficha
+   se cierra y debe indicar guardado local, sin perder el cambio.
+5. Hacer dos guardados seguidos rápidamente -> no duplicar PUT ni corromper estado.
+6. Cambiar desde ficha -> salir -> volver a abrir la misma ficha -> el estado
+   visual debe coincidir con el estado guardado.
+7. Guardar en ficha -> recargar -> comprobar estado local.
+8. Guardar en ficha -> abrir otro dispositivo -> Cargar desde perfil -> comprobar
+   que el estado coincide cuando la nube estaba disponible.
+9. Abrir app con Cloud no disponible -> nunca bloquear la aplicación.
+10. Comprobar que no aparece un segundo botón de guardado en la ficha.
+
+CRITERIO DE ACEPTACIÓN
+La misma acción de guardado debe tener la misma semántica en los tres puntos:
+LOCAL + INTENTO CLOUD + RESULTADO CONSISTENTE. Un fallo Cloud no puede convertir
+un cambio ya guardado localmente en un mensaje de pérdida de la ficha.

@@ -1,0 +1,15 @@
+MARVEL JUANJO × MARIA · TEST V1.13.5
+
+Checks estáticos realizados:
+- index.html presente
+- marvel-media.mjs presente
+- marvel-state.mjs presente
+- sw.js presente
+- 0 referencias a TRAKT en HTML/JS nuevos
+- El literal de MARVEL_ROOT_ADMIN_TOKEN no se incluye en archivos
+- TMDB exactos fijados para 11 títulos corregidos
+- Los demás IDs TMDB se preservan sin cambios
+- Poster de Los 4 Fantásticos 1994 corregido a TMDB 22059
+- Layout responsive con 4 breakpoints para la ficha
+
+Nota: la respuesta real de TMDB depende de la variable de entorno TMDB_API_READ_ACCESS_TOKEN de Netlify.
